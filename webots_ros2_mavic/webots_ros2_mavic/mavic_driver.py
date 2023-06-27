@@ -37,6 +37,7 @@ def clamp(value, value_min, value_max):
 
 class MavicDriver:
     def init(self, webots_node, properties):
+        self.__properties = properties
         self.__robot = webots_node.robot
         self.__timestep = int(self.__robot.getBasicTimeStep())
 
@@ -64,8 +65,10 @@ class MavicDriver:
 
         # ROS interface
         rclpy.init(args=None)
+        #self.__node.get_logger().info(self.__properties['topicName'])
         self.__node = rclpy.create_node('mavic_driver')
-        self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
+        self.__node.create_subscription(Twist, self.__properties['topicName'] + 'cmd_vel', self.__cmd_vel_callback, 1)
+        self.__node.get_logger().info('  - properties: ' + str(properties))
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist

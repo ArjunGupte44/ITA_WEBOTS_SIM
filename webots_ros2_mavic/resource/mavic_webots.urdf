@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
-<robot name="Mavic Webots">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Mavic Webots">
+    <xacro:property name="nspace" value="$(arg nspace)"/>
     <webots>
         <device reference="gps" type="GPS">
             <ros>
@@ -17,6 +18,8 @@
             <gyroName>gyro</gyroName>
         </plugin>
 
-        <plugin type="webots_ros2_mavic.mavic_driver.MavicDriver" />
+        <plugin type="webots_ros2_mavic.mavic_driver.MavicDriver">
+            <topicName>${nspace}</topicName>
+        </plugin>
     </webots>
 </robot>

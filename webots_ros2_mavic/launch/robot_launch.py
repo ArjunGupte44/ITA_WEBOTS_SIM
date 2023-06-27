@@ -30,17 +30,20 @@ from launch.actions import IncludeLaunchDescription
 from webots_ros2_driver.webots_launcher import WebotsLauncher
 from webots_ros2_driver.wait_for_controller_connection import WaitForControllerConnection
 from webots_ros2_driver.utils import controller_url_prefix
-
+import xacro
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
     package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
 
-    robot_description_mavic = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')).read_text()
+    #robot_description_mavic = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf.xacro')).read_text()
     robot_description_turtle = pathlib.Path(os.path.join(package_dir_turtle, 'resource', 'turtlebot_webots.urdf')).read_text()
     ros2_control_params = os.path.join(package_dir_turtle, 'resource', 'ros2control.yml')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
+
+    robot_desc_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic1/'})
+    robot_description_mavic = robot_desc_raw.toprettyxml(indent='  ')
     
     mavic_driver1 = Node(
         package='webots_ros2_driver',
@@ -52,6 +55,9 @@ def get_ros2_nodes(*args):
             {'robot_description': robot_description_mavic},
         ]
     )
+
+    robot_desc_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic2/'})
+    robot_description_mavic = robot_desc_raw.toprettyxml(indent='  ')
 
     mavic_driver2 = Node(
         package='webots_ros2_driver',
