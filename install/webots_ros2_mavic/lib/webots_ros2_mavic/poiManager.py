@@ -31,7 +31,7 @@ class PoiManager(Node):
         self.debug = False
 
     def initializeAttributes(self):
-        #Assign name and xyz location
+        #Assign xyz location
         for i in range(self.numSafe + self.numThreats):
             self.poiAttributes[i][0] = random.uniform(-1500, 1500)
             self.poiAttributes[i][1] = random.uniform(-1400, 1500) #-1400 to avoid overlapping with the robots and humans
@@ -50,7 +50,7 @@ class PoiManager(Node):
         lines = f.readlines()
         f.seek(0)
         f.truncate()
-        f.writelines(lines[0:47])
+        f.writelines(lines[0:39])
         f.close()
 
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")

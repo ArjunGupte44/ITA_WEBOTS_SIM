@@ -31,6 +31,7 @@ from webots_ros2_driver.webots_launcher import WebotsLauncher
 from webots_ros2_driver.wait_for_controller_connection import WaitForControllerConnection
 from webots_ros2_driver.utils import controller_url_prefix
 import xacro
+import random
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -130,18 +131,34 @@ def get_ros2_nodes(*args):
     ]
 
 def get_static_object_nodes():
+    launchList = []
+
+    #POI Parameters
     numPOIs = 50
     numSafe = 25
     numThreats = 25
-
     poiManager = Node(
                 package='webots_ros2_mavic',
                 namespace='poiManager',
                 executable='poiManager.py',
                 arguments=['-threats', str(numThreats), '-safe', str(numSafe)],
                 output='screen')
+    launchList.append(poiManager)
     
-    return [poiManager]
+    #Human Operator Parameters
+    numHumans = random.randint(0, 10)
+    print(numHumans)
+    humanManager = Node(
+                    package='webots_ros2_mavic',
+                    namespace='humanManager',
+                    executable='humanManager.py',
+                    arguments=['-humans', str(numHumans)],
+                    output='screen')
+    launchList.append(humanManager)
+    print("HERE")
+
+    
+    return launchList
 
 def generate_launch_description():
     package_dir_mavic = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' #get_package_share_directory('webots_ros2_mavic')
@@ -149,7 +166,7 @@ def generate_launch_description():
     world = LaunchConfiguration('world')
 
     webots = WebotsLauncher(
-        world=PathJoinSubstitution([package_dir_mavic, 'worlds', world]),
+        world='/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', #PathJoinSubstitution([package_dir_mavic, 'worlds', world]),
         ros2_supervisor=True
     )
 
@@ -165,7 +182,7 @@ def generate_launch_description():
     return LaunchDescription(get_static_object_nodes() + get_ros2_nodes() + [
         DeclareLaunchArgument(
             'world',
-            default_value='mavic_world.wbt',
+            default_value='/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt',
             description='Choose one of the world files from `/webots_ros2_mavic/worlds` directory'
         ),
         webots,

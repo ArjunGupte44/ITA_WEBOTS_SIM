@@ -1,4 +1,5 @@
 [console_scripts]
+humanManager = webots_ros2_mavic.humanManager:main
 poiManager = webots_ros2_mavic.poiManager:main
 
 [launch.frontend.launch_extension]

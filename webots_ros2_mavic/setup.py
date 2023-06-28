@@ -39,6 +39,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'launch.frontend.launch_extension': ['launch_ros = launch_ros'],
-        'console_scripts': ['poiManager = webots_ros2_mavic.poiManager:main'],
+        'console_scripts': ['poiManager = webots_ros2_mavic.poiManager:main',
+                            'humanManager = webots_ros2_mavic.humanManager:main'],
     }
 )
