@@ -42,8 +42,8 @@ def get_ros2_nodes(*args):
 
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
-    robot_desc_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic1/'})
-    robot_description_mavic = robot_desc_raw.toprettyxml(indent='  ')
+    robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic1/'})
+    robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
     
     mavic_driver1 = Node(
         package='webots_ros2_driver',
@@ -56,8 +56,8 @@ def get_ros2_nodes(*args):
         ]
     )
 
-    robot_desc_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic2/'})
-    robot_description_mavic = robot_desc_raw.toprettyxml(indent='  ')
+    robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic2/'})
+    robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
 
     mavic_driver2 = Node(
         package='webots_ros2_driver',
@@ -129,6 +129,19 @@ def get_ros2_nodes(*args):
         diffdrive_controller_spawner, joint_state_broadcaster_spawner, turtlebot_driver, robot_state_publisher, footprint_publisher
     ]
 
+def get_static_object_nodes():
+    numPOIs = 50
+    numSafe = 25
+    numThreats = 25
+
+    poiManager = Node(
+                package='webots_ros2_mavic',
+                namespace='poiManager',
+                executable='poiManager.py',
+                arguments=['-threats', str(numThreats), '-safe', str(numSafe)],
+                output='screen')
+    
+    return [poiManager]
 
 def generate_launch_description():
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -149,7 +162,7 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription([
+    return LaunchDescription(get_ros2_nodes() + get_static_object_nodes() + [
         DeclareLaunchArgument(
             'world',
             default_value='mavic_world.wbt',
@@ -173,4 +186,4 @@ def generate_launch_description():
 
         # Add the reset event handler
         reset_handler
-    ] + get_ros2_nodes())
+    ])

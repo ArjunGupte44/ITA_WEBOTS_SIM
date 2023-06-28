@@ -1,3 +1,6 @@
+[console_scripts]
+poiManager = webots_ros2_mavic.poiManager:main
+
 [launch.frontend.launch_extension]
 launch_ros = launch_ros
 

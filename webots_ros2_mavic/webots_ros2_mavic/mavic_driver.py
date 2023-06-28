@@ -18,8 +18,9 @@ import math
 import rclpy
 from geometry_msgs.msg import Twist
 
+n = 1
 
-K_VERTICAL_THRUST = 68.5    # with this thrust, the drone lifts.
+K_VERTICAL_THRUST = n * 68.5    # with this thrust, the drone lifts.
 K_VERTICAL_P = 3.0          # P constant of the vertical PID.
 K_ROLL_P = 50.0             # P constant of the roll PID.
 K_PITCH_P = 30.0            # P constant of the pitch PID.
@@ -37,6 +38,7 @@ def clamp(value, value_min, value_max):
 
 class MavicDriver:
     def init(self, webots_node, properties):
+        rclpy.init(args=None)
         self.__properties = properties
         self.__robot = webots_node.robot
         self.__timestep = int(self.__robot.getBasicTimeStep())
@@ -64,11 +66,11 @@ class MavicDriver:
         self.__linear_y_integral = 0
 
         # ROS interface
-        rclpy.init(args=None)
+        
         #self.__node.get_logger().info(self.__properties['topicName'])
         self.__node = rclpy.create_node('mavic_driver')
         self.__node.create_subscription(Twist, self.__properties['topicName'] + 'cmd_vel', self.__cmd_vel_callback, 1)
-        self.__node.get_logger().info('  - properties: ' + str(properties))
+        #self.__node.get_logger().info('  - properties: ' + str(properties))
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -119,6 +121,11 @@ class MavicDriver:
         m3 = K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input
         m4 = K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input
 
+        #self.__node.get_logger().info('m1: '+ str(m1))
+        #self.__node.get_logger().info('m2: '+ str(m2))
+        #self.__node.get_logger().info('m3: '+ str(m3))
+        #self.__node.get_logger().info('m4: '+ str(m4))
+        
         # Apply control
         self.__propellers[0].setVelocity(-m1)
         self.__propellers[1].setVelocity(m2)

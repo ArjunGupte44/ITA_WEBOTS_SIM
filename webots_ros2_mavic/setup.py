@@ -38,6 +38,7 @@ setup(
     license='Apache License, Version 2.0',
     tests_require=['pytest'],
     entry_points={
-        'launch.frontend.launch_extension': ['launch_ros = launch_ros']
+        'launch.frontend.launch_extension': ['launch_ros = launch_ros'],
+        'console_scripts': ['poiManager = webots_ros2_mavic.poiManager:main'],
     }
 )
