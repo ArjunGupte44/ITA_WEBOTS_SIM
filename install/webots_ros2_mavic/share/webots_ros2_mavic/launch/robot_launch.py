@@ -144,7 +144,7 @@ def get_static_object_nodes():
     return [poiManager]
 
 def generate_launch_description():
-    package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
+    package_dir_mavic = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' #get_package_share_directory('webots_ros2_mavic')
     package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
     world = LaunchConfiguration('world')
 
@@ -162,7 +162,7 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription(get_ros2_nodes() + get_static_object_nodes() + [
+    return LaunchDescription(get_static_object_nodes() + get_ros2_nodes() + [
         DeclareLaunchArgument(
             'world',
             default_value='mavic_world.wbt',

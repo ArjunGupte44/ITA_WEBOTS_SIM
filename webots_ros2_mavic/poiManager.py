@@ -46,8 +46,15 @@ class PoiManager(Node):
             self.poiAttributes[i][4] = random.uniform(1,4)
 
     def writeToSim(self):
-        f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "r+")
+        lines = f.readlines()
+        f.seek(0)
+        f.truncate()
+        f.writelines(lines[0:47])
+        f.close()
 
+        #f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        """
         for i in range(self.numPOIs):
             xCoord = self.poiAttributes[i][0]
             yCoord = self.poiAttributes[i][1]
@@ -55,11 +62,11 @@ class PoiManager(Node):
                 poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
             else:
-                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
         
         f.close()
-
+        """
     def pubCallback(self):
         msg = Float64MultiArray()
         message = list(np.concatenate(self.poiAttributes).flat)
