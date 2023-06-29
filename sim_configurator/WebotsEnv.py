@@ -165,4 +165,4 @@ class WebotsEnv:
 
 
 
-itapSim = WebotsEnv(0, 0, 0, 3, 0)
+itapSim = WebotsEnv(0, 0, 0, 0, 2)

@@ -36,19 +36,23 @@ import random
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
-    package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
 
     #robot_description_mavic = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf.xacro')).read_text()
-    robot_description_turtle = pathlib.Path(os.path.join(package_dir_turtle, 'resource', 'turtlebot_webots.urdf')).read_text()
-    ros2_control_params = os.path.join(package_dir_turtle, 'resource', 'ros2control.yml')
 
+    package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
+    use_nav = LaunchConfiguration('nav', default=False)
+    use_slam = LaunchConfiguration('slam', default=False)
+    robot_description_turtle = pathlib.Path(os.path.join(package_dir_turtle, 'resource', 'turtlebot_webots.urdf')).read_text()
+    ros2_control_params = os.path.join(package_dir_turtle, 'resource', 'ros2control.yaml')
+    nav2_params = os.path.join(package_dir_turtle, 'resource', 'nav2_params.yaml')
+    nav2_map = os.path.join(package_dir_turtle, 'resource', 'turtlebot3_burger_example_map.yaml')
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 3#WebotsEnv.itapSim.getNumUAVs()
-    numUGVs = 0 #WebotsEnv.itapSim.getNumUGVs()
+    numUAVs = 0#WebotsEnv.itapSim.getNumUAVs()
+    numUGVs = 2 #WebotsEnv.itapSim.getNumUGVs()
 
     for i in range(numUAVs):
         robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic_' + str(i) + "/"})
@@ -73,7 +77,8 @@ def get_ros2_nodes(*args):
     # ROS control spawners
     controller_manager_timeout = ['--controller-manager-timeout', '50']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
-    
+    launchList = []
+
     for i in range(numUGVs):
         diffdrive_controller_spawner = Node(
             package='controller_manager',
@@ -81,8 +86,9 @@ def get_ros2_nodes(*args):
             output='screen',
             prefix=controller_manager_prefix,
             arguments=['diffdrive_controller'] + controller_manager_timeout,
-            namespace="turtle_" + str(i)
+            parameters=[{'name': 'turtle_' + str(i)}]
         )
+        launchList.append(diffdrive_controller_spawner)
 
         joint_state_broadcaster_spawner = Node(
             package='controller_manager',
@@ -90,25 +96,29 @@ def get_ros2_nodes(*args):
             output='screen',
             prefix=controller_manager_prefix,
             arguments=['joint_state_broadcaster'] + controller_manager_timeout,
-            namespace="turtle_" + str(i)
+            parameters=[{'name': 'turtle_' + str(i)}]
         )
+        launchList.append(joint_state_broadcaster_spawner)
+
         ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
-        mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel'), ('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom')]
+
+        mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel')]
+        if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
+            mappings.append(('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom'))
 
         turtlebot_driver = Node(
             package='webots_ros2_driver',
             executable='driver',
             output='screen',
-            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_' + str(i)},
+            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_0'},
             parameters=[
                 {'robot_description': robot_description_turtle,
                 'use_sim_time': use_sim_time,
-                'set_robot_state_publisher': True},
+                'set_robot_state_publisher': True,
+                'name': 'turtle_' + str(i)},
                 ros2_control_params
             ],
             remappings=mappings,
-            namespace="turtle_" + str(i),
-            arguments=['--ros-args', '--log-level', 'fatal']
         )
         launchList.append(turtlebot_driver)
 
@@ -117,9 +127,9 @@ def get_ros2_nodes(*args):
             executable='robot_state_publisher',
             output='screen',
             parameters=[{
-                'robot_description': '<robot name=""><link name=""/></robot>'
+                'robot_description': '<robot name=""><link name=""/></robot>',
+                'name': 'turtle_' + str(i)
             }],
-            namespace="turtle_" + str(i)
         )
         launchList.append(robot_state_publisher)
 
@@ -128,55 +138,54 @@ def get_ros2_nodes(*args):
             executable='static_transform_publisher',
             output='screen',
             arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
-            namespace="turtle_" + str(i)
+            parameters=[{'name': 'turtle_' + str(i)}]
         )
         launchList.append(footprint_publisher)
+
+        # Navigation
+        navigation_nodes = []
+        os.environ['TURTLEBOT3_MODEL'] = 'burger'
+        if 'turtlebot3_navigation2' in get_packages_with_prefixes():
+            turtlebot_navigation = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(
+                    get_package_share_directory('turtlebot3_navigation2'), 'launch', 'navigation2.launch.py')),
+                launch_arguments=[
+                    ('map', nav2_map),
+                    ('params_file', nav2_params),
+                    ('use_sim_time', use_sim_time),
+                ],
+                condition=launch.conditions.IfCondition(use_nav))
+            navigation_nodes.append(turtlebot_navigation)
+
+        # SLAM
+        if 'turtlebot3_cartographer' in get_packages_with_prefixes():
+            turtlebot_slam = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(
+                    get_package_share_directory('turtlebot3_cartographer'), 'launch', 'cartographer.launch.py')),
+                launch_arguments=[
+                    ('use_sim_time', use_sim_time),
+                ],
+                condition=launch.conditions.IfCondition(use_slam))
+            navigation_nodes.append(turtlebot_slam)
 
         # Wait for the simulation to be ready to start navigation nodes
         waiting_nodes = WaitForControllerConnection(
             target_driver=turtlebot_driver,
-            nodes_to_start=ros_control_spawners
-    )
+            nodes_to_start=navigation_nodes + ros_control_spawners
+        )
+        #launchList.append(waiting_nodes)
 
-    return launchList
-
-def get_static_object_nodes():
-    launchList = []
-
-    #POI Parameters
-    numPOIs = 50
-    numSafe = 25
-    numThreats = 25
-    poiManager = Node(
-                package='webots_ros2_mavic',
-                namespace='poiManager',
-                executable='poiManager.py',
-                arguments=['-threats', str(numThreats), '-safe', str(numSafe)],
-                output='screen')
-    launchList.append(poiManager)
-    
-    #Human Operator Parameters
-    numHumans = random.randint(1, 10)
-    print(numHumans)
-    humanManager = Node(
-                    package='webots_ros2_mavic',
-                    namespace='humanManager',
-                    executable='humanManager.py',
-                    arguments=['-humans', str(numHumans)],
-                    output='screen')
-    launchList.append(humanManager)
-    print("HERE")
-
-    
     return launchList
 
 def generate_launch_description():
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic') #'/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' 
     package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
     world = LaunchConfiguration('world')
+    mode = LaunchConfiguration('mode')
 
     webots = WebotsLauncher(
         world=PathJoinSubstitution([package_dir_mavic, 'worlds', world]), #'/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', #P,
+        mode=mode,
         ros2_supervisor=True
     )
 
@@ -194,6 +203,11 @@ def generate_launch_description():
             'world',
             default_value='mavic_world.wbt',
             description='Choose one of the world files from `/webots_ros2_mavic/worlds` directory'
+        ),
+        DeclareLaunchArgument(
+            'mode',
+            default_value='realtime',
+            description='Webots startup mode'
         ),
         webots,
         webots._supervisor,

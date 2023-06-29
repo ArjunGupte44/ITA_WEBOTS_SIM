@@ -14,7 +14,7 @@ WorldInfo {
     "This demonstration shows a DJI Mavic 2 PRO flying over a rural area by exposing the ROS2 Twist topic."
   ]
   title "ROS2 and DJI Mavic 2 PRO demo"
-  basicTimeStep 8
+  basicTimeStep 20
   defaultDamping Damping {
     linear 0.5
     angular 0.5
@@ -41,42 +41,43 @@ Floor {
 
 
 
-Mavic2Pro {
-  translation -1.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_0"
+TurtleBot3Burger {
+  translation 1.0 -1490.0 0.0
+  name "TurtleBot3Burger_0"
   controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
+  controllerArgs [
+    ""
+  ]
+  extensionSlot [
+    Solid {
+      name "imu_link"
+    }
+    GPS {
+    }
+    InertialUnit {
+      name "inertial_unit"
+    }
+    RobotisLds01 {
     }
   ]
 }
-Mavic2Pro {
-  translation -4.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_1"
+TurtleBot3Burger {
+  translation 4.0 -1490.0 0.0
+  name "TurtleBot3Burger_1"
   controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
+  controllerArgs [
+    ""
   ]
-}
-Mavic2Pro {
-  translation -7.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_2"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
+  extensionSlot [
+    Solid {
+      name "imu_link"
+    }
+    GPS {
+    }
+    InertialUnit {
+      name "inertial_unit"
+    }
+    RobotisLds01 {
     }
   ]
 }
