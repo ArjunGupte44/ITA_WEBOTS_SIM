@@ -5,19 +5,18 @@ import re
 import math
 
 class WebotsEnv:
-    def __init__(self, numSafe, numThreats, numHumans, numUGVs, numUAVs, worldFile):
+    def __init__(self, numSafe, numThreats, numHumans, numUAVs, numUGVs):
         self.numSafe = numSafe
         self.numThreats = numThreats
         self.numPOIs = self.numSafe + self.numThreats
         self.numHumans = numHumans
         self.numUGVs = numUGVs
         self.numUAVs = numUAVs
-        self.worldFile = worldFile
+        self.numRobots = self.numUGVs + self.numUAVs
     
         self.setupPOIs()
         self.setupHumans()
-        #self.setupUGVs()
-        #self.setupUAVs()
+        self.setupRobots()
     
 
     def setupPOIs(self):
@@ -39,18 +38,19 @@ class WebotsEnv:
             self.poiAttributes[i][4] = random.uniform(1,4)
         
         #Write to sim
+        cutoff = 42
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "r+")
         lines = f.readlines()
         f.seek(0)
         f.truncate()
-        f.writelines(lines[0:66])
+        f.writelines(lines[0:cutoff])
         f.close()
 
         f2 = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds/mavic_world.wbt', "r+")
         lines = f2.readlines()
         f2.seek(0)
         f2.truncate()
-        f2.writelines(lines[0:66])
+        f2.writelines(lines[0:cutoff])
         f2.close()
 
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
@@ -102,7 +102,67 @@ class WebotsEnv:
         
         f.close()
         f2.close()
+    
+    def setupRobots(self):
+        #Store: x pos, y pos, z pos, slow (0)/fast (1), low quality (0)/high quality (1)
+        self.robotAttributes = np.zeros((self.numRobots, 5)) 
+
+        #Assign xyz location
+        for i in range(self.numUAVs):
+            self.robotAttributes[i][0] = -(3 * i + 1)
+            self.robotAttributes[i][1] = -1490
+            self.robotAttributes[i][2] = 0.1
+        
+        for i in range(self.numUGVs):
+            self.robotAttributes[i + self.numUAVs][0] = (3 * i + 1)
+            self.robotAttributes[i + self.numUAVs][1] = -1490
+            self.robotAttributes[i + self.numUAVs][2] = 0
+
+        #Assign vehicle speed
+        self.robotAttributes[0:self.numUAVs, 3] = 1
+        self.robotAttributes[self.numUAVs:, 3] = 0
+
+        #Assign image quality
+        self.robotAttributes[0:self.numUAVs, 4] = 0
+        self.robotAttributes[self.numUAVs:, 4] = 1
+
+        #Write to sim
+        f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        f2 = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        
+        for i in range(self.numRobots):
+            xCoord = self.robotAttributes[i][0]
+            yCoord = self.robotAttributes[i][1]
+            zCoord = self.robotAttributes[i][2]
+            if i < self.numUAVs:
+                robotDeclaration = "\nMavic2Pro {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"Mavic_2_PRO_" + str(i) + "\"\n  controller \"<extern>\"\n  cameraSlot [\n    Camera {\n      width 400\n      height 240\n      near 0.2\n    }\n  ]\n}"
+            else:
+                robotDeclaration = "\nTurtleBot3Burger {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"TurtleBot3Burger_" + str(i - self.numUAVs) + "\"\n  controller \"<extern>\"\n  controllerArgs [\n    \"\"\n  ]\n  extensionSlot [\n    Solid {\n      name \"imu_link\"\n    }\n    GPS {\n    }\n    InertialUnit {\n      name \"inertial_unit\"\n    }\n    RobotisLds01 {\n    }\n  ]\n}"
+            
+            f.write(robotDeclaration)
+            f2.write(robotDeclaration)
+
+        f.close()
+        f2.close()
+    
+    def getNumSafe(self):
+        return self.numSafe
+    
+    def getNumThreats(self):
+        return self.numThreats
+        
+    def getNumHumans(self):
+        return self.numHumans
+    
+    def getNumUAVs(self):
+        return self.numUAVs
+
+    def getNumUGVs(self):
+        return self.numUGVs
+    
+    
 
 
 
-itapSim = WebotsEnv(25, 25, 10, 0, 0, 0)
+
+itapSim = WebotsEnv(0, 0, 0, 3, 0)

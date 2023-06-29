@@ -32,6 +32,7 @@ from webots_ros2_driver.wait_for_controller_connection import WaitForControllerC
 from webots_ros2_driver.utils import controller_url_prefix
 import xacro
 import random
+#import WebotsEnv
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -43,92 +44,101 @@ def get_ros2_nodes(*args):
 
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
-    robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic1/'})
-    robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
+    launchList = []
+
+    #Get num robot info from object of class
+    numUAVs = 3#WebotsEnv.itapSim.getNumUAVs()
+    numUGVs = 0 #WebotsEnv.itapSim.getNumUGVs()
+
+    for i in range(numUAVs):
+        robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic_' + str(i) + "/"})
+        robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
     
-    mavic_driver1 = Node(
-        package='webots_ros2_driver',
-        executable='driver',
-        output='screen',
-        namespace='mavic1',
-        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO1'},
-        parameters=[
-            {'robot_description': robot_description_mavic},
-        ]
-    )
+        mavic_driver = Node(
+            package='webots_ros2_driver',
+            executable='driver',
+            output='screen',
+            namespace='mavic_' + str(i),
+            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO_' + str(i)},
+            parameters=[
+                {'robot_description': robot_description_mavic},
+            ]
+        )
+        launchList.append(mavic_driver)
 
-    robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic2/'})
-    robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
 
-    mavic_driver2 = Node(
-        package='webots_ros2_driver',
-        executable='driver',
-        output='screen',
-        namespace='mavic2',
-        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO2'},
-        parameters=[
-            {'robot_description': robot_description_mavic},
-        ]
-    )
+
     
     # TODO: Revert once the https://github.com/ros-controls/ros2_control/pull/444 PR gets into the release
     # ROS control spawners
     controller_manager_timeout = ['--controller-manager-timeout', '50']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
-    diffdrive_controller_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        output='screen',
-        prefix=controller_manager_prefix,
-        arguments=['diffdrive_controller'] + controller_manager_timeout,
-    )
-    joint_state_broadcaster_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        output='screen',
-        prefix=controller_manager_prefix,
-        arguments=['joint_state_broadcaster'] + controller_manager_timeout,
-    )
-    ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
+    
+    for i in range(numUGVs):
+        diffdrive_controller_spawner = Node(
+            package='controller_manager',
+            executable='spawner',
+            output='screen',
+            prefix=controller_manager_prefix,
+            arguments=['diffdrive_controller'] + controller_manager_timeout,
+            namespace="turtle_" + str(i)
+        )
 
-    mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle/cmd_vel')]
-    if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
-        mappings.append(('/diffdrive_controller/odom', 'turtle/odom'))
+        joint_state_broadcaster_spawner = Node(
+            package='controller_manager',
+            executable='spawner',
+            output='screen',
+            prefix=controller_manager_prefix,
+            arguments=['joint_state_broadcaster'] + controller_manager_timeout,
+            namespace="turtle_" + str(i)
+        )
+        ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
+        mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel'), ('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom')]
 
-    turtlebot_driver = Node(
-        package='webots_ros2_driver',
-        executable='driver',
-        output='screen',
-        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger'},
-        parameters=[
-            {'robot_description': robot_description_turtle,
-             'use_sim_time': use_sim_time,
-             'set_robot_state_publisher': True},
-            ros2_control_params
-        ],
-        remappings=mappings
+        turtlebot_driver = Node(
+            package='webots_ros2_driver',
+            executable='driver',
+            output='screen',
+            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_' + str(i)},
+            parameters=[
+                {'robot_description': robot_description_turtle,
+                'use_sim_time': use_sim_time,
+                'set_robot_state_publisher': True},
+                ros2_control_params
+            ],
+            remappings=mappings,
+            namespace="turtle_" + str(i),
+            arguments=['--ros-args', '--log-level', 'fatal']
+        )
+        launchList.append(turtlebot_driver)
+
+        robot_state_publisher = Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            output='screen',
+            parameters=[{
+                'robot_description': '<robot name=""><link name=""/></robot>'
+            }],
+            namespace="turtle_" + str(i)
+        )
+        launchList.append(robot_state_publisher)
+
+        footprint_publisher = Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            output='screen',
+            arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
+            namespace="turtle_" + str(i)
+        )
+        launchList.append(footprint_publisher)
+
+        # Wait for the simulation to be ready to start navigation nodes
+        waiting_nodes = WaitForControllerConnection(
+            target_driver=turtlebot_driver,
+            nodes_to_start=ros_control_spawners
     )
 
-    robot_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        output='screen',
-        parameters=[{
-            'robot_description': '<robot name=""><link name=""/></robot>'
-        }],
-    )
-
-    footprint_publisher = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        output='screen',
-        arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
-    )
-
-    return [
-        mavic_driver1, mavic_driver2,
-        diffdrive_controller_spawner, joint_state_broadcaster_spawner, turtlebot_driver, robot_state_publisher, footprint_publisher
-    ]
+    return launchList
 
 def get_static_object_nodes():
     launchList = []

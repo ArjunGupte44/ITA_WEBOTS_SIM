@@ -1,0 +1,23 @@
+[0.587s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_epuck': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_epuck build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/install.log --single-version-externally-managed
+[0.810s] running egg_info
+[0.810s] writing ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/PKG-INFO
+[0.811s] writing dependency_links to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/dependency_links.txt
+[0.811s] writing entry points to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/entry_points.txt
+[0.811s] writing requirements to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/requires.txt
+[0.811s] writing top-level names to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/top_level.txt
+[0.813s] reading manifest file '../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/SOURCES.txt'
+[0.814s] writing manifest file '../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/SOURCES.txt'
+[0.814s] running build
+[0.814s] running build_py
+[0.814s] running install
+[0.814s] running install_lib
+[0.815s] running install_data
+[0.816s] running install_egg_info
+[0.817s] removing '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck-2023.0.4-py3.10.egg-info' (and everything under it)
+[0.817s] Copying ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck-2023.0.4-py3.10.egg-info
+[0.818s] running install_scripts
+[0.835s] Installing drive_calibrator script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+[0.835s] Installing epuck_node script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+[0.835s] Installing simple_mapper script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+[0.835s] writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/install.log'
+[0.857s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_epuck' returned '0': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_epuck build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/install.log --single-version-externally-managed
