@@ -50,7 +50,7 @@ class PoiManager(Node):
         lines = f.readlines()
         f.seek(0)
         f.truncate()
-        f.writelines(lines[0:39])
+        f.writelines(lines[0:75])
         f.close()
 
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
@@ -59,10 +59,10 @@ class PoiManager(Node):
             xCoord = self.poiAttributes[i][0]
             yCoord = self.poiAttributes[i][1]
             if i < self.numSafe:
-                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
             else:
-                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
         
         f.close()

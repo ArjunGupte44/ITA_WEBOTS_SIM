@@ -19,6 +19,7 @@ class HumanManager(Node):
         #Store: x pos, y pos, z pos, cognitive ability (low 0 to pi/12, med pi/12 to pi/6, high pi/6 to pi/4), skill (low 0 to pi/12, med pi/12 to pi/6, high pi/6 to pi/4)
         self.humanAttributes = np.zeros((self.numHumans, 5)) 
         self.initializeAttributes()
+        self.writeToSim()
 
     def initializeAttributes(self):
         #Assign xyz location
@@ -29,8 +30,8 @@ class HumanManager(Node):
 
         #Assign cognitive ability and operator skill level
         for i in range(self.numHumans):
-            self.humanAttributes[i][0] = round(random.uniform(0, 1 + math.pi / 4), 4)
-            self.humanAttributes[i][1] = round(random.uniform(0, 1 + math.pi / 4), 4)
+            self.humanAttributes[i][3] = round(random.uniform(0, 1 + math.pi / 4), 4)
+            self.humanAttributes[i][4] = round(random.uniform(0, 1 + math.pi / 4), 4)
 
     def writeToSim(self):
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
@@ -39,8 +40,8 @@ class HumanManager(Node):
             xCoord = self.humanAttributes[i][0]
             yCoord = self.humanAttributes[i][1]
             zCoord = self.humanAttributes[i][2]
-            if i < self.numSafe:
-                humanDeclaration = "\nPedestrian {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"human_" + str(i) + "\"\n}"
+            if i < self.numHumans:
+                humanDeclaration = "\nPedestrian {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 " + str(3.14) + "\n  name \"human_" + str(i) + "\"\n}"
                 f.write(humanDeclaration)
         
         f.close()

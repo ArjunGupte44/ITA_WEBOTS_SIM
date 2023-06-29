@@ -31,7 +31,7 @@ class PoiManager(Node):
         self.debug = False
 
     def initializeAttributes(self):
-        #Assign name and xyz location
+        #Assign xyz location
         for i in range(self.numSafe + self.numThreats):
             self.poiAttributes[i][0] = random.uniform(-1500, 1500)
             self.poiAttributes[i][1] = random.uniform(-1400, 1500) #-1400 to avoid overlapping with the robots and humans
@@ -50,23 +50,23 @@ class PoiManager(Node):
         lines = f.readlines()
         f.seek(0)
         f.truncate()
-        f.writelines(lines[0:47])
+        f.writelines(lines[0:75])
         f.close()
 
-        #f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
-        """
+        f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        
         for i in range(self.numPOIs):
             xCoord = self.poiAttributes[i][0]
             yCoord = self.poiAttributes[i][1]
             if i < self.numSafe:
-                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
             else:
-                poiDeclaration = "SolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
         
         f.close()
-        """
+        
     def pubCallback(self):
         msg = Float64MultiArray()
         message = list(np.concatenate(self.poiAttributes).flat)

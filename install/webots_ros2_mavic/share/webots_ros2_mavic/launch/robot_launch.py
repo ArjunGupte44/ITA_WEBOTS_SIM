@@ -70,7 +70,7 @@ def get_ros2_nodes(*args):
             {'robot_description': robot_description_mavic},
         ]
     )
-
+    
     # TODO: Revert once the https://github.com/ros-controls/ros2_control/pull/444 PR gets into the release
     # ROS control spawners
     controller_manager_timeout = ['--controller-manager-timeout', '50']
@@ -146,7 +146,7 @@ def get_static_object_nodes():
     launchList.append(poiManager)
     
     #Human Operator Parameters
-    numHumans = random.randint(0, 10)
+    numHumans = random.randint(1, 10)
     print(numHumans)
     humanManager = Node(
                     package='webots_ros2_mavic',
@@ -161,12 +161,12 @@ def get_static_object_nodes():
     return launchList
 
 def generate_launch_description():
-    package_dir_mavic = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' #get_package_share_directory('webots_ros2_mavic')
+    package_dir_mavic = get_package_share_directory('webots_ros2_mavic') #'/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' 
     package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
     world = LaunchConfiguration('world')
 
     webots = WebotsLauncher(
-        world='/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', #PathJoinSubstitution([package_dir_mavic, 'worlds', world]),
+        world=PathJoinSubstitution([package_dir_mavic, 'worlds', world]), #'/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', #P,
         ros2_supervisor=True
     )
 
@@ -179,10 +179,10 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription(get_static_object_nodes() + get_ros2_nodes() + [
+    return LaunchDescription([
         DeclareLaunchArgument(
             'world',
-            default_value='/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt',
+            default_value='mavic_world.wbt',
             description='Choose one of the world files from `/webots_ros2_mavic/worlds` directory'
         ),
         webots,
@@ -203,4 +203,5 @@ def generate_launch_description():
 
         # Add the reset event handler
         reset_handler
-    ])
+    ] + get_ros2_nodes())
+

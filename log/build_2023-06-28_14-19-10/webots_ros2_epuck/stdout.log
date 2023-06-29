@@ -1,0 +1,66 @@
+running egg_info
+creating ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info
+writing ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/PKG-INFO
+writing dependency_links to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/dependency_links.txt
+writing entry points to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/entry_points.txt
+writing requirements to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/requires.txt
+writing top-level names to ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/top_level.txt
+writing manifest file '../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/SOURCES.txt'
+reading manifest file '../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/SOURCES.txt'
+writing manifest file '../build/webots_ros2_epuck/webots_ros2_epuck.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck
+copying webots_ros2_epuck/simple_mapper.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck
+copying webots_ros2_epuck/drive_calibrator.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck
+copying webots_ros2_epuck/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck
+copying webots_ros2_epuck/epuck_node.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck
+running install
+running install_lib
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck/simple_mapper.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck/drive_calibrator.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/build/lib/webots_ros2_epuck/epuck_node.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck/simple_mapper.py to simple_mapper.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck/drive_calibrator.py to drive_calibrator.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck/epuck_node.py to epuck_node.cpython-310.pyc
+running install_data
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/ament_index
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/ament_index/resource_index
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/ament_index/resource_index/packages
+copying resource/webots_ros2_epuck -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/ament_index/resource_index/packages
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/launch
+copying launch/robot_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/launch
+copying launch/robot_tools_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/launch
+copying launch/rats_life_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/launch
+copying launch/rats_life_waypoints_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/launch
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+copying worlds/epuck_world.wbt -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+copying worlds/.epuck_world.wbproj -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+copying worlds/rats_life_benchmark.wbt -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+copying worlds/.rats_life_benchmark.wbproj -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/protos
+copying protos/LegoTallInterval.proto -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/protos
+copying protos/LegoTallWall.proto -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/protos
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/all.rviz -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/nav2_params.yaml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/map_rats_life.pgm -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/map_rats_life.yaml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/nav2_rats_life_waypoints.yaml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/epuck_world_map.pgm -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/epuck_world_map.yaml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/epuck_webots.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying resource/ros2_control.yml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck/resource
+copying package.xml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/share/webots_ros2_epuck
+running install_egg_info
+Copying ../build/webots_ros2_epuck/webots_ros2_epuck.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages/webots_ros2_epuck-2023.0.4-py3.10.egg-info
+running install_scripts
+Installing drive_calibrator script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+Installing epuck_node script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+Installing simple_mapper script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/webots_ros2_epuck
+writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_epuck/install.log'

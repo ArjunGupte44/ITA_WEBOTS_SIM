@@ -35,16 +35,19 @@ class HumanManager(Node):
 
     def writeToSim(self):
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
+        f2 = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
         
         for i in range(self.numHumans):
             xCoord = self.humanAttributes[i][0]
             yCoord = self.humanAttributes[i][1]
             zCoord = self.humanAttributes[i][2]
             if i < self.numHumans:
-                humanDeclaration = "\nPedestrian {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"human_" + str(i) + "\"\n}"
+                humanDeclaration = "\nPedestrian {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 " + str(3.14) + "\n  name \"human_" + str(i) + "\"\n}"
                 f.write(humanDeclaration)
+                f2.write(humanDeclaration)
         
         f.close()
+        f2.close()
 
     def pubCallback(self):
         msg = Float64MultiArray()

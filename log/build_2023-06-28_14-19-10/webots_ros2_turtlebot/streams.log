@@ -1,0 +1,20 @@
+[1.079s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_turtlebot': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_turtlebot build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/install.log --single-version-externally-managed
+[1.306s] running egg_info
+[1.306s] writing ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/PKG-INFO
+[1.306s] writing dependency_links to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/dependency_links.txt
+[1.306s] writing entry points to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/entry_points.txt
+[1.306s] writing requirements to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/requires.txt
+[1.307s] writing top-level names to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/top_level.txt
+[1.308s] reading manifest file '../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/SOURCES.txt'
+[1.309s] writing manifest file '../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/SOURCES.txt'
+[1.309s] running build
+[1.309s] running build_py
+[1.309s] running install
+[1.310s] running install_lib
+[1.311s] running install_data
+[1.311s] running install_egg_info
+[1.313s] removing '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages/webots_ros2_turtlebot-2023.0.4-py3.10.egg-info' (and everything under it)
+[1.313s] Copying ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages/webots_ros2_turtlebot-2023.0.4-py3.10.egg-info
+[1.314s] running install_scripts
+[1.332s] writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/install.log'
+[1.385s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_turtlebot' returned '0': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_turtlebot build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/install.log --single-version-externally-managed
