@@ -78,7 +78,7 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numHumans):
-            self.humanAttributes[i][0] = 2 * i + 1
+            self.humanAttributes[i][0] = (2 * i + 1) - 50
             self.humanAttributes[i][1] = -1510
             self.humanAttributes[i][2] = 1.37
 
@@ -137,7 +137,7 @@ class WebotsEnv:
             if i < self.numUAVs:
                 robotDeclaration = "\nMavic2Pro {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"Mavic_2_PRO_" + str(i) + "\"\n  controller \"<extern>\"\n  cameraSlot [\n    Camera {\n      width 400\n      height 240\n      near 0.2\n    }\n  ]\n}"
             else:
-                robotDeclaration = "\nTurtleBot3Burger {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"TurtleBot3Burger_" + str(i - self.numUAVs) + "\"\n  controller \"<extern>\"\n  controllerArgs [\n    \"\"\n  ]\n  extensionSlot [\n    Solid {\n      name \"imu_link\"\n    }\n    GPS {\n    }\n    InertialUnit {\n      name \"inertial_unit\"\n    }\n    RobotisLds01 {\n    }\n  ]\n}"
+                robotDeclaration = "\nTurtleBot3Burger {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"TurtleBot3Burger_" + str(i - self.numUAVs) + "\"\n  controller \"<extern>\"\n  controllerArgs [\n    \"\"\n  ]\n  extensionSlot [\n    Solid {\n      name \"imu_link\"\n    }\n    GPS {\n    }\n    InertialUnit {\n      name \"inertial_unit\"\n    }\n    RobotisLds01 {\n    }\n  ]\n}"
             
             f.write(robotDeclaration)
             f2.write(robotDeclaration)
@@ -165,4 +165,4 @@ class WebotsEnv:
 
 
 
-itapSim = WebotsEnv(0, 0, 0, 0, 2)
+itapSim = WebotsEnv(25, 25, 10, 10, 2)

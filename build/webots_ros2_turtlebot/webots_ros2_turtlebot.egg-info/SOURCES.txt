@@ -11,7 +11,6 @@ setup.py
 ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/zip-safe
 launch/robot_launch.py
 resource/nav2_params.yaml
-resource/ros2control.yml
 resource/turtlebot3_burger_example_map.pgm
 resource/turtlebot3_burger_example_map.yaml
 resource/turtlebot_webots.urdf

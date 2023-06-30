@@ -51,7 +51,7 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 0#WebotsEnv.itapSim.getNumUAVs()
+    numUAVs = 10 #WebotsEnv.itapSim.getNumUAVs()
     numUGVs = 2 #WebotsEnv.itapSim.getNumUGVs()
 
     for i in range(numUAVs):
@@ -70,14 +70,11 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mavic_driver)
 
-
-
     
     # TODO: Revert once the https://github.com/ros-controls/ros2_control/pull/444 PR gets into the release
     # ROS control spawners
     controller_manager_timeout = ['--controller-manager-timeout', '50']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
-    launchList = []
 
     for i in range(numUGVs):
         diffdrive_controller_spawner = Node(
@@ -86,7 +83,8 @@ def get_ros2_nodes(*args):
             output='screen',
             prefix=controller_manager_prefix,
             arguments=['diffdrive_controller'] + controller_manager_timeout,
-            parameters=[{'name': 'turtle_' + str(i)}]
+            parameters=[{'name': '/turtle_' + str(i)}],
+            #name='/turtle_' + str(i)
         )
         launchList.append(diffdrive_controller_spawner)
 
@@ -96,7 +94,8 @@ def get_ros2_nodes(*args):
             output='screen',
             prefix=controller_manager_prefix,
             arguments=['joint_state_broadcaster'] + controller_manager_timeout,
-            parameters=[{'name': 'turtle_' + str(i)}]
+            parameters=[{'name': '/turtle_' + str(i)}],
+            #namespace='/turtle_' + str(i)
         )
         launchList.append(joint_state_broadcaster_spawner)
 
@@ -110,7 +109,7 @@ def get_ros2_nodes(*args):
             package='webots_ros2_driver',
             executable='driver',
             output='screen',
-            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_0'},
+            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_' + str(i)},
             parameters=[
                 {'robot_description': robot_description_turtle,
                 'use_sim_time': use_sim_time,

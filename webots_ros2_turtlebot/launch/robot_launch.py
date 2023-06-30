@@ -37,7 +37,7 @@ def get_ros2_nodes(*args):
     use_nav = LaunchConfiguration('nav', default=False)
     use_slam = LaunchConfiguration('slam', default=False)
     robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'turtlebot_webots.urdf')).read_text()
-    ros2_control_params = os.path.join(package_dir, 'resource', 'ros2control.yml')
+    ros2_control_params = os.path.join(package_dir, 'resource', 'ros2control.yaml')
     nav2_params = os.path.join(package_dir, 'resource', 'nav2_params.yaml')
     nav2_map = os.path.join(package_dir, 'resource', 'turtlebot3_burger_example_map.yaml')
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)

@@ -1,0 +1,17 @@
+[0.574s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_turtlebot': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_turtlebot build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/install.log --single-version-externally-managed
+[0.798s] running egg_info
+[0.799s] writing ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/PKG-INFO
+[0.799s] writing dependency_links to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/dependency_links.txt
+[0.799s] writing entry points to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/entry_points.txt
+[0.799s] writing requirements to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/requires.txt
+[0.799s] writing top-level names to ../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/top_level.txt
+[0.801s] reading manifest file '../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/SOURCES.txt'
+[0.801s] writing manifest file '../build/webots_ros2_turtlebot/webots_ros2_turtlebot.egg-info/SOURCES.txt'
+[0.802s] running build
+[0.802s] running build_py
+[0.802s] running install
+[0.802s] running install_lib
+[0.803s] running install_data
+[0.803s] copying launch/robot_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/share/webots_ros2_turtlebot/launch
+[0.803s] error: can't copy 'resource/ros2control.yml': doesn't exist or not a regular file
+[0.817s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_turtlebot' returned '1': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_turtlebot build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_turtlebot/install.log --single-version-externally-managed
