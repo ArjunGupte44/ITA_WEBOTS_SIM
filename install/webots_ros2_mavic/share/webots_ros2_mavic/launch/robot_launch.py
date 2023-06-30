@@ -52,7 +52,7 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 10 #WebotsEnv.itapSim.getNumUAVs()
-    numUGVs = 2 #WebotsEnv.itapSim.getNumUGVs()
+    numUGVs = 3 #WebotsEnv.itapSim.getNumUGVs()
 
     for i in range(numUAVs):
         robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic_' + str(i) + "/"})
@@ -73,34 +73,34 @@ def get_ros2_nodes(*args):
     
     # TODO: Revert once the https://github.com/ros-controls/ros2_control/pull/444 PR gets into the release
     # ROS control spawners
-    controller_manager_timeout = ['--controller-manager-timeout', '50']
+    controller_manager_timeout = ['--controller-manager-timeout', '200']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
 
+    diffdrive_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        output='screen',
+        prefix=controller_manager_prefix,
+        arguments=['diffdrive_controller'] + controller_manager_timeout,
+        parameters=[{'name': '/turtle_' + str(i)}],
+        #name='/turtle_' + str(i)
+    )
+    launchList.append(diffdrive_controller_spawner)
+
+    joint_state_broadcaster_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        output='screen',
+        prefix=controller_manager_prefix,
+        arguments=['joint_state_broadcaster'] + controller_manager_timeout,
+        parameters=[{'name': '/turtle_' + str(i)}],
+        #namespace='/turtle_' + str(i)
+    )
+    launchList.append(joint_state_broadcaster_spawner)
+
+    ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
+
     for i in range(numUGVs):
-        diffdrive_controller_spawner = Node(
-            package='controller_manager',
-            executable='spawner',
-            output='screen',
-            prefix=controller_manager_prefix,
-            arguments=['diffdrive_controller'] + controller_manager_timeout,
-            parameters=[{'name': '/turtle_' + str(i)}],
-            #name='/turtle_' + str(i)
-        )
-        launchList.append(diffdrive_controller_spawner)
-
-        joint_state_broadcaster_spawner = Node(
-            package='controller_manager',
-            executable='spawner',
-            output='screen',
-            prefix=controller_manager_prefix,
-            arguments=['joint_state_broadcaster'] + controller_manager_timeout,
-            parameters=[{'name': '/turtle_' + str(i)}],
-            #namespace='/turtle_' + str(i)
-        )
-        launchList.append(joint_state_broadcaster_spawner)
-
-        ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
-
         mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel')]
         if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
             mappings.append(('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom'))
@@ -129,6 +129,7 @@ def get_ros2_nodes(*args):
                 'robot_description': '<robot name=""><link name=""/></robot>',
                 'name': 'turtle_' + str(i)
             }],
+            namespace="turtle_" + str(i)
         )
         launchList.append(robot_state_publisher)
 
@@ -137,7 +138,8 @@ def get_ros2_nodes(*args):
             executable='static_transform_publisher',
             output='screen',
             arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
-            parameters=[{'name': 'turtle_' + str(i)}]
+            parameters=[{'name': 'turtle_' + str(i)}],
+            namespace="turtle_" + str(i)
         )
         launchList.append(footprint_publisher)
 
