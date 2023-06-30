@@ -52,8 +52,9 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 10 #WebotsEnv.itapSim.getNumUAVs()
-    numUGVs = 3 #WebotsEnv.itapSim.getNumUGVs()
+    numUGVs = 2 #WebotsEnv.itapSim.getNumUGVs()
 
+    #Launch all UAVs
     for i in range(numUAVs):
         robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic_' + str(i) + "/"})
         robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
@@ -70,37 +71,36 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mavic_driver)
 
-    
-    # TODO: Revert once the https://github.com/ros-controls/ros2_control/pull/444 PR gets into the release
-    # ROS control spawners
+    #Launch all UGVs
     controller_manager_timeout = ['--controller-manager-timeout', '200']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
-
-    diffdrive_controller_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        output='screen',
-        prefix=controller_manager_prefix,
-        arguments=['diffdrive_controller'] + controller_manager_timeout,
-        parameters=[{'name': '/turtle_' + str(i)}],
-        #name='/turtle_' + str(i)
-    )
-    launchList.append(diffdrive_controller_spawner)
-
-    joint_state_broadcaster_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        output='screen',
-        prefix=controller_manager_prefix,
-        arguments=['joint_state_broadcaster'] + controller_manager_timeout,
-        parameters=[{'name': '/turtle_' + str(i)}],
-        #namespace='/turtle_' + str(i)
-    )
-    launchList.append(joint_state_broadcaster_spawner)
-
-    ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
+    ros_control_spawners = []
 
     for i in range(numUGVs):
+        diffdrive_controller_spawner = Node(
+            package='controller_manager',
+            executable='spawner',
+            output='screen',
+            prefix=controller_manager_prefix,
+            arguments=['diffdrive_controller'] + controller_manager_timeout + ['--name', 'turtle_' + str(i)],
+            #parameters=[{'name': 'turtle_' + str(i)}],
+            #namespace='turtle_' + str(i)
+        )
+        #launchList.append(diffdrive_controller_spawner)
+        ros_control_spawners.append(diffdrive_controller_spawner)
+
+        joint_state_broadcaster_spawner = Node(
+            package='controller_manager',
+            executable='spawner',
+            output='screen',
+            prefix=controller_manager_prefix,
+            arguments=['joint_state_broadcaster'] + controller_manager_timeout + ['--name', 'turtle_' + str(i)],
+            #parameters=[{'name': 'turtle_' + str(i)}],
+            #namespace='turtle_' + str(i)
+        )
+        #launchList.append(joint_state_broadcaster_spawner)
+        ros_control_spawners.append(joint_state_broadcaster_spawner)
+
         mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel')]
         if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
             mappings.append(('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom'))
@@ -169,11 +169,12 @@ def get_ros2_nodes(*args):
                 condition=launch.conditions.IfCondition(use_slam))
             navigation_nodes.append(turtlebot_slam)
 
-        # Wait for the simulation to be ready to start navigation nodes
-        waiting_nodes = WaitForControllerConnection(
-            target_driver=turtlebot_driver,
-            nodes_to_start=navigation_nodes + ros_control_spawners
-        )
+    # Wait for the simulation to be ready to start navigation nodes
+    waiting_nodes = WaitForControllerConnection(
+        target_driver=launchList[numUAVs + 3], #Wait for 1st turtle_driver instance then start specified nodes
+        nodes_to_start=navigation_nodes + ros_control_spawners
+    )
+    launchList.append(waiting_nodes)
 
     return launchList
 
