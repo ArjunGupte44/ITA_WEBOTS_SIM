@@ -86,8 +86,8 @@ def get_ros2_nodes(*args):
             #parameters=[{'name': 'turtle_' + str(i)}],
             #namespace='turtle_' + str(i)
         )
-        #launchList.append(diffdrive_controller_spawner)
-        ros_control_spawners.append(diffdrive_controller_spawner)
+        launchList.append(diffdrive_controller_spawner)
+        #ros_control_spawners.append(diffdrive_controller_spawner)
 
         joint_state_broadcaster_spawner = Node(
             package='controller_manager',
@@ -98,8 +98,8 @@ def get_ros2_nodes(*args):
             #parameters=[{'name': 'turtle_' + str(i)}],
             #namespace='turtle_' + str(i)
         )
-        #launchList.append(joint_state_broadcaster_spawner)
-        ros_control_spawners.append(joint_state_broadcaster_spawner)
+        launchList.append(joint_state_broadcaster_spawner)
+        #ros_control_spawners.append(joint_state_broadcaster_spawner)
 
         mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel')]
         if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
@@ -114,10 +114,12 @@ def get_ros2_nodes(*args):
                 {'robot_description': robot_description_turtle,
                 'use_sim_time': use_sim_time,
                 'set_robot_state_publisher': True,
-                'name': 'turtle_' + str(i)},
+                #'name': 'turtle_' + str(i)},
+                },
                 ros2_control_params
             ],
             remappings=mappings,
+            #namespace='turtle_' + str(i)
         )
         launchList.append(turtlebot_driver)
 
@@ -169,12 +171,12 @@ def get_ros2_nodes(*args):
                 condition=launch.conditions.IfCondition(use_slam))
             navigation_nodes.append(turtlebot_slam)
 
-    # Wait for the simulation to be ready to start navigation nodes
-    waiting_nodes = WaitForControllerConnection(
-        target_driver=launchList[numUAVs + 3], #Wait for 1st turtle_driver instance then start specified nodes
-        nodes_to_start=navigation_nodes + ros_control_spawners
-    )
-    launchList.append(waiting_nodes)
+        # Wait for the simulation to be ready to start navigation nodes
+        waiting_nodes = WaitForControllerConnection(
+            target_driver=turtlebot_driver,
+            nodes_to_start=ros_control_spawners
+        )
+        launchList.append(waiting_nodes)
 
     return launchList
 
