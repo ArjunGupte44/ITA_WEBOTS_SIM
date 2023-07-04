@@ -18,10 +18,10 @@ import math
 import rclpy
 from geometry_msgs.msg import Twist
 
-n = 1
+n = 1.0
 
 K_VERTICAL_THRUST = n * 68.5    # with this thrust, the drone lifts.
-K_VERTICAL_P = 3.0          # P constant of the vertical PID.
+K_VERTICAL_P = 3          # P constant of the vertical PID.
 K_ROLL_P = 50.0             # P constant of the roll PID.
 K_PITCH_P = 30.0            # P constant of the pitch PID.
 K_YAW_P = 2.0
@@ -29,7 +29,7 @@ K_X_VELOCITY_P = 1
 K_Y_VELOCITY_P = 1
 K_X_VELOCITY_I = 0.01
 K_Y_VELOCITY_I = 0.01
-LIFT_HEIGHT = 1
+LIFT_HEIGHT = 15.25
 
 
 def clamp(value, value_min, value_max):
@@ -61,6 +61,7 @@ class MavicDriver:
 
         # State
         self.__target_twist = Twist()
+        #self.__target_twist.linear.z = 3
         self.__vertical_ref = LIFT_HEIGHT
         self.__linear_x_integral = 0
         self.__linear_y_integral = 0
@@ -90,8 +91,9 @@ class MavicDriver:
             return
 
         # Allow high level control once the drone is lifted
-        if vertical > 0.2:
+        if vertical >= 0:
             # Calculate velocity
+            #print(abs(roll) + abs(pitch))
             velocity_x = (pitch / (abs(roll) + abs(pitch))) * velocity
             velocity_y = - (roll / (abs(roll) + abs(pitch))) * velocity
 
@@ -102,12 +104,17 @@ class MavicDriver:
             self.__linear_y_integral += linear_y_error
             roll_ref = K_Y_VELOCITY_P * linear_y_error + K_Y_VELOCITY_I * self.__linear_y_integral
             pitch_ref = - K_X_VELOCITY_P * linear_x_error - K_X_VELOCITY_I * self.__linear_x_integral
+            
             self.__vertical_ref = clamp(
                 self.__vertical_ref + self.__target_twist.linear.z * (self.__timestep / 1000),
                 max(vertical - 0.5, LIFT_HEIGHT),
                 vertical + 0.5
             )
+        #else:
+        #    self.__vertical_ref = clamp(LIFT_HEIGHT - vertical + 0.5, -1, 1)
+
         vertical_input = K_VERTICAL_P * (self.__vertical_ref - vertical)
+        #vertical_input = K_VERTICAL_P * (self.__vertical_ref ** 3)
 
         # Low level controller (roll, pitch, yaw)
         yaw_ref = self.__target_twist.angular.z

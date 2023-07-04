@@ -1,0 +1,41 @@
+[0.584s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed
+[0.774s] Traceback (most recent call last):
+[0.774s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2851, in get_entry_map
+[0.774s]     ep_map = self._ep_map
+[0.774s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2813, in __getattr__
+[0.775s]     raise AttributeError(attr)
+[0.775s] AttributeError: _ep_map. Did you mean: '_dep_map'?
+[0.775s] 
+[0.775s] During handling of the above exception, another exception occurred:
+[0.775s] 
+[0.775s] Traceback (most recent call last):
+[0.775s]   File "/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/setup.py", line 19, in <module>
+[0.775s]     setup(
+[0.775s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 152, in setup
+[0.775s]     _install_setup_requires(attrs)
+[0.775s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 142, in _install_setup_requires
+[0.775s]     dist = MinimalDistribution(attrs)
+[0.775s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 134, in __init__
+[0.775s]     distutils.core.Distribution.__init__(self, filtered)
+[0.775s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/dist.py", line 451, in __init__
+[0.775s]     for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 641, in <genexpr>
+[0.776s]     for entry in dist.get_entry_map(group).values()
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2853, in get_entry_map
+[0.776s]     ep_map = self._ep_map = EntryPoint.parse_map(
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2534, in parse_map
+[0.776s]     for group, lines in data:
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3190, in split_sections
+[0.776s]     for line in yield_lines(s):
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2394, in yield_lines
+[0.776s]     for ss in strs:
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2765, in _get_metadata
+[0.776s]     for line in self.get_metadata_lines(name):
+[0.776s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1417, in get_metadata_lines
+[0.777s]     return yield_lines(self.get_metadata(name))
+[0.777s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1407, in get_metadata
+[0.777s]     value = self._get(path)
+[0.777s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1611, in _get
+[0.777s]     with open(path, 'rb') as stream:
+[0.777s] KeyboardInterrupt
+[0.790s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic' returned '-2': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed

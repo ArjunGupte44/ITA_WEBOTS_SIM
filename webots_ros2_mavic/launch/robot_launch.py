@@ -32,7 +32,6 @@ from webots_ros2_driver.wait_for_controller_connection import WaitForControllerC
 from webots_ros2_driver.utils import controller_url_prefix
 import xacro
 import random
-#import WebotsEnv
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -51,8 +50,8 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 10 #WebotsEnv.itapSim.getNumUAVs()
-    numUGVs = 2 #WebotsEnv.itapSim.getNumUGVs()
+    numUAVs = 7 #itapSim.getNumUAVs()
+    numUGVs = 0 #itapSim.getNumUGVs()
 
     #Launch all UAVs
     for i in range(numUAVs):

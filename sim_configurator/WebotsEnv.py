@@ -60,11 +60,11 @@ class WebotsEnv:
             xCoord = self.poiAttributes[i][0]
             yCoord = self.poiAttributes[i][1]
             if i < self.numSafe:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 3\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
             else:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 13\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 3\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
         
@@ -78,8 +78,8 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numHumans):
-            self.humanAttributes[i][0] = (2 * i + 1) - 50
-            self.humanAttributes[i][1] = -1510
+            self.humanAttributes[i][0] = (2 * i + 1) - 10
+            self.humanAttributes[i][1] = -1493
             self.humanAttributes[i][2] = 1.37
 
         #Assign cognitive ability and operator skill level
@@ -165,4 +165,4 @@ class WebotsEnv:
 
 
 
-itapSim = WebotsEnv(25, 25, 10, 10, 2)
+itapSim = WebotsEnv(25, 25, 10, 7, 0)

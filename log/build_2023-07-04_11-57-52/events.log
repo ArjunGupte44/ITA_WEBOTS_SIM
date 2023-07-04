@@ -1,0 +1,55 @@
+[0.000000] (-) TimerEvent: {}
+[0.000101] (-) JobUnselected: {'identifier': 'webots_ros2_epuck'}
+[0.000126] (-) JobUnselected: {'identifier': 'webots_ros2_turtlebot'}
+[0.000146] (webots_ros2_mavic) JobQueued: {'identifier': 'webots_ros2_mavic', 'dependencies': OrderedDict()}
+[0.000165] (webots_ros2_mavic) JobStarted: {'identifier': 'webots_ros2_mavic'}
+[0.099174] (-) TimerEvent: {}
+[0.199414] (-) TimerEvent: {}
+[0.299708] (-) TimerEvent: {}
+[0.399941] (-) TimerEvent: {}
+[0.500179] (-) TimerEvent: {}
+[0.583239] (webots_ros2_mavic) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/webots_ros2_mavic', 'build', '--build-base', '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build', 'install', '--record', '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log', '--single-version-externally-managed'], 'cwd': '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'arjun', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/arjun', 'OLDPWD': '/home/arjun/SMART-LAB-ITAP-WEBOTS/sim_configurator', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '70029', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/arjun/SMART-LAB-ITAP-WEBOTS/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'arjun', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'arjun', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/arjun-WS63-8SK:@/tmp/.ICE-unix/1339,unix/arjun-WS63-8SK:/tmp/.ICE-unix/1339', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/e3866fa6_e45c_489f_a76d_e419c4999132', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.3GW861', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.1185', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot/lib/python3.10/site-packages:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[0.600281] (-) TimerEvent: {}
+[0.700507] (-) TimerEvent: {}
+[0.773944] (webots_ros2_mavic) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[0.774235] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2851, in get_entry_map\n'}
+[0.774305] (webots_ros2_mavic) StderrLine: {'line': b'    ep_map = self._ep_map\n'}
+[0.774383] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2813, in __getattr__\n'}
+[0.774571] (webots_ros2_mavic) StderrLine: {'line': b'    raise AttributeError(attr)\n'}
+[0.774765] (webots_ros2_mavic) StderrLine: {'line': b"AttributeError: _ep_map. Did you mean: '_dep_map'?\n"}
+[0.774861] (webots_ros2_mavic) StderrLine: {'line': b'\n'}
+[0.774920] (webots_ros2_mavic) StderrLine: {'line': b'During handling of the above exception, another exception occurred:\n'}
+[0.774975] (webots_ros2_mavic) StderrLine: {'line': b'\n'}
+[0.775029] (webots_ros2_mavic) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[0.775106] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/setup.py", line 19, in <module>\n'}
+[0.775164] (webots_ros2_mavic) StderrLine: {'line': b'    setup(\n'}
+[0.775218] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 152, in setup\n'}
+[0.775271] (webots_ros2_mavic) StderrLine: {'line': b'    _install_setup_requires(attrs)\n'}
+[0.775324] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 142, in _install_setup_requires\n'}
+[0.775391] (webots_ros2_mavic) StderrLine: {'line': b'    dist = MinimalDistribution(attrs)\n'}
+[0.775446] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 134, in __init__\n'}
+[0.775499] (webots_ros2_mavic) StderrLine: {'line': b'    distutils.core.Distribution.__init__(self, filtered)\n'}
+[0.775551] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/dist.py", line 451, in __init__\n'}
+[0.775603] (webots_ros2_mavic) StderrLine: {'line': b"    for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):\n"}
+[0.775677] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 641, in <genexpr>\n'}
+[0.775774] (webots_ros2_mavic) StderrLine: {'line': b'    for entry in dist.get_entry_map(group).values()\n'}
+[0.775827] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2853, in get_entry_map\n'}
+[0.775887] (webots_ros2_mavic) StderrLine: {'line': b'    ep_map = self._ep_map = EntryPoint.parse_map(\n'}
+[0.775961] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2534, in parse_map\n'}
+[0.776055] (webots_ros2_mavic) StderrLine: {'line': b'    for group, lines in data:\n'}
+[0.776107] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3190, in split_sections\n'}
+[0.776159] (webots_ros2_mavic) StderrLine: {'line': b'    for line in yield_lines(s):\n'}
+[0.776228] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2394, in yield_lines\n'}
+[0.776282] (webots_ros2_mavic) StderrLine: {'line': b'    for ss in strs:\n'}
+[0.776407] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2765, in _get_metadata\n'}
+[0.776479] (webots_ros2_mavic) StderrLine: {'line': b'    for line in self.get_metadata_lines(name):\n'}
+[0.776584] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1417, in get_metadata_lines\n'}
+[0.776698] (webots_ros2_mavic) StderrLine: {'line': b'    return yield_lines(self.get_metadata(name))\n'}
+[0.776753] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1407, in get_metadata\n'}
+[0.776806] (webots_ros2_mavic) StderrLine: {'line': b'    value = self._get(path)\n'}
+[0.776876] (webots_ros2_mavic) StderrLine: {'line': b'  File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1611, in _get\n'}
+[0.776929] (webots_ros2_mavic) StderrLine: {'line': b"    with open(path, 'rb') as stream:\n"}
+[0.776981] (webots_ros2_mavic) StderrLine: {'line': b'KeyboardInterrupt\n'}
+[0.789689] (webots_ros2_mavic) CommandEnded: {'returncode': -2}
+[0.789989] (webots_ros2_mavic) JobEnded: {'identifier': 'webots_ros2_mavic', 'rc': 'SIGINT'}
+[0.800350] (-) EventReactorShutdown: {}
