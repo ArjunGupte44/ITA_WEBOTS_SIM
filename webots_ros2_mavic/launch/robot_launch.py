@@ -33,6 +33,10 @@ from webots_ros2_driver.utils import controller_url_prefix
 import xacro
 import random
 
+#from sim_configurator.main import itapSim
+import sys
+sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/sim_configurator')
+
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
 
@@ -51,7 +55,7 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 7 #itapSim.getNumUAVs()
-    numUGVs = 0 #itapSim.getNumUGVs()
+    numUGVs = 3 #itapSim.getNumUGVs()
 
     #Launch all UAVs
     for i in range(numUAVs):

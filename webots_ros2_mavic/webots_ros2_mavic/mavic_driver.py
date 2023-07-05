@@ -29,7 +29,7 @@ K_X_VELOCITY_P = 1
 K_Y_VELOCITY_P = 1
 K_X_VELOCITY_I = 0.01
 K_Y_VELOCITY_I = 0.01
-LIFT_HEIGHT = 15.25
+LIFT_HEIGHT = 10
 
 
 def clamp(value, value_min, value_max):
@@ -91,7 +91,7 @@ class MavicDriver:
             return
 
         # Allow high level control once the drone is lifted
-        if vertical >= 0:
+        if vertical >= 0 and (abs(roll) + abs(pitch) != 0):
             # Calculate velocity
             #print(abs(roll) + abs(pitch))
             velocity_x = (pitch / (abs(roll) + abs(pitch))) * velocity
