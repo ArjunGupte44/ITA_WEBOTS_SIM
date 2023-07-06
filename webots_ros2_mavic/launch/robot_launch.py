@@ -55,7 +55,8 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 10 #itapSim.getNumUAVs()
-    numUGVs = 3 #itapSim.getNumUGVs()
+    numUGVs = 0 #itapSim.getNumUGVs()
+    numHumans = 10
 
     #Get POIs assigned to UAVs
     uavPOIs = [[]] #Get from main.py
@@ -200,6 +201,16 @@ def get_ros2_nodes(*args):
             nodes_to_start=ros_control_spawners
         )
         launchList.append(waiting_nodes)
+    
+    for i in range(numHumans):
+        humanManager = Node(
+            package='webots_ros2_mavic',
+            executable='HumanManager.py',
+            output='screen',
+            arguments=['-name', 'human_' + str(i), '-assignedPOIs', '0', '-humanAttributes', '0', '-poiAttributes', '0'] #replace 0 with humanPOIs[i], humanAttributes[i], poiAttributes[i]
+        )
+        launchList.append(humanManager)
+
 
     return launchList
 

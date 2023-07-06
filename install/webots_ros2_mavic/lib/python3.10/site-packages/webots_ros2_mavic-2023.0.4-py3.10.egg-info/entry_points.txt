@@ -1,4 +1,5 @@
 [console_scripts]
+HumanManager = webots_ros2_mavic.HumanManager:main
 UAVManager = webots_ros2_mavic.UAVManager:main
 UGVManager = webots_ros2_mavic.UGVManager:main
 
