@@ -54,8 +54,12 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 7 #itapSim.getNumUAVs()
+    numUAVs = 10 #itapSim.getNumUAVs()
     numUGVs = 3 #itapSim.getNumUGVs()
+
+    #Get POIs assigned to UAVs
+    uavPOIs = [[]] #Get from main.py
+    ugvPOIs = [[]] #Get from main.py
 
     #Launch all UAVs
     for i in range(numUAVs):
@@ -74,12 +78,28 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mavic_driver)
 
+        mavicManager = Node(
+            package='webots_ros2_mavic',
+            executable='UAVManager.py',
+            output='screen',
+            arguments=['-name', 'mavic_' + str(i), '-assignedPOIs', '0'] #replace 0 with uavPOIs[i]
+        )
+        launchList.append(mavicManager)
+
     #Launch all UGVs
     controller_manager_timeout = ['--controller-manager-timeout', '200']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
     ros_control_spawners = []
 
     for i in range(numUGVs):
+        ugvManager = Node(
+            package='webots_ros2_mavic',
+            executable='UGVManager.py',
+            output='screen',
+            arguments=['-name', 'turtle_' + str(i) + '_Manager', '-assignedPOIs', '0'] #replace 0 with uavPOIs[i]
+        )
+        launchList.append(ugvManager)
+
         diffdrive_controller_spawner = Node(
             package='controller_manager',
             executable='spawner',

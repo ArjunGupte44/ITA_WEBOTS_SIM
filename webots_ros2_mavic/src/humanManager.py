@@ -10,11 +10,13 @@ import random
 import math
 
 class HumanManager(Node):
-    def __init__(self, numHumans):
+    def __init__(self, humanName, assignedPOIs):
         super().__init__("humanManager")
-        self.publisher_ = self.create_publisher(Float64MultiArray, "humanInfo", 10)
-        self.timer_ = self.create_timer(1.0/5.0, self.pubCallback)
-        self.numHumans = int(numHumans)
+        self.name = humanName
+        self.assignedPOIs = assignedPOIs
+        self.publisher_ = self.create_publisher(int, self.name + "/finalScore", 10)
+        self.subscriber = self.create_subscription(int, "/poiQueue", 10)
+        #self.timer_ = self.create_timer(1.0/5.0, self.pubCallback)
 
         #Store: x pos, y pos, z pos, cognitive ability (low 0 to pi/12, med pi/12 to pi/6, high pi/6 to pi/4), skill (low 0 to pi/12, med pi/12 to pi/6, high pi/6 to pi/4)
         self.humanAttributes = np.zeros((self.numHumans, 5)) 

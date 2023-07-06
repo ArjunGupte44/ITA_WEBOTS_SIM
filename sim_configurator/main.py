@@ -33,16 +33,20 @@ def performKMeans(numRobots, pois):
 
     return clustersMatrix
 
-
+def RL():
+    pass
 
 numSafe = 25
 numThreats = 25
 numHumans = 10
-numUAVs = 7
+numUAVs = 10
 numUGVs = 3
 numRobots = numUAVs + numUGVs
 
 itapSim = WebotsEnv(numSafe, numThreats, numHumans, numUAVs, numUGVs)
 pois = itapSim.getPOIs()
 clustersMatrix = performKMeans(numRobots, pois)
-print(clustersMatrix)
+#print(clustersMatrix)
+
+#robotPoiAssignments, humanPoiAssignments = RL()
+

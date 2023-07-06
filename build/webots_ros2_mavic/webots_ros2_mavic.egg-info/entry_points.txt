@@ -1,6 +1,6 @@
 [console_scripts]
-humanManager = webots_ros2_mavic.humanManager:main
-poiManager = webots_ros2_mavic.poiManager:main
+UAVManager = webots_ros2_mavic.UAVManager:main
+UGVManager = webots_ros2_mavic.UGVManager:main
 
 [launch.frontend.launch_extension]
 launch_ros = launch_ros

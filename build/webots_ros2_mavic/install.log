@@ -15,5 +15,5 @@
 /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info/requires.txt
 /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info/zip-safe
 /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info/top_level.txt
-/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/webots_ros2_mavic/humanManager
-/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/webots_ros2_mavic/poiManager
+/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/webots_ros2_mavic/UAVManager
+/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/webots_ros2_mavic/UGVManager
