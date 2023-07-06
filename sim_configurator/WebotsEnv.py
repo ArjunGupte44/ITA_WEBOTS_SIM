@@ -164,6 +164,6 @@ class WebotsEnv:
         poiList = []
 
         for i in range(self.numPOIs):
-            poiList.append([self.poiAttributes[i][0], self.poiAttributes[i][1], self.poiAttributes[i][2]])
+            poiList.append((self.poiAttributes[i][0], self.poiAttributes[i][1], self.poiAttributes[i][2]))
         
         return poiList
