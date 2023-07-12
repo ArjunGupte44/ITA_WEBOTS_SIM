@@ -1,0 +1,49 @@
+running egg_info
+creating ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info
+writing ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/PKG-INFO
+writing dependency_links to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/dependency_links.txt
+writing entry points to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/entry_points.txt
+writing requirements to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/requires.txt
+writing top-level names to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/top_level.txt
+writing manifest file '../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/SOURCES.txt'
+reading manifest file '../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/SOURCES.txt'
+writing manifest file '../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent
+copying webots_ros2_multi_agent/mavic_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent
+copying webots_ros2_multi_agent/mavic_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent
+copying webots_ros2_multi_agent/moose_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent
+copying webots_ros2_multi_agent/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent
+running install
+running install_lib
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent/mavic_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent/mavic_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent/moose_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent
+copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build/lib/webots_ros2_multi_agent/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent/mavic_autonomy.py to mavic_autonomy.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent/mavic_driver.py to mavic_driver.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent/moose_driver.py to moose_driver.cpython-310.pyc
+byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/ament_index
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/ament_index/resource_index
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/ament_index/resource_index/packages
+copying resource/webots_ros2_multi_agent -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/ament_index/resource_index/packages
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/launch
+copying launch/robot_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/launch
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/worlds
+copying worlds/mavic_world.wbt -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/worlds
+copying worlds/.mavic_world.wbproj -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/worlds
+creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/resource
+copying resource/mavic_webots.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/resource
+copying resource/moose_webots.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/resource
+copying resource/mavic_autonomy.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent/resource
+copying package.xml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/share/webots_ros2_multi_agent
+running install_egg_info
+Copying ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent-2023.0.2-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/install.log'

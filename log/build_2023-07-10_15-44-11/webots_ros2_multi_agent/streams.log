@@ -1,0 +1,20 @@
+[0.573s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_multi_agent-master': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_multi_agent build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/install.log --single-version-externally-managed
+[0.800s] running egg_info
+[0.801s] writing ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/PKG-INFO
+[0.801s] writing dependency_links to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/dependency_links.txt
+[0.801s] writing entry points to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/entry_points.txt
+[0.801s] writing requirements to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/requires.txt
+[0.801s] writing top-level names to ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/top_level.txt
+[0.803s] reading manifest file '../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/SOURCES.txt'
+[0.804s] writing manifest file '../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info/SOURCES.txt'
+[0.804s] running build
+[0.804s] running build_py
+[0.804s] running install
+[0.804s] running install_lib
+[0.805s] running install_data
+[0.806s] running install_egg_info
+[0.807s] removing '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent-2023.0.2-py3.10.egg-info' (and everything under it)
+[0.807s] Copying ../build/webots_ros2_multi_agent/webots_ros2_multi_agent.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages/webots_ros2_multi_agent-2023.0.2-py3.10.egg-info
+[0.808s] running install_scripts
+[0.824s] writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/install.log'
+[0.846s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_multi_agent-master' returned '0': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_multi_agent build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_multi_agent/install.log --single-version-externally-managed

@@ -18,7 +18,7 @@
             <gyroName>gyro</gyroName>
         </plugin>
 
-        <plugin type="webots_ros2_mavic.mavic_driver.MavicDriver">
+        <plugin type="webots_ros2_mavic.mavic_autonomy.MavicAutonomy">
             <topicName>${nspace}</topicName>
         </plugin>
     </webots>

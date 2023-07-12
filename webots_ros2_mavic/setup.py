@@ -13,6 +13,9 @@ data_files.append(('share/' + package_name + '/worlds', [
 data_files.append(('share/' + package_name + '/resource', [
     'resource/mavic_webots.urdf'
 ]))
+data_files.append(('share/' + package_name + '/resource', [
+    'resource/moose_webots.urdf'
+]))
 data_files.append(('share/' + package_name, ['package.xml']))
 
 

@@ -114,9 +114,9 @@ class WebotsEnv:
             self.robotAttributes[i][2] = 0.1
         
         for i in range(self.numUGVs):
-            self.robotAttributes[i + self.numUAVs][0] = (3 * i + 1)
-            self.robotAttributes[i + self.numUAVs][1] = -1490
-            self.robotAttributes[i + self.numUAVs][2] = 0
+            self.robotAttributes[i + self.numUAVs][0] = (3 * i + 5)
+            self.robotAttributes[i + self.numUAVs][1] = -1485
+            self.robotAttributes[i + self.numUAVs][2] = 0.2
 
         #Assign vehicle speed
         self.robotAttributes[0:self.numUAVs, 3] = 1
@@ -137,7 +137,7 @@ class WebotsEnv:
             if i < self.numUAVs:
                 robotDeclaration = "\nMavic2Pro {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"Mavic_2_PRO_" + str(i) + "\"\n  controller \"<extern>\"\n  cameraSlot [\n    Camera {\n      width 400\n      height 240\n      near 0.2\n    }\n  ]\n}"
             else:
-                robotDeclaration = "\nTurtleBot3Burger {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"TurtleBot3Burger_" + str(i - self.numUAVs) + "\"\n  controller \"<extern>\"\n  controllerArgs [\n    \"\"\n  ]\n  extensionSlot [\n    Solid {\n      name \"imu_link\"\n    }\n    GPS {\n    }\n    InertialUnit {\n      name \"inertial_unit\"\n    }\n    RobotisLds01 {\n    }\n  ]\n}"
+                robotDeclaration = "\nMoose {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  rotation 0 0 1 " + str(math.pi / 2) + "\n  name \"moose" + str(i - self.numUAVs) + "\"\n  controller \"<extern>\"\n  bodySlot [\n    Compass {\n    }\n    Camera {\n      translation 0 0 0.3\n      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09\n      width 200\n      height 140\n    }\n    GPS {\n    }\n  ]\n}"
             
             f.write(robotDeclaration)
             f2.write(robotDeclaration)

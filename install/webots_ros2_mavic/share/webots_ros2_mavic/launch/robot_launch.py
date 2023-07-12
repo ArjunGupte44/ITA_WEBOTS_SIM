@@ -55,7 +55,7 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 10 #itapSim.getNumUAVs()
-    numUGVs = 0 #itapSim.getNumUGVs()
+    numUGVs = 10 #itapSim.getNumUGVs()
     numHumans = 10
 
     #Get POIs assigned to UAVs
@@ -87,6 +87,21 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mavicManager)
 
+    #Launch all Meese
+    moose_robot_description = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'moose_webots.urdf')).read_text()
+    for i in range(numUGVs):
+        mooseDriver = Node(
+            package='webots_ros2_driver',
+            executable='driver',
+            output='screen',
+            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'moose' + str(i)},
+            parameters=[
+                {'robot_description': moose_robot_description},
+            ]
+        )
+        launchList.append(mooseDriver)
+
+    """
     #Launch all UGVs
     controller_manager_timeout = ['--controller-manager-timeout', '200']
     controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
@@ -201,6 +216,7 @@ def get_ros2_nodes(*args):
             nodes_to_start=ros_control_spawners
         )
         launchList.append(waiting_nodes)
+        """
     
     for i in range(numHumans):
         humanManager = Node(
@@ -216,7 +232,7 @@ def get_ros2_nodes(*args):
 
 def generate_launch_description():
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic') #'/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/' 
-    package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
+    #package_dir_turtle = get_package_share_directory('webots_ros2_turtlebot')
     world = LaunchConfiguration('world')
     mode = LaunchConfiguration('mode')
 

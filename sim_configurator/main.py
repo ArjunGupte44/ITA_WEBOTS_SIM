@@ -40,7 +40,7 @@ numSafe = 25
 numThreats = 25
 numHumans = 10
 numUAVs = 10
-numUGVs = 0
+numUGVs = 10
 numRobots = numUAVs + numUGVs
 
 itapSim = WebotsEnv(numSafe, numThreats, numHumans, numUAVs, numUGVs)
