@@ -31,7 +31,8 @@ class MavicAutonomy:
     def init(self, webots_node, properties):
         self.__robot = webots_node.robot
         self.__timestep = int(self.__robot.getBasicTimeStep())
-        self.__package_dir = get_package_share_directory('webots_ros2_multi_agent')
+        self.__package_dir = get_package_share_directory('webots_ros2_mavic')
+        self.__properties = properties
 
         # Sensors
         self.__gps = self.__robot.getDevice('gps')
@@ -57,7 +58,7 @@ class MavicAutonomy:
 
         # autonomy on or off (path following)
         self.__path_follow = True
-        self.__path_file = 'coords.txt'
+        self.__path_file = None
         self.__waypoints = []
         self.__target_altitudes = []
         self.__target_position = [0, 0]
@@ -65,6 +66,7 @@ class MavicAutonomy:
         self.__current_pose = 6*[0]
         self.__target_precision = 0.5
         self.__target_altitude = 10
+        self.__waypointsFile = self.__properties['waypointsPath']
 
         # ROS interface
         rclpy.init(args=None)
@@ -78,12 +80,13 @@ class MavicAutonomy:
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
-    def __path_follow_callback(self, msg):
+    def __path_follow_callback(self, fileName):
         self.__path_follow = True
-        file = pathlib.Path(os.path.join(self.__package_dir, 'resource', msg.data))
+        file = pathlib.Path(os.path.join(self.__package_dir, 'resource',fileName))
 
         with open(file, 'r') as file:
-            self.__path_file = file.readline()
+            contents = file.readlines()
+            self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
         
         point_list = []
         line = [x.strip() for x in self.__path_file.strip().split(",")]
@@ -102,6 +105,7 @@ class MavicAutonomy:
 
 
     def __move_to_target(self):
+        self.__path_follow_callback('coords.txt')
         if self.__target_position == [0, 0]:  # Initialisation
             self.__target_position = self.__waypoints[0][:2]
             self.__target_altitude = self.__waypoints[0][2]
@@ -115,7 +119,7 @@ class MavicAutonomy:
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]
-            print("Target reached! New target: ",self.__target_position)
+            print(self.__robot.getName() + " Target reached! New target: ",self.__target_position)
             
         angle = np.arctan2(self.__target_position[1] - self.__current_pose[1], self.__target_position[0] - self.__current_pose[0])
         # This is now in ]-2pi;2pi[

@@ -61,10 +61,12 @@ def get_ros2_nodes(*args):
     #Get POIs assigned to UAVs
     uavPOIs = [[]] #Get from main.py
     ugvPOIs = [[]] #Get from main.py
+    waypointsPath = 'coords.txt'
 
     #Launch all UAVs
     for i in range(numUAVs):
-        robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), mappings={'nspace': '/mavic_' + str(i) + "/"})
+        robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), 
+                                                   mappings={'nspace': '/mavic_' + str(i) + "/", 'waypointsFile': waypointsPath})
         robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
     
         mavic_driver = Node(

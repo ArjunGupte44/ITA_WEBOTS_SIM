@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Mavic Webots">
     <xacro:property name="nspace" value="$(arg nspace)"/>
+    <xacro:property name="waypointsFile" value="$(arg waypointsFile)"/>
     <webots>
         <device reference="gps" type="GPS">
             <ros>
@@ -20,6 +21,7 @@
 
         <plugin type="webots_ros2_mavic.mavic_autonomy.MavicAutonomy">
             <topicName>${nspace}</topicName>
+            <waypointsPath>${waypointsFile}</waypointsPath>
         </plugin>
     </webots>
 </robot>
