@@ -54,19 +54,18 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 10 #itapSim.getNumUAVs()
-    numUGVs = 10 #itapSim.getNumUGVs()
+    numUAVs = 1 #itapSim.getNumUAVs()
+    numUGVs = 1 #itapSim.getNumUGVs()
     numHumans = 10
 
     #Get POIs assigned to UAVs
-    uavPOIs = [[]] #Get from main.py
-    ugvPOIs = [[]] #Get from main.py
-    waypointsPath = 'coords.txt'
+    uavWaypoints = 'uavCoords.txt'
+    ugvWaypoints = 'ugvCoords.txt'
 
     #Launch all UAVs
     for i in range(numUAVs):
         robot_description_raw = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'mavic_webots.urdf')), 
-                                                   mappings={'nspace': '/mavic_' + str(i) + "/", 'waypointsFile': waypointsPath})
+                                                   mappings={'nspace': '/mavic_' + str(i) + "/", 'waypointsFile': uavWaypoints})
         robot_description_mavic = robot_description_raw.toprettyxml(indent='  ')
     
         mavic_driver = Node(
@@ -90,7 +89,10 @@ def get_ros2_nodes(*args):
         launchList.append(mavicManager)
 
     #Launch all Meese
-    moose_robot_description = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'moose_webots.urdf')).read_text()
+    #moose_robot_description = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'moose_webots.urdf')).read_text()
+    moose_robot_description = xacro.process_file(pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'moose_webots.urdf')), 
+                                                mappings={'waypointsFile': ugvWaypoints})
+    moose_robot_description = moose_robot_description.toprettyxml(indent='  ')
     for i in range(numUGVs):
         mooseDriver = Node(
             package='webots_ros2_driver',

@@ -17,6 +17,7 @@ test/test_copyright.py
 webots_ros2_mavic/__init__.py
 webots_ros2_mavic/mavic_autonomy.py
 webots_ros2_mavic/mavic_driver.py
+webots_ros2_mavic/moose_autonomy.py
 webots_ros2_mavic/moose_driver.py
 worlds/.mavic_world.wbproj
 worlds/mavic_world.wbt

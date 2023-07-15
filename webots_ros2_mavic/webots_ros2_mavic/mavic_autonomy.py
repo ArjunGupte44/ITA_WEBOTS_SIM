@@ -105,7 +105,7 @@ class MavicAutonomy:
 
 
     def __move_to_target(self):
-        self.__path_follow_callback('coords.txt')
+        self.__path_follow_callback('uavCoords.txt')
         if self.__target_position == [0, 0]:  # Initialisation
             self.__target_position = self.__waypoints[0][:2]
             self.__target_altitude = self.__waypoints[0][2]

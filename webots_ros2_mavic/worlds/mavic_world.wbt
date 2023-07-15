@@ -42,7 +42,7 @@ Floor {
 
 
 SolidBox {
-  translation -524.2344052909135 587.9862332897112 0
+  translation 621.0578042873221 1107.7539616171553 0
   name "safe_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -52,7 +52,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -900.0025647200688 62.146207882978615 0
+  translation -1335.855569589127 -765.6584768839252 0
   name "safe_1"
   size 13 13 8
   appearance PBRAppearance {
@@ -62,7 +62,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1080.0167800792603 221.8486959916736 0
+  translation -100.06129574464262 837.5739140484088 0
   name "safe_2"
   size 13 13 8
   appearance PBRAppearance {
@@ -72,7 +72,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 263.21790171548537 -776.0917334778 0
+  translation 860.6112765956063 -1017.0217641662941 0
   name "safe_3"
   size 13 13 8
   appearance PBRAppearance {
@@ -82,7 +82,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -689.6661834122806 -206.802719619536 0
+  translation 1452.6395316631474 489.2240377588912 0
   name "safe_4"
   size 13 13 8
   appearance PBRAppearance {
@@ -92,7 +92,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -858.2452335903811 -244.07223451168056 0
+  translation 1397.6097778156995 -1235.946765230865 0
   name "safe_5"
   size 13 13 8
   appearance PBRAppearance {
@@ -102,7 +102,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -22.92493176007656 -1066.4705874011152 0
+  translation -1341.3319499759214 145.9173959996408 0
   name "safe_6"
   size 13 13 8
   appearance PBRAppearance {
@@ -112,7 +112,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1036.7625896993754 -1320.225194125123 0
+  translation -463.25355268567796 -701.420952215543 0
   name "safe_7"
   size 13 13 8
   appearance PBRAppearance {
@@ -122,7 +122,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -418.9620821482167 119.33312392612788 0
+  translation 1471.6079273238884 388.8227666715934 0
   name "safe_8"
   size 13 13 8
   appearance PBRAppearance {
@@ -132,7 +132,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 978.6207330707662 1379.6851995780157 0
+  translation -844.9981157355408 -425.6057343874089 0
   name "safe_9"
   size 13 13 8
   appearance PBRAppearance {
@@ -142,7 +142,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -270.9063349463363 1044.163490413574 0
+  translation 607.7835116269835 -682.5695180786348 0
   name "safe_10"
   size 13 13 8
   appearance PBRAppearance {
@@ -152,7 +152,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 371.3650257553886 828.7631585672025 0
+  translation -1387.2037989178727 1414.6424120168722 0
   name "safe_11"
   size 13 13 8
   appearance PBRAppearance {
@@ -162,7 +162,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 74.58848948398668 1340.5664843743139 0
+  translation 919.5476193386744 1429.6693253256253 0
   name "safe_12"
   size 13 13 8
   appearance PBRAppearance {
@@ -172,7 +172,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1060.8222452385298 651.6368578138786 0
+  translation 1253.5582051684178 -347.83805364208956 0
   name "safe_13"
   size 13 13 8
   appearance PBRAppearance {
@@ -182,7 +182,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -635.0852675386931 -147.532135537469 0
+  translation -1356.8137436325435 368.3853709635366 0
   name "safe_14"
   size 13 13 8
   appearance PBRAppearance {
@@ -192,7 +192,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1120.4094359175629 -679.54986429611 0
+  translation 1113.2607619573728 1205.6305053991146 0
   name "safe_15"
   size 13 13 8
   appearance PBRAppearance {
@@ -202,7 +202,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -399.88567736788605 -626.9169144816733 0
+  translation -807.7325772872048 1337.4518133983997 0
   name "safe_16"
   size 13 13 8
   appearance PBRAppearance {
@@ -212,7 +212,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -721.5118424040635 1466.0245567693187 0
+  translation 734.5168713360313 1394.939508558824 0
   name "safe_17"
   size 13 13 8
   appearance PBRAppearance {
@@ -222,7 +222,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 80.55902175476012 1388.9524445524307 0
+  translation -701.8707878579663 179.55935224706127 0
   name "safe_18"
   size 13 13 8
   appearance PBRAppearance {
@@ -232,7 +232,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -676.7028752759984 1243.5991423424825 0
+  translation -1333.9676768617646 922.1010410585927 0
   name "safe_19"
   size 13 13 8
   appearance PBRAppearance {
@@ -242,7 +242,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -846.691246260063 -1131.7728944078565 0
+  translation 1485.7437120680383 944.1144863017562 0
   name "safe_20"
   size 13 13 8
   appearance PBRAppearance {
@@ -252,7 +252,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1376.2507228254374 -977.2084819037296 0
+  translation -34.10428634340815 156.72940306327268 0
   name "safe_21"
   size 13 13 8
   appearance PBRAppearance {
@@ -262,7 +262,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -278.31182807850996 -518.494813766425 0
+  translation -488.9135258467297 144.14342757638815 0
   name "safe_22"
   size 13 13 8
   appearance PBRAppearance {
@@ -272,7 +272,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1106.5248835576165 -1144.8541790564168 0
+  translation 623.7509195467155 -306.9474241797443 0
   name "safe_23"
   size 13 13 8
   appearance PBRAppearance {
@@ -282,7 +282,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1354.2230066196812 -261.83491913924263 0
+  translation -355.5402413671311 1178.348169714719 0
   name "safe_24"
   size 13 13 8
   appearance PBRAppearance {
@@ -292,7 +292,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -218.5828276870377 -1334.6125298548097 0
+  translation 1140.7176219090916 740.5819083902188 0
   name "threat_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -302,7 +302,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 561.0989308733406 508.0372449810329 0
+  translation -119.64252500931002 -445.07036540956415 0
   name "threat_1"
   size 13 13 8
   appearance PBRAppearance {
@@ -312,7 +312,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 494.19129448452145 -444.95549057093774 0
+  translation -850.1832398070385 -308.98775560070317 0
   name "threat_2"
   size 13 13 8
   appearance PBRAppearance {
@@ -322,7 +322,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -896.1650822824635 -394.28461583757814 0
+  translation -66.04889833224138 660.0189958012097 0
   name "threat_3"
   size 13 13 8
   appearance PBRAppearance {
@@ -332,7 +332,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1417.337012798627 538.9005861578512 0
+  translation 467.7957409184037 -1137.0216260200484 0
   name "threat_4"
   size 13 13 8
   appearance PBRAppearance {
@@ -342,7 +342,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -277.3147476903687 897.131085812613 0
+  translation 287.8106435482107 -281.1364370767865 0
   name "threat_5"
   size 13 13 8
   appearance PBRAppearance {
@@ -352,7 +352,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1313.7907331243455 -1332.409272591202 0
+  translation 47.51509145044474 -253.01170604534673 0
   name "threat_6"
   size 13 13 8
   appearance PBRAppearance {
@@ -362,7 +362,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 184.86140713719942 -470.7109895134082 0
+  translation -1203.3915897674117 -779.3755849756794 0
   name "threat_7"
   size 13 13 8
   appearance PBRAppearance {
@@ -372,7 +372,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -512.1400086213348 -1201.1180989498255 0
+  translation -720.7880606112116 1176.0373554116654 0
   name "threat_8"
   size 13 13 8
   appearance PBRAppearance {
@@ -382,7 +382,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 158.00829909170716 1313.2081193024474 0
+  translation -584.1032190960667 -3.236930041097594 0
   name "threat_9"
   size 13 13 8
   appearance PBRAppearance {
@@ -392,7 +392,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1423.92240293118 415.75663241498205 0
+  translation 435.4632042734229 13.882361447092762 0
   name "threat_10"
   size 13 13 8
   appearance PBRAppearance {
@@ -402,7 +402,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -257.0282409972667 -128.6301131852315 0
+  translation 1428.1599883535328 -1297.3834678335647 0
   name "threat_11"
   size 13 13 8
   appearance PBRAppearance {
@@ -412,7 +412,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 63.02335672375307 1488.5460094959421 0
+  translation 1006.5622842425555 -1223.673978104303 0
   name "threat_12"
   size 13 13 8
   appearance PBRAppearance {
@@ -422,7 +422,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1226.0823414488846 322.66438367602564 0
+  translation -908.8073828658898 -1210.0867830619197 0
   name "threat_13"
   size 13 13 8
   appearance PBRAppearance {
@@ -432,7 +432,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1218.2350764530092 -548.4167568886286 0
+  translation 1033.0743360588626 66.52353726482374 0
   name "threat_14"
   size 13 13 8
   appearance PBRAppearance {
@@ -442,7 +442,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -272.37648724860605 -632.8098596100865 0
+  translation -216.51141311344213 993.7418703664048 0
   name "threat_15"
   size 13 13 8
   appearance PBRAppearance {
@@ -452,7 +452,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 751.697074007337 -447.200065031735 0
+  translation -400.67023027704204 -919.3971890318979 0
   name "threat_16"
   size 13 13 8
   appearance PBRAppearance {
@@ -462,7 +462,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 32.64964015231112 1334.2066031894929 0
+  translation 316.3083830462583 729.02230100214 0
   name "threat_17"
   size 13 13 8
   appearance PBRAppearance {
@@ -472,7 +472,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 593.1977001977111 1306.8366571874612 0
+  translation -541.4679417538703 947.2532653602261 0
   name "threat_18"
   size 13 13 8
   appearance PBRAppearance {
@@ -482,7 +482,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -890.7518450525296 -55.64367428522701 0
+  translation -350.3575426333084 -41.86610165539764 0
   name "threat_19"
   size 13 13 8
   appearance PBRAppearance {
@@ -492,7 +492,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1146.2348454897397 767.1943055807033 0
+  translation 5.921280894933261 -1115.30453648649 0
   name "threat_20"
   size 13 13 8
   appearance PBRAppearance {
@@ -502,7 +502,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1366.3788011782917 677.4982837408779 0
+  translation -1307.1801870266017 126.01604147112653 0
   name "threat_21"
   size 13 13 8
   appearance PBRAppearance {
@@ -512,7 +512,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -127.85977875190474 -479.05496786979165 0
+  translation 1026.6626258301626 -1218.2571114817247 0
   name "threat_22"
   size 13 13 8
   appearance PBRAppearance {
@@ -522,7 +522,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -886.289728581408 -948.328723872484 0
+  translation 61.75108235429843 -1290.6245826532008 0
   name "threat_23"
   size 13 13 8
   appearance PBRAppearance {
@@ -532,7 +532,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -361.62935286177026 -127.36443346523674 0
+  translation -1087.565875263213 -533.1475100568105 0
   name "threat_24"
   size 13 13 8
   appearance PBRAppearance {
@@ -604,289 +604,10 @@ Mavic2Pro {
     }
   ]
 }
-Mavic2Pro {
-  translation -4.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_1"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -7.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_2"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -10.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_3"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -13.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_4"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -16.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_5"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -19.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_6"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -22.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_7"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -25.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_8"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -28.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_9"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
 Moose {
   translation 5.0 -1485.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose0"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 8.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose1"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 11.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose2"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 14.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose3"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 17.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose4"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 20.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose5"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 23.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose6"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 26.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose7"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 29.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose8"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 32.0 -1485.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose9"
   controller "<extern>"
   bodySlot [
     Compass {

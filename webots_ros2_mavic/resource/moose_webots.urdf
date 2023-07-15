@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
-<robot name="Moose Webots">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Moose Webots">
+    <xacro:property name="waypointsFile" value="$(arg waypointsFile)"/>
     <webots>
         <device reference="gps" type="GPS">
             <ros>
@@ -17,6 +18,8 @@
             <gyroName>gyro</gyroName>
         </plugin> -->
 
-        <plugin type="webots_ros2_mavic.moose_driver.MooseDriver" />
+        <plugin type="webots_ros2_mavic.moose_autonomy.MooseAutonomy">
+            <waypointsPath>${waypointsFile}</waypointsPath>
+        </plugin>
     </webots>
 </robot>

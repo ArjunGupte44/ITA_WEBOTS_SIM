@@ -86,8 +86,6 @@ class MavicAutonomy:
 
         with open(file, 'r') as file:
             contents = file.readlines()
-            #self.__node.get_logger().info(contents)
-            #self.__node.get_logger().info(self.__robot.getName())
             self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
         
         point_list = []
@@ -107,7 +105,7 @@ class MavicAutonomy:
 
 
     def __move_to_target(self):
-        self.__path_follow_callback('coords.txt')
+        self.__path_follow_callback('uavCoords.txt')
         if self.__target_position == [0, 0]:  # Initialisation
             self.__target_position = self.__waypoints[0][:2]
             self.__target_altitude = self.__waypoints[0][2]

@@ -1,0 +1,191 @@
+# Copyright 1996-2023 Cyberbotics Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""ROS2 Mavic 2 Pro driver."""
+
+from math import pow, atan2, sqrt, radians, atan
+import rclpy
+import pathlib
+import os
+import numpy as np
+from geometry_msgs.msg import Twist
+from std_msgs.msg import String
+from webots_ros2_msgs.msg import FloatStamped
+from ament_index_python.packages import get_package_share_directory
+
+
+HALF_DISTANCE_BETWEEN_WHEELS = 0.045
+WHEEL_RADIUS = 0.025
+
+def clamp(value, value_min, value_max):
+    return min(max(value, value_min), value_max)
+
+
+class MooseAutonomy:
+    def init(self, webots_node, properties):
+        self.__robot = webots_node.robot
+        self.__timestep = int(self.__robot.getBasicTimeStep())
+        self.__package_dir = get_package_share_directory('webots_ros2_mavic')
+        self.__properties = properties
+
+        # Sensors
+        self.__gps = self.__robot.getDevice('gps')
+        # self.__gyro = self.__robot.getDevice('gyro')
+        # self.__imu = self.__robot.getDevice('inertial unit')
+
+        # Motors
+        self.__motors = [
+            self.__robot.getDevice('left motor 1'),
+            self.__robot.getDevice('left motor 2'),
+            self.__robot.getDevice('left motor 3'),
+            self.__robot.getDevice('left motor 4'),
+            self.__robot.getDevice('right motor 1'),
+            self.__robot.getDevice('right motor 2'),
+            self.__robot.getDevice('right motor 3'),
+            self.__robot.getDevice('right motor 4')
+        ]
+
+        for motor in self.__motors:
+            motor.setPosition(float('inf'))
+            motor.setVelocity(0)
+
+        # State
+        self.__target_twist = Twist()
+        self.__linear_x_integral = 0
+        self.__linear_y_integral = 0
+
+        # autonomy on or off (path following)
+        self.__path_follow = True
+        self.__path_file = None
+        self.__waypoints = []
+        self.__target_position = [0, 0]
+        self.__target_index = 0
+        self.__current_pose = 4 * [0]
+        self.__target_precision = 5
+        self.__waypointsFile = self.__properties['waypointsPath']
+        self.__index = 0
+
+        # ROS interface
+        rclpy.init(args=None)
+        self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
+        #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
+        self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
+        self.__path_follow_callback('ugvCoords.txt')
+
+    def __path_follow_callback(self, fileName):
+        self.__path_follow = True
+        file = pathlib.Path(os.path.join(self.__package_dir, 'resource', fileName))
+
+        with open(file, 'r') as file:
+            contents = file.readlines()
+            self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
+        
+        point_list = []
+        line = [x.strip() for x in self.__path_file.strip().split(",")]
+        for line_el in line:
+            line_el = line_el.strip().split()
+            point_list.append([float(line_el[0]), float(line_el[1]), float(line_el[2])])
+        number_of_waypoints = len(point_list)
+        self.__waypoints = []
+        for i in range(0, number_of_waypoints):
+            self.__waypoints.append([])
+            self.__waypoints[i].append(point_list[i][0])
+            self.__waypoints[i].append(point_list[i][1])
+            self.__waypoints[i].append(point_list[i][2]) # z
+        
+        self.__node.get_logger().info(f"waypoints: {self.__waypoints}")
+        
+    def __cmd_vel_callback(self, twist):
+        self.__target_twist = twist
+
+    def __getPosition(self, floatStamped):
+        x, y, z = self.__gps.getValues()
+        self.heading = floatStamped
+        heading = round(radians(self.heading.data), 2) #in degrees
+        self.__current_pose = [x, y, z, heading]
+        #self.__node.get_logger().info(f"pos: {self.__current_pose}")
+
+
+        # Check if the turtle is close enough to the target
+        if self.euclidean_distance(self.__waypoints[self.__index]) <= self.__target_precision:
+            self.get_logger().info("\nPOI ID that was visited: " + str(self.index))
+
+            # Move to the next house
+            if self.__index < len(self.__waypoints) - 1:
+                self.__index += 1
+            else:
+                # If it's the last house, stop the robot and shut down the node
+                self.stop_robot()
+                self.get_logger().info("\nAll POIs visited!")
+
+    def euclidean_distance(self, goal_pose):
+        """Euclidean distance between current pose and the goal."""
+        return sqrt(pow((goal_pose[0] - self.__current_pose[0]), 2) +
+                    pow((goal_pose[1] - self.__current_pose[1]), 2))
+
+    def linear_vel(self, goal_pose, constant=1.5):
+        return constant * self.euclidean_distance(goal_pose)
+
+    def steering_angle(self, goal_pose):
+        self.__node.get_logger().info(f"goal: {goal_pose}   current: {self.__current_pose}")
+
+        value = (goal_pose[0] - self.__current_pose[0]) / (goal_pose[1] - self.__current_pose[1])
+        result = atan(value)
+        self.__node.get_logger().info(f"angle: {result}")
+        return result
+
+    def angular_vel(self, goal_pose, constant=6):
+        angularVel = constant * (self.steering_angle(goal_pose) - self.__current_pose[3])
+        #self.__node.get_logger().info(f"angVel: {angularVel}")
+        return angularVel
+
+    def __move_to_target(self):
+        targetPOI = self.__waypoints[self.__index]
+
+        # Linear velocity in the x-axis.
+        self.__target_twist.linear.x = self.linear_vel(targetPOI)
+        self.__target_twist.linear.y = float(0)
+        self.__target_twist.linear.z = float(0)
+        
+
+            # Angular velocity in the z-axis.
+        self.__target_twist.angular.x = float(0)
+        self.__target_twist.angular.y = float(0)
+        self.__target_twist.angular.z = self.angular_vel(targetPOI)
+        
+
+    def step(self):
+        rclpy.spin_once(self.__node, timeout_sec=0)
+        self.__move_to_target()
+
+        forward_speed = self.__target_twist.linear.x #clamp(self.__target_twist.linear.x, -10, 10)
+        angular_speed =  self.__target_twist.angular.z #clamp(self.__target_twist.angular.z, -10, 10)
+        #self.__node.get_logger().info(f"angular: {angular_speed}")
+        
+
+        command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+        command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+        #self.__node.get_logger().info(f"left: {command_motor_left}")
+        #self.__node.get_logger().info(f"right: {command_motor_right}")
+ 
+        # Apply control
+        self.__motors[0].setVelocity(command_motor_left)
+        self.__motors[1].setVelocity(command_motor_left)
+        self.__motors[2].setVelocity(command_motor_left)
+        self.__motors[3].setVelocity(command_motor_left)
+
+        self.__motors[4].setVelocity(command_motor_right)
+        self.__motors[5].setVelocity(command_motor_right)
+        self.__motors[6].setVelocity(command_motor_right)
+        self.__motors[7].setVelocity(command_motor_right)
