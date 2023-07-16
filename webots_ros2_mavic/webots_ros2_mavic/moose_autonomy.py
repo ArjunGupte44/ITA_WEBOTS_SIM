@@ -19,6 +19,7 @@ import rclpy
 import pathlib
 import os
 import numpy as np
+import time
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 from webots_ros2_msgs.msg import FloatStamped
@@ -75,6 +76,9 @@ class MooseAutonomy:
         self.__target_precision = 5
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
+        self.__startTime = 0
+        self.__justReachedPOI = False
+        self.__defaultLinearSpeed = 0.5
 
         # ROS interface
         rclpy.init(args=None)
@@ -121,6 +125,7 @@ class MooseAutonomy:
         #self.__node.get_logger().info(f"pos: {self.__current_pose}")
 
 
+    def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
         self.__node.get_logger().info(f"dist: {distance}")
@@ -138,17 +143,34 @@ class MooseAutonomy:
                     self.__target_twist.angular.z = 0.0
                     self.__target_twist.linear.x = 0.0 
 
+
     def euclidean_distance(self, goal_pose):
         """Euclidean distance between current pose and the goal."""
         return sqrt(pow((goal_pose[0] - self.__current_pose[0]), 2) +
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
-    def linear_vel(self, goal_pose, constant=1):
-        return constant * self.euclidean_distance(goal_pose)
+    def __adjustVelocities(self, linearVelocity, angularVelocity, goalPose):
+        distanceToTarget = self.euclidean_distance(goalPose)
+
+        if distanceToTarget <= 5 and self.__justReachedPOI == False:
+            self.__startTime = time.time()
+            self.__justReachedPOI = True
+            return 0.0, 0.0
+        
+        if distanceToTarget <= 5 and self.__justReachedPOI == True:
+            elapsedTime = time.time() - self.__startTime
+            if elapsedTime <= 5:
+                return 0.0, 0.0
+            else:
+                self.__updatedTargetWaypoint()
+                self.__startTime = 0.0
+                self.__justReachedPOI = False
+                return linearVelocity, angularVelocity
+        
+        else:
+            return linearVelocity, angularVelocity
 
     def steering_angle(self, goal_pose):
-        #self.__node.get_logger().info(f"goal: {goal_pose}   current: {self.__current_pose}")
-        #-5, +1485
         targetAngle = atan2(goal_pose[0] - self.__current_pose[0], goal_pose[1] - self.__current_pose[1])
 
         # This is now in ]-2pi;2pi[
@@ -159,32 +181,27 @@ class MooseAutonomy:
         if (angle_left > np.pi):
             angle_left -= 2*np.pi
 
-        #self.__node.get_logger().info(f"angle: {angle_left}")
         return angle_left
 
     def angular_vel(self, goal_pose, constant=1):
         error = -self.steering_angle(goal_pose) #negative because for ugv, turning right needs negative ang vel and turning left needs positive ang vel
         angularVel = constant * error
-
-        #self.__node.get_logger().info(f"target angle: {targetAngle}")
-        #self.__node.get_logger().info(f"current angle: {self.__current_pose[3]}")
-        
-        #self.__node.get_logger().info(f"angVel: {angularVel}")
         return angularVel
 
     def __move_to_target(self):
         targetPOI = self.__waypoints[self.__index]
+        linearVelocity, angularVelocity = self.__adjustVelocities(self.__defaultLinearSpeed, self.angular_vel(targetPOI), targetPOI)
 
         # Linear velocity in the x-axis.
-        self.__target_twist.linear.x = 0.5  #self.linear_vel(targetPOI) JUST USE fixed constant since error term is too large to set as linear velocity
+        self.__target_twist.linear.x = linearVelocity #JUST USE fixed constant since error term is too large to set as linear velocity
         self.__target_twist.linear.y = float(0)
         self.__target_twist.linear.z = float(0)
         
 
-            # Angular velocity in the z-axis.
+        # Angular velocity in the z-axis.
         self.__target_twist.angular.x = float(0)
         self.__target_twist.angular.y = float(0)
-        self.__target_twist.angular.z = self.angular_vel(targetPOI)
+        self.__target_twist.angular.z = angularVelocity
                 
 
     def step(self):
@@ -192,13 +209,13 @@ class MooseAutonomy:
         self.__move_to_target()
 
         forward_speed = self.__target_twist.linear.x #clamp(self.__target_twist.linear.x, -1, 1) 
-        self.__node.get_logger().info(f"fwd: {forward_speed}")
+        #self.__node.get_logger().info(f"fwd: {forward_speed}")
         #forward_speed = clamp(forward_speed, -1, 1)
 
         angular_speed = self.__target_twist.angular.z 
         #angular_speed = clamp(angular_speed, -1, 1)
         
-        self.__node.get_logger().info(f"angular: {angular_speed}")
+        #self.__node.get_logger().info(f"angular: {angular_speed}")
         
 
         command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
@@ -207,14 +224,6 @@ class MooseAutonomy:
         command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
         #command_motor_right = clamp(command_motor_right, -2, 2)
         
-
-        #minVal = min(command_motor_left, command_motor_right)
-        #command_motor_left /= minVal
-        #command_motor_right /= minVal
-
-        #self.__node.get_logger().info(f"left: {command_motor_left}")
-        #self.__node.get_logger().info(f"right: {command_motor_right}")
-
         # Apply control
         self.__motors[0].setVelocity(command_motor_left)
         self.__motors[1].setVelocity(command_motor_left)
