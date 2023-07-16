@@ -79,6 +79,7 @@ class MooseAutonomy:
         self.__startTime = 0
         self.__justReachedPOI = False
         self.__defaultLinearSpeed = 0.5
+        self.__visitedAllWaypoints = False
 
         # ROS interface
         rclpy.init(args=None)
@@ -139,9 +140,7 @@ class MooseAutonomy:
             else:
                 # If it's the last house, stop the robot and shut down the node
                 self.__node.get_logger().info("\nAll POIs visited!")
-                while True:
-                    self.__target_twist.angular.z = 0.0
-                    self.__target_twist.linear.x = 0.0 
+                self.__visitedAllWaypoints = True
 
 
     def euclidean_distance(self, goal_pose):
@@ -150,8 +149,10 @@ class MooseAutonomy:
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
     def __adjustVelocities(self, linearVelocity, angularVelocity, goalPose):
-        distanceToTarget = self.euclidean_distance(goalPose)
+        if self.__visitedAllWaypoints:
+            return 0.0, 0.0
 
+        distanceToTarget = self.euclidean_distance(goalPose)
         if distanceToTarget <= 5 and self.__justReachedPOI == False:
             self.__startTime = time.time()
             self.__justReachedPOI = True
