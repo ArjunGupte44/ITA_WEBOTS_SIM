@@ -42,7 +42,7 @@ Floor {
 
 
 SolidBox {
-  translation 621.0578042873221 1107.7539616171553 0
+  translation -828.0342753059958 -181.77121308571122 0
   name "safe_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -52,7 +52,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1335.855569589127 -765.6584768839252 0
+  translation -349.6960288434934 -911.9340832263838 0
   name "safe_1"
   size 13 13 8
   appearance PBRAppearance {
@@ -62,7 +62,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -100.06129574464262 837.5739140484088 0
+  translation -1433.9918566556871 1003.0072211255206 0
   name "safe_2"
   size 13 13 8
   appearance PBRAppearance {
@@ -72,7 +72,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 860.6112765956063 -1017.0217641662941 0
+  translation -78.47306405224072 106.49314697324166 0
   name "safe_3"
   size 13 13 8
   appearance PBRAppearance {
@@ -82,7 +82,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1452.6395316631474 489.2240377588912 0
+  translation 851.2104520205357 -743.5463627203845 0
   name "safe_4"
   size 13 13 8
   appearance PBRAppearance {
@@ -92,7 +92,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1397.6097778156995 -1235.946765230865 0
+  translation 351.5839945230025 997.4495381069987 0
   name "safe_5"
   size 13 13 8
   appearance PBRAppearance {
@@ -102,7 +102,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1341.3319499759214 145.9173959996408 0
+  translation 1276.8098657432042 -1318.909450199619 0
   name "safe_6"
   size 13 13 8
   appearance PBRAppearance {
@@ -112,7 +112,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -463.25355268567796 -701.420952215543 0
+  translation -716.7591351900091 -51.594715354521895 0
   name "safe_7"
   size 13 13 8
   appearance PBRAppearance {
@@ -122,7 +122,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1471.6079273238884 388.8227666715934 0
+  translation 244.90117295031587 260.509275155978 0
   name "safe_8"
   size 13 13 8
   appearance PBRAppearance {
@@ -132,7 +132,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -844.9981157355408 -425.6057343874089 0
+  translation 125.54435841428881 655.0061821196991 0
   name "safe_9"
   size 13 13 8
   appearance PBRAppearance {
@@ -142,7 +142,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 607.7835116269835 -682.5695180786348 0
+  translation -211.08143596397827 -203.13392541450935 0
   name "safe_10"
   size 13 13 8
   appearance PBRAppearance {
@@ -152,7 +152,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1387.2037989178727 1414.6424120168722 0
+  translation 56.52097277232588 862.6300617380025 0
   name "safe_11"
   size 13 13 8
   appearance PBRAppearance {
@@ -162,7 +162,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 919.5476193386744 1429.6693253256253 0
+  translation -1142.3023545798078 -194.32173399811086 0
   name "safe_12"
   size 13 13 8
   appearance PBRAppearance {
@@ -172,7 +172,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1253.5582051684178 -347.83805364208956 0
+  translation -647.2605915656616 1323.2441573440833 0
   name "safe_13"
   size 13 13 8
   appearance PBRAppearance {
@@ -182,7 +182,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1356.8137436325435 368.3853709635366 0
+  translation 1212.590011067614 -754.9804203083394 0
   name "safe_14"
   size 13 13 8
   appearance PBRAppearance {
@@ -192,7 +192,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1113.2607619573728 1205.6305053991146 0
+  translation 1178.8281417072894 -1326.0456809478512 0
   name "safe_15"
   size 13 13 8
   appearance PBRAppearance {
@@ -202,7 +202,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -807.7325772872048 1337.4518133983997 0
+  translation 1048.3953788613617 -587.6933918192578 0
   name "safe_16"
   size 13 13 8
   appearance PBRAppearance {
@@ -212,7 +212,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 734.5168713360313 1394.939508558824 0
+  translation 1260.0501899365117 -681.0879253410386 0
   name "safe_17"
   size 13 13 8
   appearance PBRAppearance {
@@ -222,7 +222,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -701.8707878579663 179.55935224706127 0
+  translation -796.0185898951598 958.4102164875876 0
   name "safe_18"
   size 13 13 8
   appearance PBRAppearance {
@@ -232,7 +232,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1333.9676768617646 922.1010410585927 0
+  translation 1059.6539437074175 1168.0295004573536 0
   name "safe_19"
   size 13 13 8
   appearance PBRAppearance {
@@ -242,7 +242,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1485.7437120680383 944.1144863017562 0
+  translation 666.3171617394883 -1234.248268659035 0
   name "safe_20"
   size 13 13 8
   appearance PBRAppearance {
@@ -252,7 +252,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -34.10428634340815 156.72940306327268 0
+  translation 225.57343803548588 -1162.6417311366488 0
   name "safe_21"
   size 13 13 8
   appearance PBRAppearance {
@@ -262,7 +262,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -488.9135258467297 144.14342757638815 0
+  translation 880.2072050535762 1492.6805869725017 0
   name "safe_22"
   size 13 13 8
   appearance PBRAppearance {
@@ -272,7 +272,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 623.7509195467155 -306.9474241797443 0
+  translation -101.66027725546269 -247.7636826149867 0
   name "safe_23"
   size 13 13 8
   appearance PBRAppearance {
@@ -282,7 +282,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -355.5402413671311 1178.348169714719 0
+  translation 558.4399971202847 963.8947909537815 0
   name "safe_24"
   size 13 13 8
   appearance PBRAppearance {
@@ -292,7 +292,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1140.7176219090916 740.5819083902188 0
+  translation -218.95236981775065 -1318.9342042706585 0
   name "threat_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -302,7 +302,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -119.64252500931002 -445.07036540956415 0
+  translation 353.25537876188855 -221.44051552664087 0
   name "threat_1"
   size 13 13 8
   appearance PBRAppearance {
@@ -312,7 +312,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -850.1832398070385 -308.98775560070317 0
+  translation -394.3527630065705 -711.1264821606235 0
   name "threat_2"
   size 13 13 8
   appearance PBRAppearance {
@@ -322,7 +322,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -66.04889833224138 660.0189958012097 0
+  translation -561.7586319002793 -556.5858255986892 0
   name "threat_3"
   size 13 13 8
   appearance PBRAppearance {
@@ -332,7 +332,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 467.7957409184037 -1137.0216260200484 0
+  translation 1393.05771248047 1046.2164733855188 0
   name "threat_4"
   size 13 13 8
   appearance PBRAppearance {
@@ -342,7 +342,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 287.8106435482107 -281.1364370767865 0
+  translation 192.77799613656043 329.8200242530122 0
   name "threat_5"
   size 13 13 8
   appearance PBRAppearance {
@@ -352,7 +352,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 47.51509145044474 -253.01170604534673 0
+  translation 1198.3467871147295 309.57973949317216 0
   name "threat_6"
   size 13 13 8
   appearance PBRAppearance {
@@ -362,7 +362,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1203.3915897674117 -779.3755849756794 0
+  translation -782.512537041183 1358.748820941456 0
   name "threat_7"
   size 13 13 8
   appearance PBRAppearance {
@@ -372,7 +372,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -720.7880606112116 1176.0373554116654 0
+  translation -471.1899612564796 1387.9793830782414 0
   name "threat_8"
   size 13 13 8
   appearance PBRAppearance {
@@ -382,7 +382,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -584.1032190960667 -3.236930041097594 0
+  translation 1378.1308481940655 748.7576111474641 0
   name "threat_9"
   size 13 13 8
   appearance PBRAppearance {
@@ -392,7 +392,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 435.4632042734229 13.882361447092762 0
+  translation -1424.9362402244712 618.9461282960301 0
   name "threat_10"
   size 13 13 8
   appearance PBRAppearance {
@@ -402,7 +402,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1428.1599883535328 -1297.3834678335647 0
+  translation 17.770179471811616 1269.1018188293656 0
   name "threat_11"
   size 13 13 8
   appearance PBRAppearance {
@@ -412,7 +412,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1006.5622842425555 -1223.673978104303 0
+  translation 1137.2010916848549 222.42222961519315 0
   name "threat_12"
   size 13 13 8
   appearance PBRAppearance {
@@ -422,7 +422,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -908.8073828658898 -1210.0867830619197 0
+  translation 567.8398237970127 1388.3806497539135 0
   name "threat_13"
   size 13 13 8
   appearance PBRAppearance {
@@ -432,7 +432,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1033.0743360588626 66.52353726482374 0
+  translation -815.1404921084634 -1052.447883344256 0
   name "threat_14"
   size 13 13 8
   appearance PBRAppearance {
@@ -442,7 +442,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -216.51141311344213 993.7418703664048 0
+  translation -97.13900960450428 -465.8751935265178 0
   name "threat_15"
   size 13 13 8
   appearance PBRAppearance {
@@ -452,7 +452,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -400.67023027704204 -919.3971890318979 0
+  translation -1069.7436627568304 526.0670637640146 0
   name "threat_16"
   size 13 13 8
   appearance PBRAppearance {
@@ -462,7 +462,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 316.3083830462583 729.02230100214 0
+  translation -972.0035697182825 -137.74133389540793 0
   name "threat_17"
   size 13 13 8
   appearance PBRAppearance {
@@ -472,7 +472,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -541.4679417538703 947.2532653602261 0
+  translation -892.9353838180185 -1377.3095116533004 0
   name "threat_18"
   size 13 13 8
   appearance PBRAppearance {
@@ -482,7 +482,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -350.3575426333084 -41.86610165539764 0
+  translation -1059.288196062858 -136.56471123392885 0
   name "threat_19"
   size 13 13 8
   appearance PBRAppearance {
@@ -492,7 +492,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 5.921280894933261 -1115.30453648649 0
+  translation -1326.10944980869 -785.6122968301873 0
   name "threat_20"
   size 13 13 8
   appearance PBRAppearance {
@@ -502,7 +502,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1307.1801870266017 126.01604147112653 0
+  translation 579.8333653727327 1176.2093484021325 0
   name "threat_21"
   size 13 13 8
   appearance PBRAppearance {
@@ -512,7 +512,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 1026.6626258301626 -1218.2571114817247 0
+  translation 1410.7885561406379 434.36437203497144 0
   name "threat_22"
   size 13 13 8
   appearance PBRAppearance {
@@ -522,7 +522,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 61.75108235429843 -1290.6245826532008 0
+  translation -1208.1541285304636 -1097.3215443116835 0
   name "threat_23"
   size 13 13 8
   appearance PBRAppearance {
@@ -532,7 +532,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -1087.565875263213 -533.1475100568105 0
+  translation -223.91258495127772 387.5596659005341 0
   name "threat_24"
   size 13 13 8
   appearance PBRAppearance {
