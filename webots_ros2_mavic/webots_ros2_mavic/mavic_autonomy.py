@@ -3,6 +3,7 @@ import rclpy
 import pathlib
 import os
 import numpy as np
+import time
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 from ament_index_python.packages import get_package_share_directory
@@ -67,6 +68,8 @@ class MavicAutonomy:
         self.__target_precision = 0.5
         self.__target_altitude = 10
         self.__waypointsFile = self.__properties['waypointsPath']
+        self.__justReachedPOI = True
+        self.__startTime = 0.0
 
         # ROS interface
         rclpy.init(args=None)
@@ -112,14 +115,22 @@ class MavicAutonomy:
 
         # if the robot is at the position with a precision of target_precision
         if all([abs(x1 - x2) < self.__target_precision for (x1, x2) in zip(self.__target_position, self.__current_pose[0:2])]):
-            self.__target_index += 1
+            if self.__justReachedPOI == True:
+                self.__startTime = time.time()
+                self.__justReachedPOI = False
+            
+            elapsedTime = time.time() - self.__startTime
+            if elapsedTime > 10:
+                self.__target_index += 1
+                self.__justReachedPOI = True
+
             if self.__target_index > len(self.__waypoints)-1:
                 self.__target_index = 0
                 self.__path_follow = False
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]
-            print(self.__robot.getName() + " Target reached! New target: ",self.__target_position)
+            self.__node.get_logger().info(f"{self.__robot.getName()} + Target reached! New target:, + {self.__target_position}")
             
         angle = np.arctan2(self.__target_position[1] - self.__current_pose[1], self.__target_position[0] - self.__current_pose[0])
         # This is now in ]-2pi;2pi[
