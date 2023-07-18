@@ -81,19 +81,19 @@ class MooseAutonomy:
         self.__defaultLinearSpeed = 0.5
         self.__visitedAllWaypoints = False
         self.__mooseNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
+        self.__launchTime = time.time()
 
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
         #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
-        
         self.__path_follow_callback('ugvCoords.txt')
 
     def __path_follow_callback(self, fileName):
         self.__path_follow = True
         #file = pathlib.Path(os.path.join(self.__package_dir, 'resource', fileName))
-        file = open("/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/ugvCoords.txt", "r")
+        file = open("/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt", "r")
         contents = file.readlines()
         self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
         
@@ -209,31 +209,36 @@ class MooseAutonomy:
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
-        self.__move_to_target()
+        elapsedTime = time.time() - self.__launchTime
 
-        forward_speed = self.__target_twist.linear.x #clamp(self.__target_twist.linear.x, -1, 1) 
-        #self.__node.get_logger().info(f"fwd: {forward_speed}")
-        #forward_speed = clamp(forward_speed, -1, 1)
+        if elapsedTime < 8 * int(self.__mooseNumber):
+            pass
+        else:
+            self.__move_to_target()
 
-        angular_speed = self.__target_twist.angular.z 
-        #angular_speed = clamp(angular_speed, -1, 1)
-        
-        #self.__node.get_logger().info(f"angular: {angular_speed}")
-        
+            forward_speed = self.__target_twist.linear.x #clamp(self.__target_twist.linear.x, -1, 1) 
+            #self.__node.get_logger().info(f"fwd: {forward_speed}")
+            #forward_speed = clamp(forward_speed, -1, 1)
 
-        command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-        #command_motor_left = clamp(command_motor_left, -2, 2)
+            angular_speed = self.__target_twist.angular.z 
+            #angular_speed = clamp(angular_speed, -1, 1)
+            
+            #self.__node.get_logger().info(f"angular: {angular_speed}")
+            
 
-        command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-        #command_motor_right = clamp(command_motor_right, -2, 2)
-        
-        # Apply control
-        self.__motors[0].setVelocity(command_motor_left)
-        self.__motors[1].setVelocity(command_motor_left)
-        self.__motors[2].setVelocity(command_motor_left)
-        self.__motors[3].setVelocity(command_motor_left)
+            command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+            #command_motor_left = clamp(command_motor_left, -2, 2)
 
-        self.__motors[4].setVelocity(command_motor_right)
-        self.__motors[5].setVelocity(command_motor_right)
-        self.__motors[6].setVelocity(command_motor_right)
-        self.__motors[7].setVelocity(command_motor_right)
+            command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+            #command_motor_right = clamp(command_motor_right, -2, 2)
+            
+            # Apply control
+            self.__motors[0].setVelocity(command_motor_left)
+            self.__motors[1].setVelocity(command_motor_left)
+            self.__motors[2].setVelocity(command_motor_left)
+            self.__motors[3].setVelocity(command_motor_left)
+
+            self.__motors[4].setVelocity(command_motor_right)
+            self.__motors[5].setVelocity(command_motor_right)
+            self.__motors[6].setVelocity(command_motor_right)
+            self.__motors[7].setVelocity(command_motor_right)
