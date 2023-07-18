@@ -43,7 +43,7 @@ class MooseAutonomy:
         # Sensors
         self.__gps = self.__robot.getDevice('gps')
         # self.__gyro = self.__robot.getDevice('gyro')
-        self.__imu = self.__robot.getDevice('inertial unit')
+        #self.__imu = self.__robot.getDevice('inertial unit')
 
         # Motors
         self.__motors = [
@@ -80,21 +80,22 @@ class MooseAutonomy:
         self.__justReachedPOI = False
         self.__defaultLinearSpeed = 0.5
         self.__visitedAllWaypoints = False
+        self.__mooseNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
 
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
         #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
+        
         self.__path_follow_callback('ugvCoords.txt')
 
     def __path_follow_callback(self, fileName):
         self.__path_follow = True
-        file = pathlib.Path(os.path.join(self.__package_dir, 'resource', fileName))
-
-        with open(file, 'r') as file:
-            contents = file.readlines()
-            self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
+        #file = pathlib.Path(os.path.join(self.__package_dir, 'resource', fileName))
+        file = open("/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/ugvCoords.txt", "r")
+        contents = file.readlines()
+        self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
         
         point_list = []
         line = [x.strip() for x in self.__path_file.strip().split(",")]
@@ -109,7 +110,7 @@ class MooseAutonomy:
             self.__waypoints[i].append(point_list[i][1])
             self.__waypoints[i].append(point_list[i][2]) # z
         
-        self.__node.get_logger().info(f"waypoints: {self.__waypoints}")
+        #self.__node.get_logger().info(f"waypoints: {self.__waypoints}")
         
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -129,17 +130,17 @@ class MooseAutonomy:
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
-        self.__node.get_logger().info(f"dist: {distance}")
+        #self.__node.get_logger().info(f"dist: {distance}")
 
         if self.euclidean_distance(self.__waypoints[self.__index]) <= self.__target_precision:
-            self.__node.get_logger().info("\nPOI ID that was visited: " + str(self.__index))
 
             # Move to the next house
             if self.__index < len(self.__waypoints) - 1:
                 self.__index += 1
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to {self.__waypoints[self.__index]}")
             else:
                 # If it's the last house, stop the robot and shut down the node
-                self.__node.get_logger().info("\nAll POIs visited!")
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!")
                 self.__visitedAllWaypoints = True
 
 
@@ -156,6 +157,7 @@ class MooseAutonomy:
         if distanceToTarget <= 5 and self.__justReachedPOI == False:
             self.__startTime = time.time()
             self.__justReachedPOI = True
+            self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
             return 0.0, 0.0
         
         if distanceToTarget <= 5 and self.__justReachedPOI == True:

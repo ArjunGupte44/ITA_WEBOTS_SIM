@@ -70,6 +70,7 @@ class MavicAutonomy:
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__justReachedPOI = True
         self.__startTime = 0.0
+        self.__mavicNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
 
         # ROS interface
         rclpy.init(args=None)
@@ -87,8 +88,9 @@ class MavicAutonomy:
         self.__path_follow = True
         file = pathlib.Path(os.path.join(self.__package_dir, 'resource',fileName))
 
-        with open(file, 'r') as file:
+        with open("/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/uavCoords.txt", 'r') as file:
             contents = file.readlines()
+            
             self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
         
         point_list = []
@@ -118,19 +120,21 @@ class MavicAutonomy:
             if self.__justReachedPOI == True:
                 self.__startTime = time.time()
                 self.__justReachedPOI = False
+                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached {self.__waypoints[self.__target_index]}")
             
             elapsedTime = time.time() - self.__startTime
             if elapsedTime > 10:
                 self.__target_index += 1
                 self.__justReachedPOI = True
+                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} heading to {self.__waypoints[self.__target_index]}")
 
             if self.__target_index > len(self.__waypoints)-1:
                 self.__target_index = 0
                 self.__path_follow = False
+                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!")
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]
-            self.__node.get_logger().info(f"{self.__robot.getName()} + Target reached! New target:, + {self.__target_position}")
             
         angle = np.arctan2(self.__target_position[1] - self.__current_pose[1], self.__target_position[0] - self.__current_pose[0])
         # This is now in ]-2pi;2pi[
