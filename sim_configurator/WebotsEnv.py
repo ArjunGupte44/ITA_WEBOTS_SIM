@@ -27,7 +27,7 @@ class WebotsEnv:
         for i in range(self.numSafe + self.numThreats):
             self.poiAttributes[i][0] = random.uniform(-1500, 1500)
             self.poiAttributes[i][1] = random.uniform(-1400, 1500) #-1400 to avoid overlapping with the robots and humans
-            self.poiAttributes[i][2] = 0
+            self.poiAttributes[i][2] = 10
 
         #Assign threat/safe
         self.poiAttributes[0:self.numSafe, 3] = 0
@@ -59,12 +59,14 @@ class WebotsEnv:
         for i in range(self.numPOIs):
             xCoord = self.poiAttributes[i][0]
             yCoord = self.poiAttributes[i][1]
+            zCoord =self.poiAttributes[i][2]
+
             if i < self.numSafe:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"safe_" + str(i) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"safe_" + str(i) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
             else:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " 0\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
         

@@ -1,0 +1,10 @@
+[0.000000] (-) TimerEvent: {}
+[0.000111] (-) JobUnselected: {'identifier': 'webots_ros2_epuck'}
+[0.001094] (-) JobUnselected: {'identifier': 'webots_ros2_multi_agent'}
+[0.001121] (-) JobUnselected: {'identifier': 'webots_ros2_turtlebot'}
+[0.001141] (webots_ros2_mavic) JobQueued: {'identifier': 'webots_ros2_mavic', 'dependencies': OrderedDict()}
+[0.001192] (webots_ros2_mavic) JobStarted: {'identifier': 'webots_ros2_mavic'}
+[0.099786] (-) TimerEvent: {}
+[0.200047] (-) TimerEvent: {}
+[0.248679] (webots_ros2_mavic) JobEnded: {'identifier': 'webots_ros2_mavic', 'rc': 0}
+[0.259194] (-) EventReactorShutdown: {}
