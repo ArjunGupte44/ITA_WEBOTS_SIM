@@ -42,7 +42,7 @@ Floor {
 
 
 SolidBox {
-  translation 1049.9422770452647 -993.2589571842599 6.0
+  translation -93.65150801142818 1461.631722569242 6.0
   name "safe_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -52,7 +52,7 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -140.7646975902876 -1342.5447635781436 6.0
+  translation 1233.403124800936 -1233.1015809039468 6.0
   name "safe_1"
   size 13 13 8
   appearance PBRAppearance {
@@ -62,38 +62,8 @@ SolidBox {
   }
 }
 SolidBox {
-  translation 947.6478015044022 918.8134479161504 6.0
-  name "safe_2"
-  size 13 13 8
-  appearance PBRAppearance {
-    baseColor 0 1 0
-    roughness 0.5
-    metalness 0
-  }
-}
-SolidBox {
-  translation -890.8790493700067 410.1110303014866 6.0
-  name "threat_0"
-  size 13 13 8
-  appearance PBRAppearance {
-    baseColor 1 0 0
-    roughness 0.5
-    metalness 0
-  }
-}
-SolidBox {
-  translation -98.95874890419964 1351.9498891739713 6.0
+  translation -618.4130403709096 112.50939510375383 6.0
   name "threat_1"
-  size 13 13 8
-  appearance PBRAppearance {
-    baseColor 1 0 0
-    roughness 0.5
-    metalness 0
-  }
-}
-SolidBox {
-  translation 1153.6916423604425 -130.5678776944169 6.0
-  name "threat_2"
   size 13 13 8
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -151,81 +121,21 @@ Pedestrian {
   rotation 0 0 1 1.5707963267948966
   name "human_9"
 }
-Mavic2Pro {
-  translation -1.0 -1490.0 0.1
+Moose {
+  translation 5.0 -1485.0 0.2
   rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_0"
+  name "moose0"
   controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
+  bodySlot [
+    Compass {
     }
-  ]
-}
-Mavic2Pro {
-  translation -4.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_1"
-  controller "<extern>"
-  cameraSlot [
     Camera {
-      width 400
-      height 240
-      near 0.2
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
     }
-  ]
-}
-Mavic2Pro {
-  translation -7.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_2"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -10.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_3"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -13.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_4"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -16.0 -1490.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_5"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
+    GPS {
     }
   ]
 }

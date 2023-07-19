@@ -82,6 +82,7 @@ class MooseAutonomy:
         self.__visitedAllWaypoints = False
         self.__mooseNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
+        self.__onTargetLine = False
 
         # ROS interface
         rclpy.init(args=None)
@@ -149,28 +150,47 @@ class MooseAutonomy:
         return sqrt(pow((goal_pose[0] - self.__current_pose[0]), 2) +
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
-    def __adjustVelocities(self, linearVelocity, angularVelocity, goalPose):
+    def linearVelocityController(self, targetPOI):
+        maxVelocity = 0.5
+        kP = 1
+        error = self.euclidean_distance(targetPOI) - self.__target_precision #make the robot stop 30 meters away from poi
+        linearVelocity = kP * error
+        linearVelocity = min(linearVelocity, 0.5)
+
+        return maxVelocity, error
+
+    def __adjustVelocities(self, targetPOI):
+        #RETRURNS: linear velocity, angular velocity
         if self.__visitedAllWaypoints:
             return 0.0, 0.0
 
-        distanceToTarget = self.euclidean_distance(goalPose)
-        if distanceToTarget <= self.__target_precision and self.__justReachedPOI == False:
-            self.__startTime = time.time()
-            self.__justReachedPOI = True
-            self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
-            return 0.0, 0.0
+        linearVelocity, linearError = self.linearVelocityController(targetPOI)
+        angularVelocity, angularError = self.angularVelocityController(targetPOI)
         
-        if distanceToTarget <= self.__target_precision and self.__justReachedPOI == True:
-            elapsedTime = time.time() - self.__startTime
-            if elapsedTime <= 5:
-                return 0.0, 0.0
-            else:
-                self.__updatedTargetWaypoint()
-                self.__startTime = 0.0
-                self.__justReachedPOI = False
-                return linearVelocity, angularVelocity
-        
+        if int(self.__mooseNumber) == 4:
+            self.__node.get_logger().info(f"x: {degrees(angularError)}")
+
+        if abs(degrees(angularError)) >= 1 and self.__onTargetLine == False:
+            return 0.0, angularVelocity
         else:
+            self.__onTargetLine = True
+            if linearError <= 1 and self.__justReachedPOI == False:
+                self.__startTime = time.time()
+                self.__justReachedPOI = True
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
+                return 0.0, 0.0
+            
+            if linearError <= 1 and self.__justReachedPOI == True:
+                elapsedTime = time.time() - self.__startTime
+                if elapsedTime <= 5:
+                    return 0.0, 0.0
+                else:
+                    self.__updatedTargetWaypoint()
+                    self.__startTime = 0.0
+                    self.__justReachedPOI = False
+                    self.__onTargetLine = False
+                    return linearVelocity, angularVelocity
+            
             return linearVelocity, angularVelocity
 
     def steering_angle(self, goal_pose):
@@ -186,14 +206,16 @@ class MooseAutonomy:
 
         return angle_left
 
-    def angular_vel(self, goal_pose, constant=1):
-        error = -self.steering_angle(goal_pose) #negative because for ugv, turning right needs negative ang vel and turning left needs positive ang vel
-        angularVel = constant * error
-        return angularVel
+    def angularVelocityController(self, targetPOI):
+        kP = 1
+        error = -self.steering_angle(targetPOI) #negative because for ugv, turning right needs negative ang vel and turning left needs positive ang vel
+        angularVel = kP * error
+
+        return angularVel, error
 
     def __move_to_target(self):
         targetPOI = self.__waypoints[self.__index]
-        linearVelocity, angularVelocity = self.__adjustVelocities(self.__defaultLinearSpeed, self.angular_vel(targetPOI), targetPOI)
+        linearVelocity, angularVelocity = self.__adjustVelocities(targetPOI)
 
         # Linear velocity in the x-axis.
         self.__target_twist.linear.x = linearVelocity #JUST USE fixed constant since error term is too large to set as linear velocity

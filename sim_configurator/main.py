@@ -73,11 +73,11 @@ def writeToFile(clustersMatrix, numUGVs, numUAVs, uavHeight):
     f.close()        
 
 
-numSafe = 3
-numThreats = 3
+numSafe = 2
+numThreats = 1
 numHumans = 10
-numUAVs = 6
-numUGVs = 0
+numUAVs = 0
+numUGVs = 1
 numRobots = numUAVs + numUGVs
 uavHeight = 19
 
