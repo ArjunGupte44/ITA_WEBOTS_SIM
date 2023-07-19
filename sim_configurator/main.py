@@ -73,13 +73,13 @@ def writeToFile(clustersMatrix, numUGVs, numUAVs, uavHeight):
     f.close()        
 
 
-numSafe = 25
-numThreats = 25
+numSafe = 3
+numThreats = 3
 numHumans = 10
 numUAVs = 6
-numUGVs = 6
+numUGVs = 0
 numRobots = numUAVs + numUGVs
-uavHeight = 18
+uavHeight = 19
 
 itapSim = WebotsEnv(numSafe, numThreats, numHumans, numUAVs, numUGVs)
 pois = itapSim.getPOIs()

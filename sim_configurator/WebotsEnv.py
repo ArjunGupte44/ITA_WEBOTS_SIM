@@ -27,7 +27,7 @@ class WebotsEnv:
         for i in range(self.numSafe + self.numThreats):
             self.poiAttributes[i][0] = random.uniform(-1500, 1500)
             self.poiAttributes[i][1] = random.uniform(-1400, 1500) #-1400 to avoid overlapping with the robots and humans
-            self.poiAttributes[i][2] = 10
+            self.poiAttributes[i][2] = 6
 
         #Assign threat/safe
         self.poiAttributes[0:self.numSafe, 3] = 0

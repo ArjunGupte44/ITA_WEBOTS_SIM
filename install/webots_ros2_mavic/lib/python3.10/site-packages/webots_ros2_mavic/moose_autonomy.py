@@ -73,7 +73,7 @@ class MooseAutonomy:
         self.__target_position = [0, 0]
         self.__target_index = 0
         self.__current_pose = 5 * [0]
-        self.__target_precision = 5
+        self.__target_precision = 30
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
         self.__startTime = 0
@@ -154,13 +154,13 @@ class MooseAutonomy:
             return 0.0, 0.0
 
         distanceToTarget = self.euclidean_distance(goalPose)
-        if distanceToTarget <= 5 and self.__justReachedPOI == False:
+        if distanceToTarget <= self.__target_precision and self.__justReachedPOI == False:
             self.__startTime = time.time()
             self.__justReachedPOI = True
             self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
             return 0.0, 0.0
         
-        if distanceToTarget <= 5 and self.__justReachedPOI == True:
+        if distanceToTarget <= self.__target_precision and self.__justReachedPOI == True:
             elapsedTime = time.time() - self.__startTime
             if elapsedTime <= 5:
                 return 0.0, 0.0

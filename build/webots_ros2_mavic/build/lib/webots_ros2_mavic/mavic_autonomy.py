@@ -20,8 +20,8 @@ K_Y_VELOCITY_P = 1
 K_X_VELOCITY_I = 0.01
 K_Y_VELOCITY_I = 0.01
 LIFT_HEIGHT = 1
-MAX_YAW_DISTURBANCE = 1
-MAX_PITCH_DISTURBANCE = -1
+MAX_YAW_DISTURBANCE = 2
+MAX_PITCH_DISTURBANCE = -2
 
 
 def clamp(value, value_min, value_max):
@@ -71,6 +71,7 @@ class MavicAutonomy:
         self.__justReachedPOI = True
         self.__startTime = 0.0
         self.__mavicNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
+        self.__launchTime = time.time()
 
         # ROS interface
         rclpy.init(args=None)
@@ -126,12 +127,12 @@ class MavicAutonomy:
             if elapsedTime > 10:
                 self.__target_index += 1
                 self.__justReachedPOI = True
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} heading to {self.__waypoints[self.__target_index]}")
-
-            if self.__target_index > len(self.__waypoints)-1:
-                self.__target_index = 0
-                self.__path_follow = False
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!")
+                if self.__target_index > len(self.__waypoints)-1:
+                    self.__target_index -= 1
+                    self.__path_follow = False
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!")
+                else:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} heading to {self.__waypoints[self.__target_index]}")
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]
@@ -153,64 +154,68 @@ class MavicAutonomy:
         
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
+        elapsedTime = time.time() - self.__launchTime
 
-        roll_ref = 0
-        pitch_ref = 0
-
-        # Read sensors
-        roll, pitch, yaw = self.__imu.getRollPitchYaw()
-        x, y, vertical = self.__gps.getValues()
-        roll_velocity, pitch_velocity, twist_yaw = self.__gyro.getValues()
-        velocity = self.__gps.getSpeed()
-        self.__set_position([x, y, vertical, roll, pitch, yaw])
-
-        if math.isnan(velocity):
-            return
-
-        if not self.__path_follow:
-            # Allow high level control once the drone is lifted
-            if vertical > 0.2:
-                # Calculate velocity
-                velocity_x = (pitch / (abs(roll) + abs(pitch))) * velocity
-                velocity_y = - (roll / (abs(roll) + abs(pitch))) * velocity
-
-                # High level controller (linear velocity)
-                linear_y_error = self.__target_twist.linear.y - velocity_y
-                linear_x_error = self.__target_twist.linear.x - velocity_x
-                self.__linear_x_integral += linear_x_error
-                self.__linear_y_integral += linear_y_error
-                roll_ref = K_Y_VELOCITY_P * linear_y_error + K_Y_VELOCITY_I * self.__linear_y_integral
-                pitch_ref = - K_X_VELOCITY_P * linear_x_error - K_X_VELOCITY_I * self.__linear_x_integral
-                self.__vertical_ref = clamp(
-                    self.__vertical_ref + self.__target_twist.linear.z * (self.__timestep / 1000),
-                    max(vertical - 0.5, LIFT_HEIGHT),
-                    vertical + 0.5
-                )
-            vertical_input = K_VERTICAL_P * (self.__vertical_ref - vertical)
-
-            # Low level controller (roll, pitch, yaw)
-            yaw_ref = self.__target_twist.angular.z
-            yaw_input = K_YAW_P * (yaw_ref - twist_yaw)
-
-        # follow waypoints
+        if elapsedTime < 5 * int(self.__mavicNumber):
+            pass
         else:
-            yaw_disturbance, pitch_ref, target_altitude = self.__move_to_target()
-            yaw_input = yaw_disturbance
-            clamped_difference_altitude = clamp(target_altitude - (vertical) + K_VERTICAL_OFFSET, -1, 1)
-            vertical_input = K_VERTICAL_P * pow(clamped_difference_altitude, 3.0)
+            roll_ref = 0
+            pitch_ref = 0
+
+            # Read sensors
+            roll, pitch, yaw = self.__imu.getRollPitchYaw()
+            x, y, vertical = self.__gps.getValues()
+            roll_velocity, pitch_velocity, twist_yaw = self.__gyro.getValues()
+            velocity = self.__gps.getSpeed()
+            self.__set_position([x, y, vertical, roll, pitch, yaw])
+
+            if math.isnan(velocity):
+                return
+
+            if not self.__path_follow:
+                # Allow high level control once the drone is lifted
+                if vertical > 0.2:
+                    # Calculate velocity
+                    velocity_x = (pitch / (abs(roll) + abs(pitch))) * velocity
+                    velocity_y = - (roll / (abs(roll) + abs(pitch))) * velocity
+
+                    # High level controller (linear velocity)
+                    linear_y_error = self.__target_twist.linear.y - velocity_y
+                    linear_x_error = self.__target_twist.linear.x - velocity_x
+                    self.__linear_x_integral += linear_x_error
+                    self.__linear_y_integral += linear_y_error
+                    roll_ref = K_Y_VELOCITY_P * linear_y_error + K_Y_VELOCITY_I * self.__linear_y_integral
+                    pitch_ref = - K_X_VELOCITY_P * linear_x_error - K_X_VELOCITY_I * self.__linear_x_integral
+                    self.__vertical_ref = clamp(
+                        self.__vertical_ref + self.__target_twist.linear.z * (self.__timestep / 1000),
+                        max(vertical - 0.5, LIFT_HEIGHT),
+                        vertical + 0.5
+                    )
+                vertical_input = K_VERTICAL_P * (self.__vertical_ref - vertical)
+
+                # Low level controller (roll, pitch, yaw)
+                yaw_ref = self.__target_twist.angular.z
+                yaw_input = K_YAW_P * (yaw_ref - twist_yaw)
+
+            # follow waypoints
+            else:
+                yaw_disturbance, pitch_ref, target_altitude = self.__move_to_target()
+                yaw_input = yaw_disturbance
+                clamped_difference_altitude = clamp(target_altitude - (vertical) + K_VERTICAL_OFFSET, -1, 1)
+                vertical_input = K_VERTICAL_P * pow(clamped_difference_altitude, 3.0)
 
 
-        roll_input = K_ROLL_P * clamp(roll, -1, 1) + roll_velocity + roll_ref
-        pitch_input = K_PITCH_P * clamp(pitch, -1, 1) + pitch_velocity + pitch_ref
-        
+            roll_input = K_ROLL_P * clamp(roll, -1, 1) + roll_velocity + roll_ref
+            pitch_input = K_PITCH_P * clamp(pitch, -1, 1) + pitch_velocity + pitch_ref
+            
 
-        m1 = K_VERTICAL_THRUST + vertical_input + yaw_input + pitch_input + roll_input
-        m2 = K_VERTICAL_THRUST + vertical_input - yaw_input + pitch_input - roll_input
-        m3 = K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input
-        m4 = K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input
+            m1 = K_VERTICAL_THRUST + vertical_input + yaw_input + pitch_input + roll_input
+            m2 = K_VERTICAL_THRUST + vertical_input - yaw_input + pitch_input - roll_input
+            m3 = K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input
+            m4 = K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input
 
-        # Apply control
-        self.__propellers[0].setVelocity(-m1)
-        self.__propellers[1].setVelocity(m2)
-        self.__propellers[2].setVelocity(m3)
-        self.__propellers[3].setVelocity(-m4)
+            # Apply control
+            self.__propellers[0].setVelocity(-m1)
+            self.__propellers[1].setVelocity(m2)
+            self.__propellers[2].setVelocity(m3)
+            self.__propellers[3].setVelocity(-m4)

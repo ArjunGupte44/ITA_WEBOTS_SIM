@@ -55,7 +55,7 @@ def get_ros2_nodes(*args):
 
     #Get num robot info from object of class
     numUAVs = 6 #itapSim.getNumUAVs()
-    numUGVs = 6 #itapSim.getNumUGVs()
+    numUGVs = 0 #itapSim.getNumUGVs()
     numHumans = 10
 
     #Get POIs assigned to UAVs
