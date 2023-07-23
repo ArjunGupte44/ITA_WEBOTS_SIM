@@ -1,3 +1,4 @@
+import sys
 import math
 import rclpy
 import pathlib
@@ -7,6 +8,8 @@ import time
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 from ament_index_python.packages import get_package_share_directory
+
+from robot_interfaces.msg import DiverseArray
 
 
 K_VERTICAL_THRUST = 68.5    # with this thrust, the drone lifts.
@@ -30,6 +33,7 @@ def clamp(value, value_min, value_max):
 
 class MavicAutonomy:
     def init(self, webots_node, properties):
+        self.__systemStartTime = time.time()
         self.__robot = webots_node.robot
         self.__timestep = int(self.__robot.getBasicTimeStep())
         self.__package_dir = get_package_share_directory('webots_ros2_mavic')
@@ -73,11 +77,23 @@ class MavicAutonomy:
         self.__mavicNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
 
+        #Poi visit info
+        #self.__visitInfo = DiverseArray()
+
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node(self.__robot.getName() + '_autonomy')
         self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(String, self.__robot.getName() + '/path_file', self.__path_follow_callback, 1)
+        self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
+
+    
+    def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
+        visitInfo = DiverseArray()
+        visitInfo.robot_name = self.__robot.getName()
+        visitInfo.poi_coords = poiCoords
+        visitInfo.arrival_time = timeToVisitPOI
+        self.__poiPublisher.publish(visitInfo)
 
     def __set_position(self, pos):    
         self.__current_pose = pos
@@ -119,9 +135,12 @@ class MavicAutonomy:
         # if the robot is at the position with a precision of target_precision
         if all([abs(x1 - x2) < self.__target_precision for (x1, x2) in zip(self.__target_position, self.__current_pose[0:2])]):
             if self.__justReachedPOI == True:
+                timeToVisitPOI = time.time() - self.__systemStartTime
                 self.__startTime = time.time()
                 self.__justReachedPOI = False
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached {self.__waypoints[self.__target_index]}")
+                poiCoords = self.__waypoints[self.__target_index]
+                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached {poiCoords}")
+                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
             
             elapsedTime = time.time() - self.__startTime
             if elapsedTime > 10:

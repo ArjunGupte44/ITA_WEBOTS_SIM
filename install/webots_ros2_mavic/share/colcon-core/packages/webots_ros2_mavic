@@ -1,1 +1,1 @@
-builtin_interfaces:rclpy:webots_ros2_driver
+builtin_interfaces:rclpy:robot_interfaces:sim_configurator:webots_ros2_driver

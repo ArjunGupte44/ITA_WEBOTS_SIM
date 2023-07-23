@@ -33,9 +33,10 @@ from webots_ros2_driver.utils import controller_url_prefix
 import xacro
 import random
 
-#from sim_configurator.main import itapSim
+
 import sys
 sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/sim_configurator')
+from sim_configurator.main import itapSim
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -54,9 +55,9 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 0 #itapSim.getNumUAVs()
-    numUGVs = 1 #itapSim.getNumUGVs()
-    numHumans = 10
+    numUAVs = 1 #itapSim.getNumUAVs()
+    numUGVs = 0 #itapSim.getNumUGVs()
+    numHumans = 1
 
     #Get POIs assigned to UAVs
     uavWaypoints = 'uavCoords.txt'
@@ -104,130 +105,13 @@ def get_ros2_nodes(*args):
             ]
         )
         launchList.append(mooseDriver)
-
-    """
-    #Launch all UGVs
-    controller_manager_timeout = ['--controller-manager-timeout', '200']
-    controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
-    ros_control_spawners = []
-
-    for i in range(numUGVs):
-        ugvManager = Node(
-            package='webots_ros2_mavic',
-            executable='UGVManager.py',
-            output='screen',
-            arguments=['-name', 'turtle_' + str(i) + '_Manager', '-assignedPOIs', '0'] #replace 0 with uavPOIs[i]
-        )
-        launchList.append(ugvManager)
-
-        diffdrive_controller_spawner = Node(
-            package='controller_manager',
-            executable='spawner',
-            output='screen',
-            prefix=controller_manager_prefix,
-            arguments=['diffdrive_controller'] + controller_manager_timeout + ['--name', 'turtle_' + str(i)],
-            #parameters=[{'name': 'turtle_' + str(i)}],
-            #namespace='turtle_' + str(i)
-        )
-        launchList.append(diffdrive_controller_spawner)
-        #ros_control_spawners.append(diffdrive_controller_spawner)
-
-        joint_state_broadcaster_spawner = Node(
-            package='controller_manager',
-            executable='spawner',
-            output='screen',
-            prefix=controller_manager_prefix,
-            arguments=['joint_state_broadcaster'] + controller_manager_timeout + ['--name', 'turtle_' + str(i)],
-            #parameters=[{'name': 'turtle_' + str(i)}],
-            #namespace='turtle_' + str(i)
-        )
-        launchList.append(joint_state_broadcaster_spawner)
-        #ros_control_spawners.append(joint_state_broadcaster_spawner)
-
-        mappings = [('/diffdrive_controller/cmd_vel_unstamped', 'turtle_' + str(i) + '/cmd_vel')]
-        if 'ROS_DISTRO' in os.environ and os.environ['ROS_DISTRO'] in ['humble', 'rolling']:
-            mappings.append(('/diffdrive_controller/odom', 'turtle_' + str(i) + '/odom'))
-
-        turtlebot_driver = Node(
-            package='webots_ros2_driver',
-            executable='driver',
-            output='screen',
-            additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'TurtleBot3Burger_' + str(i)},
-            parameters=[
-                {'robot_description': robot_description_turtle,
-                'use_sim_time': use_sim_time,
-                'set_robot_state_publisher': True,
-                #'name': 'turtle_' + str(i)},
-                },
-                ros2_control_params
-            ],
-            remappings=mappings,
-            #namespace='turtle_' + str(i)
-        )
-        launchList.append(turtlebot_driver)
-
-        robot_state_publisher = Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            output='screen',
-            parameters=[{
-                'robot_description': '<robot name=""><link name=""/></robot>',
-                'name': 'turtle_' + str(i)
-            }],
-            namespace="turtle_" + str(i)
-        )
-        launchList.append(robot_state_publisher)
-
-        footprint_publisher = Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            output='screen',
-            arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
-            parameters=[{'name': 'turtle_' + str(i)}],
-            namespace="turtle_" + str(i)
-        )
-        launchList.append(footprint_publisher)
-
-        # Navigation
-        navigation_nodes = []
-        os.environ['TURTLEBOT3_MODEL'] = 'burger'
-        if 'turtlebot3_navigation2' in get_packages_with_prefixes():
-            turtlebot_navigation = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(os.path.join(
-                    get_package_share_directory('turtlebot3_navigation2'), 'launch', 'navigation2.launch.py')),
-                launch_arguments=[
-                    ('map', nav2_map),
-                    ('params_file', nav2_params),
-                    ('use_sim_time', use_sim_time),
-                ],
-                condition=launch.conditions.IfCondition(use_nav))
-            navigation_nodes.append(turtlebot_navigation)
-
-        # SLAM
-        if 'turtlebot3_cartographer' in get_packages_with_prefixes():
-            turtlebot_slam = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(os.path.join(
-                    get_package_share_directory('turtlebot3_cartographer'), 'launch', 'cartographer.launch.py')),
-                launch_arguments=[
-                    ('use_sim_time', use_sim_time),
-                ],
-                condition=launch.conditions.IfCondition(use_slam))
-            navigation_nodes.append(turtlebot_slam)
-
-        # Wait for the simulation to be ready to start navigation nodes
-        waiting_nodes = WaitForControllerConnection(
-            target_driver=turtlebot_driver,
-            nodes_to_start=ros_control_spawners
-        )
-        launchList.append(waiting_nodes)
-        """
     
     for i in range(numHumans):
         humanManager = Node(
             package='webots_ros2_mavic',
-            executable='HumanManager.py',
+            executable='OperatorHub.py',
             output='screen',
-            arguments=['-name', 'human_' + str(i), '-assignedPOIs', '0', '-humanAttributes', '0', '-poiAttributes', '0'] #replace 0 with humanPOIs[i], humanAttributes[i], poiAttributes[i]
+            arguments=['-humanAttributes', '0', '-poiAttributes', '0'] #replace 0 with humanAttributes[i], poiAttributes[i]
         )
         launchList.append(humanManager)
 

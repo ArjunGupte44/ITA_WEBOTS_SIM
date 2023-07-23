@@ -42,8 +42,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'launch.frontend.launch_extension': ['launch_ros = launch_ros'],
-        'console_scripts': ['UAVManager = webots_ros2_mavic.UAVManager:main',
-                            'UGVManager = webots_ros2_mavic.UGVManager:main',
-                            'HumanManager = webots_ros2_mavic.HumanManager:main'],
+        'console_scripts': ['OperatorHub = webots_ros2_mavic.OperatorHub:main'],
     }
 )

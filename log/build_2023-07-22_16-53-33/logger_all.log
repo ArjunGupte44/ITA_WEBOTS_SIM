@@ -1,0 +1,216 @@
+[0.304s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'robot_interfaces']
+[0.304s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['robot_interfaces'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7fc646fe7c70>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fc646d459c0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fc646d459c0>>)
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.325s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.325s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/arjun/SMART-LAB-ITAP-WEBOTS'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extension 'ignore_ament_install'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extension 'colcon_meta'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extensions ['ros']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(robot_interfaces) by extension 'ros'
+[0.339s] DEBUG:colcon.colcon_core.package_identification:Package 'robot_interfaces' with type 'ros.ament_cmake' and name 'robot_interfaces'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['ignore', 'ignore_ament_install']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'ignore'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'ignore_ament_install'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['colcon_pkg']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'colcon_pkg'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['colcon_meta']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'colcon_meta'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['ros']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'ros'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['cmake', 'python']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'cmake'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'python'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extensions ['python_setup_py']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator) by extension 'python_setup_py'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'ignore'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'ignore_ament_install'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['colcon_pkg']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'colcon_pkg'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['colcon_meta']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'colcon_meta'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['ros']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'ros'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['cmake', 'python']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'cmake'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'python'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extensions ['python_setup_py']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/__pycache__) by extension 'python_setup_py'
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/build) by extensions ['ignore', 'ignore_ament_install']
+[0.340s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/build) by extension 'ignore'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/build) ignored
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/install) by extensions ['ignore', 'ignore_ament_install']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/install) by extension 'ignore'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/install) ignored
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/log) by extensions ['ignore', 'ignore_ament_install']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/log) by extension 'ignore'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(sim_configurator/log) ignored
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extensions ['ignore', 'ignore_ament_install']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extension 'ignore'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extension 'ignore_ament_install'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extensions ['colcon_pkg']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extension 'colcon_pkg'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extensions ['colcon_meta']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extension 'colcon_meta'
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extensions ['ros']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_mavic) by extension 'ros'
+[0.342s] DEBUG:colcon.colcon_core.package_identification:Package 'webots_ros2_mavic' with type 'ros.ament_python' and name 'webots_ros2_mavic'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extensions ['ignore', 'ignore_ament_install']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extension 'ignore'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extension 'ignore_ament_install'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extensions ['colcon_pkg']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extension 'colcon_pkg'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extensions ['colcon_meta']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extension 'colcon_meta'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extensions ['ros']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_multi_agent-master) by extension 'ros'
+[0.343s] DEBUG:colcon.colcon_core.package_identification:Package 'webots_ros2_multi_agent-master' with type 'ros.ament_python' and name 'webots_ros2_multi_agent'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extensions ['ignore', 'ignore_ament_install']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extension 'ignore'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extension 'ignore_ament_install'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extensions ['colcon_pkg']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extension 'colcon_pkg'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extensions ['colcon_meta']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extension 'colcon_meta'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extensions ['ros']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(webots_ros2_turtlebot) by extension 'ros'
+[0.344s] DEBUG:colcon.colcon_core.package_identification:Package 'webots_ros2_turtlebot' with type 'ros.ament_python' and name 'webots_ros2_turtlebot'
+[0.344s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.344s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.344s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.344s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.344s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.363s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'webots_ros2_multi_agent' in 'webots_ros2_multi_agent-master'
+[0.363s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'webots_ros2_turtlebot' in 'webots_ros2_turtlebot'
+[0.363s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'webots_ros2_mavic' in 'webots_ros2_mavic'
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.366s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 5 installed packages in /home/arjun/SMART-LAB-ITAP-WEBOTS/install
+[0.368s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 320 installed packages in /opt/ros/humble
+[0.370s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.430s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'robot_interfaces' is in: /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding robot_interfaces
+
+This may be promoted to an error in a future release of colcon-override-check.
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.432s] Level 5:colcon.colcon_core.verb:set package 'robot_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.432s] DEBUG:colcon.colcon_core.verb:Building package 'robot_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces', 'merge_install': False, 'path': '/home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.432s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.435s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.435s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces' with build type 'ament_cmake'
+[0.435s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces'
+[0.439s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.439s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.439s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.447s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake /home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces -DCMAKE_INSTALL_PREFIX=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces
+[1.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake /home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces -DCMAKE_INSTALL_PREFIX=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces
+[1.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake --build /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces -- -j12 -l12
+[4.962s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake --build /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces -- -j12 -l12
+[5.025s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake --install /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces
+[5.145s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(robot_interfaces)
+[5.146s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces' returned '0': CMAKE_PREFIX_PATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_turtlebot:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_multi_agent:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_epuck:/opt/ros/humble /usr/bin/cmake --install /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces
+[5.151s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces' for CMake module files
+[5.151s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces' for CMake config files
+[5.151s] Level 1:colcon.colcon_core.shell:create_environment_hook('robot_interfaces', 'cmake_prefix_path')
+[5.153s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.ps1'
+[5.153s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.dsv'
+[5.153s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.sh'
+[5.154s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib'
+[5.154s] Level 1:colcon.colcon_core.shell:create_environment_hook('robot_interfaces', 'ld_library_path_lib')
+[5.156s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.ps1'
+[5.156s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.dsv'
+[5.156s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.sh'
+[5.156s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/bin'
+[5.156s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/pkgconfig/robot_interfaces.pc'
+[5.157s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages'
+[5.157s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/bin'
+[5.158s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.ps1'
+[5.159s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.dsv'
+[5.159s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.sh'
+[5.160s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.bash'
+[5.160s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.zsh'
+[5.161s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/colcon-core/packages/robot_interfaces)
+[5.217s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(robot_interfaces)
+[5.219s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces' for CMake module files
+[5.220s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces' for CMake config files
+[5.220s] Level 1:colcon.colcon_core.shell:create_environment_hook('robot_interfaces', 'cmake_prefix_path')
+[5.221s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.ps1'
+[5.221s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.dsv'
+[5.222s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/cmake_prefix_path.sh'
+[5.222s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib'
+[5.222s] Level 1:colcon.colcon_core.shell:create_environment_hook('robot_interfaces', 'ld_library_path_lib')
+[5.223s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.ps1'
+[5.224s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.dsv'
+[5.224s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/hook/ld_library_path_lib.sh'
+[5.224s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/bin'
+[5.224s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/pkgconfig/robot_interfaces.pc'
+[5.225s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages'
+[5.225s] Level 1:colcon.colcon_core.environment:checking '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/bin'
+[5.226s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.ps1'
+[5.227s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.dsv'
+[5.227s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.sh'
+[5.228s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.bash'
+[5.228s] INFO:colcon.colcon_core.shell:Creating package script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces/package.zsh'
+[5.228s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/colcon-core/packages/robot_interfaces)
+[5.229s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[5.229s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[5.229s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[5.229s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[5.234s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[5.234s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[5.234s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[5.246s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[5.247s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/local_setup.ps1'
+[5.248s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/_local_setup_util_ps1.py'
+[5.250s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/setup.ps1'
+[5.251s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/local_setup.sh'
+[5.252s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/_local_setup_util_sh.py'
+[5.252s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/setup.sh'
+[5.254s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/local_setup.bash'
+[5.255s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/setup.bash'
+[5.256s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/local_setup.zsh'
+[5.257s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/setup.zsh'

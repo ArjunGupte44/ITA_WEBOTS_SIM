@@ -1,0 +1,33 @@
+[0.580s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/robot_interfaces build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/install.log --single-version-externally-managed
+[0.805s] running egg_info
+[0.805s] creating ../build/robot_interfaces/robot_interfaces.egg-info
+[0.805s] writing ../build/robot_interfaces/robot_interfaces.egg-info/PKG-INFO
+[0.805s] writing dependency_links to ../build/robot_interfaces/robot_interfaces.egg-info/dependency_links.txt
+[0.806s] writing entry points to ../build/robot_interfaces/robot_interfaces.egg-info/entry_points.txt
+[0.806s] writing requirements to ../build/robot_interfaces/robot_interfaces.egg-info/requires.txt
+[0.806s] writing top-level names to ../build/robot_interfaces/robot_interfaces.egg-info/top_level.txt
+[0.806s] writing manifest file '../build/robot_interfaces/robot_interfaces.egg-info/SOURCES.txt'
+[0.807s] reading manifest file '../build/robot_interfaces/robot_interfaces.egg-info/SOURCES.txt'
+[0.808s] writing manifest file '../build/robot_interfaces/robot_interfaces.egg-info/SOURCES.txt'
+[0.808s] running build
+[0.808s] running build_py
+[0.808s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build
+[0.808s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build/lib
+[0.809s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build/lib/robot_interfaces
+[0.809s] copying robot_interfaces/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build/lib/robot_interfaces
+[0.809s] running install
+[0.809s] running install_lib
+[0.809s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages/robot_interfaces
+[0.809s] copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build/lib/robot_interfaces/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages/robot_interfaces
+[0.810s] byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages/robot_interfaces/__init__.py to __init__.cpython-310.pyc
+[0.810s] running install_data
+[0.810s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/ament_index
+[0.810s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/ament_index/resource_index
+[0.810s] creating /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/ament_index/resource_index/packages
+[0.811s] copying resource/robot_interfaces -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/ament_index/resource_index/packages
+[0.811s] copying package.xml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/share/robot_interfaces
+[0.811s] running install_egg_info
+[0.812s] Copying ../build/robot_interfaces/robot_interfaces.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages/robot_interfaces-0.0.0-py3.10.egg-info
+[0.813s] running install_scripts
+[0.829s] writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/install.log'
+[0.849s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/robot_interfaces' returned '0': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/robot_interfaces/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/robot_interfaces build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/install.log --single-version-externally-managed
