@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from example_interfaces.msg import String
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Int32MultiArray
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 from gazebo_msgs.msg import ModelStates
@@ -16,6 +16,10 @@ import random
 
 from robot_interfaces.msg import DiverseArray
 
+FIVE_MINS_IN_SECONDS = 300
+ONE_HOUR_IN_SECONDS = 3600
+EIGHT_HOURS_IN_SECONDS = 28800
+
 class OperatorHub(Node):
     def __init__(self, humanAttributes, poiAttributes, humanPoiAssignments):
         super().__init__("OperatorHub")
@@ -23,17 +27,26 @@ class OperatorHub(Node):
         self.poiAttributes = poiAttributes
         self.humanPoiAssignments = humanPoiAssignments
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
+        self.pubisher = self.create_publisher()
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
-        self.initializeOperatorMetrics()
-    
-    def initializeOperatorMetrics(self):
-        for i in range(len(self.humanAttributes)):
-            self.operatorMetrics.append([])
-            for param in range(self.numParams):
-                self.operatorMetrics[i].append([])
+        self.numPois = len(self.poiAttributes)
+        self.poiVisitTimes = np.zeros((self.numPois, 1))
+        self.currentTimes = []
+        self.pictureTakingTime = 3 #seconds
+        self.poisVisited = 0
+
+        self.initializeNestedLists(self.operatorMetrics, len(self.humanAttributes), self.numParams)
+        self.initializeCurrentTimes(self.currentTimes, len(self.humanAttributes), 0)
+
+    def initializeOperatorMetrics(self, array, outerParam, innerParam):
+        for i in range(outerParam):
+            array.append([])
+            for param in range(innerParam):
+                array[i].append([])
 
     def subCallback(self, msg):
+        self.poisVisited += 1
         robotName = msg.robot_name
         visitedPoiCoords = [msg.poi_x, msg.poi_y, msg.poi_z]
         arrivalTime = msg.arrival_time
@@ -54,6 +67,7 @@ class OperatorHub(Node):
         for i in range(len(self.poiAttributes)):
             if self.poiAttributes[i][0] == visitedPoiCoords[0]:
                 poiDifficulty = self.poiAttributes[i][4]
+                self.poiVisitTimes[i][0] = arrivalTime #add arrival time to poi to poi visit times column vector
                 break
         
         if poiDifficulty == 2:
@@ -72,14 +86,35 @@ class OperatorHub(Node):
             tBarCumulative += val
 
         #Calculate value of Ff - this param is a cumulative value so look through previous values in tBar list for a given operator
-        if tBarCumulative >= 0 and tBarCumulative < 3600: #between 0 and 1 hour in seconds
+        if tBarCumulative >= 0 and tBarCumulative < ONE_HOUR_IN_SECONDS: #between 0 and 1 hour in seconds
             Ff = 1
-        elif tBarCumulative >= 3600 and tBarCumulative <= 28800: #between 1 and 8 hours in seconds
+        elif tBarCumulative >= ONE_HOUR_IN_SECONDS and tBarCumulative <= EIGHT_HOURS_IN_SECONDS: #between 1 and 8 hours in seconds
             Ff = -0.12 * tBarCumulative + 1.12
         self.operatorMetrics[assignedOperator][2].append(Ff)
 
         #Calculate value of Fw - this param is a cumulative value so look through previous values in tBar list for a given operator
-        Fw = 0
+        if len(self.operatorMetrics[assignedOperator][0]) == 0 or arrivalTime >= self.currentTimes[assignedOperator][-1]:
+            currentTime = arrivalTime + self.pictureTakingTime + tBar
+        else:
+            currentTime = self.currentTimes[assignedOperator][-1] + tBar
+        self.currentTimes[assignedOperator].append(currentTime)
+
+        fiveMinCutoff = max(0, currentTime - FIVE_MINS_IN_SECONDS) #if more than 5 mins have passed by, all good ; if not then cutoff is simply t = 0s
+        workingTime = 0 #seconds
+        for i, time in reversed(enumerate(self.currentTimes[assignedOperator])):
+            if time > fiveMinCutoff:
+                workingTime += self.operatorMetrics[assignedOperator][0][i] #append the values of tBar for the current operator while traversing in reverse
+            else:
+                break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
+        
+        #Apply formula to calculate Fw and get result
+        utilization = workingTime / FIVE_MINS_IN_SECONDS
+        if utilization >= 0 and utilization < 0.45:
+            Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
+        elif utilization >= 0.45 and utilization < 0.65:
+            Fw = 1
+        elif utilization >= 0.65 and utilization <= 1:
+            Fw = -4.08 * m.pow(utilization, 2) + 5.31 * utilization - 0.724
         self.operatorMetrics[assignedOperator][3].append(Fw)
 
         #Calculate probability of operator predicting a given poi correctly
@@ -87,42 +122,26 @@ class OperatorHub(Node):
         self.operatorMetrics[assignedOperator][4].append(predictionProbability)
 
         #Use flip function to convert probability into correct/wrong prediction
-        binaryResult = 1 if random.uniform(0, 1) <= predictionProbability else -1
+        binaryResult = (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else (poiDifficulty * -10)
         self.operatorMetrics[assignedOperator][5].append(binaryResult)
-        self.get_logger().info(f"result: {binaryResult}")
 
+        if self.poisVisited == len(self.poiAttributes):
+            self.getSimScore()
 
+    
+    def getSimScore(self):
+        operatorNetScores = np.zeros((1, len(self.humanAttributes))) 
+        for i, metrics in enumerate(self.operatorMetrics):
+            netScore = 0
+            for score in metrics[5]:
+                netScore += score
+            operatorNetScores[0][i] = netScore
 
-
-        #Add math code to update running score as a new poi image was captured by robot and sent to human to analyze
+        finalSimScore = np.mean(operatorNetScores)
+        self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
         
-        #while self.counter < len(self.assignedPOIs)
-            #fatigueFactor = ... Ff
-            #workloadFactor = ... Fw
-            #taskFactor = ... Fs
 
-            #predictionProbability = 0.5 + (fatigueFactor * workloadFactor * taskFactor * self.humanAttributes[self.number][3] * self.humanAttributes[self.number][4])
-            #correct = 1 if random.uniform(0, 1) <= predictionProbability else -1
-            #if self.poiAttributes[xyz][4] == 1:
-                #self.finalScore += correct * 10
-            #elif self.poiAttributes[xyz][4] == 2:
-                #self.finalScore += correct * 20
-            #else:
-                #self.finalScore += correct * 30
-        
-            #if self.counter == len(self.assignedPOIs) - 1:
-                #self.pubCallback()
-            
-            #counter += 1
-
-    """
-    def pubCallback(self):
-        msg = str(self.finalScore)
-        if self.debug:
-            print("SENT:")
-            print(msg)
-        self.publisher.publish(msg)
-    """
+    
 
 def main(argv):
     rclpy.init(args=argv)
