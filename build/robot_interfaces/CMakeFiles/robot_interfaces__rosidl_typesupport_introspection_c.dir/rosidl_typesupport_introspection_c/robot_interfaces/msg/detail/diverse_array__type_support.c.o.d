@@ -59,5 +59,4 @@ CMakeFiles/robot_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_types
  /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/rosidl_generator_c/robot_interfaces/msg/detail/diverse_array__struct.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence_functions.h
+ /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h

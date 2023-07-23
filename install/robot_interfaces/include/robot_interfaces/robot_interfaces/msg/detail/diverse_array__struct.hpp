@@ -39,6 +39,9 @@ struct DiverseArray_
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->robot_name = "";
+      this->poi_x = 0.0;
+      this->poi_y = 0.0;
+      this->poi_z = 0.0;
       this->arrival_time = 0.0;
     }
   }
@@ -50,6 +53,9 @@ struct DiverseArray_
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->robot_name = "";
+      this->poi_x = 0.0;
+      this->poi_y = 0.0;
+      this->poi_z = 0.0;
       this->arrival_time = 0.0;
     }
   }
@@ -58,9 +64,15 @@ struct DiverseArray_
   using _robot_name_type =
     std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>;
   _robot_name_type robot_name;
-  using _poi_coords_type =
-    std::vector<double, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<double>>;
-  _poi_coords_type poi_coords;
+  using _poi_x_type =
+    double;
+  _poi_x_type poi_x;
+  using _poi_y_type =
+    double;
+  _poi_y_type poi_y;
+  using _poi_z_type =
+    double;
+  _poi_z_type poi_z;
   using _arrival_time_type =
     double;
   _arrival_time_type arrival_time;
@@ -72,10 +84,22 @@ struct DiverseArray_
     this->robot_name = _arg;
     return *this;
   }
-  Type & set__poi_coords(
-    const std::vector<double, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<double>> & _arg)
+  Type & set__poi_x(
+    const double & _arg)
   {
-    this->poi_coords = _arg;
+    this->poi_x = _arg;
+    return *this;
+  }
+  Type & set__poi_y(
+    const double & _arg)
+  {
+    this->poi_y = _arg;
+    return *this;
+  }
+  Type & set__poi_z(
+    const double & _arg)
+  {
+    this->poi_z = _arg;
     return *this;
   }
   Type & set__arrival_time(
@@ -130,7 +154,13 @@ struct DiverseArray_
     if (this->robot_name != other.robot_name) {
       return false;
     }
-    if (this->poi_coords != other.poi_coords) {
+    if (this->poi_x != other.poi_x) {
+      return false;
+    }
+    if (this->poi_y != other.poi_y) {
+      return false;
+    }
+    if (this->poi_z != other.poi_z) {
       return false;
     }
     if (this->arrival_time != other.arrival_time) {

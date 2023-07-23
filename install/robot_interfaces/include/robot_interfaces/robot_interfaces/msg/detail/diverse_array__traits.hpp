@@ -32,21 +32,24 @@ inline void to_flow_style_yaml(
     out << ", ";
   }
 
-  // member: poi_coords
+  // member: poi_x
   {
-    if (msg.poi_coords.size() == 0) {
-      out << "poi_coords: []";
-    } else {
-      out << "poi_coords: [";
-      size_t pending_items = msg.poi_coords.size();
-      for (auto item : msg.poi_coords) {
-        rosidl_generator_traits::value_to_yaml(item, out);
-        if (--pending_items > 0) {
-          out << ", ";
-        }
-      }
-      out << "]";
-    }
+    out << "poi_x: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_x, out);
+    out << ", ";
+  }
+
+  // member: poi_y
+  {
+    out << "poi_y: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_y, out);
+    out << ", ";
+  }
+
+  // member: poi_z
+  {
+    out << "poi_z: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_z, out);
     out << ", ";
   }
 
@@ -72,24 +75,34 @@ inline void to_block_style_yaml(
     out << "\n";
   }
 
-  // member: poi_coords
+  // member: poi_x
   {
     if (indentation > 0) {
       out << std::string(indentation, ' ');
     }
-    if (msg.poi_coords.size() == 0) {
-      out << "poi_coords: []\n";
-    } else {
-      out << "poi_coords:\n";
-      for (auto item : msg.poi_coords) {
-        if (indentation > 0) {
-          out << std::string(indentation, ' ');
-        }
-        out << "- ";
-        rosidl_generator_traits::value_to_yaml(item, out);
-        out << "\n";
-      }
+    out << "poi_x: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_x, out);
+    out << "\n";
+  }
+
+  // member: poi_y
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
     }
+    out << "poi_y: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_y, out);
+    out << "\n";
+  }
+
+  // member: poi_z
+  {
+    if (indentation > 0) {
+      out << std::string(indentation, ' ');
+    }
+    out << "poi_z: ";
+    rosidl_generator_traits::value_to_yaml(msg.poi_z, out);
+    out << "\n";
   }
 
   // member: arrival_time

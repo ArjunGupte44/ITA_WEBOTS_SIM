@@ -5,9 +5,6 @@
 
 # Import statements for member types
 
-# Member 'poi_coords'
-import array  # noqa: E402, I100
-
 import builtins  # noqa: E402, I100
 
 import math  # noqa: E402, I100
@@ -61,19 +58,25 @@ class DiverseArray(metaclass=Metaclass_DiverseArray):
 
     __slots__ = [
         '_robot_name',
-        '_poi_coords',
+        '_poi_x',
+        '_poi_y',
+        '_poi_z',
         '_arrival_time',
     ]
 
     _fields_and_field_types = {
         'robot_name': 'string',
-        'poi_coords': 'sequence<double>',
+        'poi_x': 'double',
+        'poi_y': 'double',
+        'poi_z': 'double',
         'arrival_time': 'double',
     }
 
     SLOT_TYPES = (
         rosidl_parser.definition.UnboundedString(),  # noqa: E501
-        rosidl_parser.definition.UnboundedSequence(rosidl_parser.definition.BasicType('double')),  # noqa: E501
+        rosidl_parser.definition.BasicType('double'),  # noqa: E501
+        rosidl_parser.definition.BasicType('double'),  # noqa: E501
+        rosidl_parser.definition.BasicType('double'),  # noqa: E501
         rosidl_parser.definition.BasicType('double'),  # noqa: E501
     )
 
@@ -82,7 +85,9 @@ class DiverseArray(metaclass=Metaclass_DiverseArray):
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
         self.robot_name = kwargs.get('robot_name', str())
-        self.poi_coords = array.array('d', kwargs.get('poi_coords', []))
+        self.poi_x = kwargs.get('poi_x', float())
+        self.poi_y = kwargs.get('poi_y', float())
+        self.poi_z = kwargs.get('poi_z', float())
         self.arrival_time = kwargs.get('arrival_time', float())
 
     def __repr__(self):
@@ -116,7 +121,11 @@ class DiverseArray(metaclass=Metaclass_DiverseArray):
             return False
         if self.robot_name != other.robot_name:
             return False
-        if self.poi_coords != other.poi_coords:
+        if self.poi_x != other.poi_x:
+            return False
+        if self.poi_y != other.poi_y:
+            return False
+        if self.poi_z != other.poi_z:
             return False
         if self.arrival_time != other.arrival_time:
             return False
@@ -141,32 +150,49 @@ class DiverseArray(metaclass=Metaclass_DiverseArray):
         self._robot_name = value
 
     @builtins.property
-    def poi_coords(self):
-        """Message field 'poi_coords'."""
-        return self._poi_coords
+    def poi_x(self):
+        """Message field 'poi_x'."""
+        return self._poi_x
 
-    @poi_coords.setter
-    def poi_coords(self, value):
-        if isinstance(value, array.array):
-            assert value.typecode == 'd', \
-                "The 'poi_coords' array.array() must have the type code of 'd'"
-            self._poi_coords = value
-            return
+    @poi_x.setter
+    def poi_x(self, value):
         if __debug__:
-            from collections.abc import Sequence
-            from collections.abc import Set
-            from collections import UserList
-            from collections import UserString
             assert \
-                ((isinstance(value, Sequence) or
-                  isinstance(value, Set) or
-                  isinstance(value, UserList)) and
-                 not isinstance(value, str) and
-                 not isinstance(value, UserString) and
-                 all(isinstance(v, float) for v in value) and
-                 all(not (val < -1.7976931348623157e+308 or val > 1.7976931348623157e+308) or math.isinf(val) for val in value)), \
-                "The 'poi_coords' field must be a set or sequence and each value of type 'float' and each double in [-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000, 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000]"
-        self._poi_coords = array.array('d', value)
+                isinstance(value, float), \
+                "The 'poi_x' field must be of type 'float'"
+            assert not (value < -1.7976931348623157e+308 or value > 1.7976931348623157e+308) or math.isinf(value), \
+                "The 'poi_x' field must be a double in [-1.7976931348623157e+308, 1.7976931348623157e+308]"
+        self._poi_x = value
+
+    @builtins.property
+    def poi_y(self):
+        """Message field 'poi_y'."""
+        return self._poi_y
+
+    @poi_y.setter
+    def poi_y(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, float), \
+                "The 'poi_y' field must be of type 'float'"
+            assert not (value < -1.7976931348623157e+308 or value > 1.7976931348623157e+308) or math.isinf(value), \
+                "The 'poi_y' field must be a double in [-1.7976931348623157e+308, 1.7976931348623157e+308]"
+        self._poi_y = value
+
+    @builtins.property
+    def poi_z(self):
+        """Message field 'poi_z'."""
+        return self._poi_z
+
+    @poi_z.setter
+    def poi_z(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, float), \
+                "The 'poi_z' field must be of type 'float'"
+            assert not (value < -1.7976931348623157e+308 or value > 1.7976931348623157e+308) or math.isinf(value), \
+                "The 'poi_z' field must be a double in [-1.7976931348623157e+308, 1.7976931348623157e+308]"
+        self._poi_z = value
 
     @builtins.property
     def arrival_time(self):

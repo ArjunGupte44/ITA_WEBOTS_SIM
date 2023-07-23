@@ -37,16 +37,48 @@ private:
   ::robot_interfaces::msg::DiverseArray msg_;
 };
 
-class Init_DiverseArray_poi_coords
+class Init_DiverseArray_poi_z
 {
 public:
-  explicit Init_DiverseArray_poi_coords(::robot_interfaces::msg::DiverseArray & msg)
+  explicit Init_DiverseArray_poi_z(::robot_interfaces::msg::DiverseArray & msg)
   : msg_(msg)
   {}
-  Init_DiverseArray_arrival_time poi_coords(::robot_interfaces::msg::DiverseArray::_poi_coords_type arg)
+  Init_DiverseArray_arrival_time poi_z(::robot_interfaces::msg::DiverseArray::_poi_z_type arg)
   {
-    msg_.poi_coords = std::move(arg);
+    msg_.poi_z = std::move(arg);
     return Init_DiverseArray_arrival_time(msg_);
+  }
+
+private:
+  ::robot_interfaces::msg::DiverseArray msg_;
+};
+
+class Init_DiverseArray_poi_y
+{
+public:
+  explicit Init_DiverseArray_poi_y(::robot_interfaces::msg::DiverseArray & msg)
+  : msg_(msg)
+  {}
+  Init_DiverseArray_poi_z poi_y(::robot_interfaces::msg::DiverseArray::_poi_y_type arg)
+  {
+    msg_.poi_y = std::move(arg);
+    return Init_DiverseArray_poi_z(msg_);
+  }
+
+private:
+  ::robot_interfaces::msg::DiverseArray msg_;
+};
+
+class Init_DiverseArray_poi_x
+{
+public:
+  explicit Init_DiverseArray_poi_x(::robot_interfaces::msg::DiverseArray & msg)
+  : msg_(msg)
+  {}
+  Init_DiverseArray_poi_y poi_x(::robot_interfaces::msg::DiverseArray::_poi_x_type arg)
+  {
+    msg_.poi_x = std::move(arg);
+    return Init_DiverseArray_poi_y(msg_);
   }
 
 private:
@@ -59,10 +91,10 @@ public:
   Init_DiverseArray_robot_name()
   : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
   {}
-  Init_DiverseArray_poi_coords robot_name(::robot_interfaces::msg::DiverseArray::_robot_name_type arg)
+  Init_DiverseArray_poi_x robot_name(::robot_interfaces::msg::DiverseArray::_robot_name_type arg)
   {
     msg_.robot_name = std::move(arg);
-    return Init_DiverseArray_poi_coords(msg_);
+    return Init_DiverseArray_poi_x(msg_);
   }
 
 private:

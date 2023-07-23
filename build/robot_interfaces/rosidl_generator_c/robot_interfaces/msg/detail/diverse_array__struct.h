@@ -20,14 +20,14 @@ extern "C"
 // Include directives for member types
 // Member 'robot_name'
 #include "rosidl_runtime_c/string.h"
-// Member 'poi_coords'
-#include "rosidl_runtime_c/primitives_sequence.h"
 
 /// Struct defined in msg/DiverseArray in the package robot_interfaces.
 typedef struct robot_interfaces__msg__DiverseArray
 {
   rosidl_runtime_c__String robot_name;
-  rosidl_runtime_c__double__Sequence poi_coords;
+  double poi_x;
+  double poi_y;
+  double poi_z;
   double arrival_time;
 } robot_interfaces__msg__DiverseArray;
 

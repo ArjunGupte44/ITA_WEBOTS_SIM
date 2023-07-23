@@ -111,7 +111,7 @@ def get_ros2_nodes(*args):
             package='webots_ros2_mavic',
             executable='OperatorHub.py',
             output='screen',
-            arguments=['-humanAttributes', '0', '-poiAttributes', '0'] #replace 0 with humanAttributes[i], poiAttributes[i]
+            arguments=['-humanAttributes', '0', '-poiAttributes', '0', '-humanPoiAssignments', '0'] #replace 0 with humanAttributes[i], poiAttributes[i]
         )
         launchList.append(humanManager)
 

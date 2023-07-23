@@ -68,5 +68,4 @@ CMakeFiles/robot_interfaces__rosidl_generator_c.dir/rosidl_generator_c/robot_int
  /opt/ros/humble/include/rcutils/rcutils/visibility_control.h \
  /opt/ros/humble/include/rcutils/rcutils/visibility_control_macros.h \
  /opt/ros/humble/include/rcutils/rcutils/types/rcutils_ret.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence_functions.h
+ /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h

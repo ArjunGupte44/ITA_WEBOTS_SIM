@@ -212,5 +212,4 @@ CMakeFiles/robot_interfaces__rosidl_generator_py.dir/rosidl_generator_py/robot_i
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
  /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/rosidl_generator_c/robot_interfaces/msg/detail/diverse_array__functions.h \
  /home/arjun/SMART-LAB-ITAP-WEBOTS/build/robot_interfaces/rosidl_generator_c/robot_interfaces/msg/rosidl_generator_c__visibility_control.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h \
- /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence_functions.h
+ /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string_functions.h

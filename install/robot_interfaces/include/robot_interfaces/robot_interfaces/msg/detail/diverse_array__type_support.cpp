@@ -37,52 +37,7 @@ void DiverseArray_fini_function(void * message_memory)
   typed_message->~DiverseArray();
 }
 
-size_t size_function__DiverseArray__poi_coords(const void * untyped_member)
-{
-  const auto * member = reinterpret_cast<const std::vector<double> *>(untyped_member);
-  return member->size();
-}
-
-const void * get_const_function__DiverseArray__poi_coords(const void * untyped_member, size_t index)
-{
-  const auto & member =
-    *reinterpret_cast<const std::vector<double> *>(untyped_member);
-  return &member[index];
-}
-
-void * get_function__DiverseArray__poi_coords(void * untyped_member, size_t index)
-{
-  auto & member =
-    *reinterpret_cast<std::vector<double> *>(untyped_member);
-  return &member[index];
-}
-
-void fetch_function__DiverseArray__poi_coords(
-  const void * untyped_member, size_t index, void * untyped_value)
-{
-  const auto & item = *reinterpret_cast<const double *>(
-    get_const_function__DiverseArray__poi_coords(untyped_member, index));
-  auto & value = *reinterpret_cast<double *>(untyped_value);
-  value = item;
-}
-
-void assign_function__DiverseArray__poi_coords(
-  void * untyped_member, size_t index, const void * untyped_value)
-{
-  auto & item = *reinterpret_cast<double *>(
-    get_function__DiverseArray__poi_coords(untyped_member, index));
-  const auto & value = *reinterpret_cast<const double *>(untyped_value);
-  item = value;
-}
-
-void resize_function__DiverseArray__poi_coords(void * untyped_member, size_t size)
-{
-  auto * member =
-    reinterpret_cast<std::vector<double> *>(untyped_member);
-  member->resize(size);
-}
-
-static const ::rosidl_typesupport_introspection_cpp::MessageMember DiverseArray_message_member_array[3] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember DiverseArray_message_member_array[5] = {
   {
     "robot_name",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_STRING,  // type
@@ -101,21 +56,55 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember DiverseArray_
     nullptr  // resize(index) function pointer
   },
   {
-    "poi_coords",  // name
+    "poi_x",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_DOUBLE,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
-    true,  // is array
+    false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(robot_interfaces::msg::DiverseArray, poi_coords),  // bytes offset in struct
+    offsetof(robot_interfaces::msg::DiverseArray, poi_x),  // bytes offset in struct
     nullptr,  // default value
-    size_function__DiverseArray__poi_coords,  // size() function pointer
-    get_const_function__DiverseArray__poi_coords,  // get_const(index) function pointer
-    get_function__DiverseArray__poi_coords,  // get(index) function pointer
-    fetch_function__DiverseArray__poi_coords,  // fetch(index, &value) function pointer
-    assign_function__DiverseArray__poi_coords,  // assign(index, value) function pointer
-    resize_function__DiverseArray__poi_coords  // resize(index) function pointer
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "poi_y",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_DOUBLE,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(robot_interfaces::msg::DiverseArray, poi_y),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "poi_z",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_DOUBLE,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(robot_interfaces::msg::DiverseArray, poi_z),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
   },
   {
     "arrival_time",  // name
@@ -139,7 +128,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember DiverseArray_
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers DiverseArray_message_members = {
   "robot_interfaces::msg",  // message namespace
   "DiverseArray",  // message name
-  3,  // number of fields
+  5,  // number of fields
   sizeof(robot_interfaces::msg::DiverseArray),
   DiverseArray_message_member_array,  // message members
   DiverseArray_init_function,  // function to initialize message memory (memory has to be allocated)

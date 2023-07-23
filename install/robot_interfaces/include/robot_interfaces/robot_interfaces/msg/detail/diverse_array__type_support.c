@@ -15,8 +15,6 @@
 // Include directives for member types
 // Member `robot_name`
 #include "rosidl_runtime_c/string_functions.h"
-// Member `poi_coords`
-#include "rosidl_runtime_c/primitives_sequence_functions.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -37,62 +35,7 @@ void robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__Di
   robot_interfaces__msg__DiverseArray__fini(message_memory);
 }
 
-size_t robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__size_function__DiverseArray__poi_coords(
-  const void * untyped_member)
-{
-  const rosidl_runtime_c__double__Sequence * member =
-    (const rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return member->size;
-}
-
-const void * robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_const_function__DiverseArray__poi_coords(
-  const void * untyped_member, size_t index)
-{
-  const rosidl_runtime_c__double__Sequence * member =
-    (const rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return &member->data[index];
-}
-
-void * robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_function__DiverseArray__poi_coords(
-  void * untyped_member, size_t index)
-{
-  rosidl_runtime_c__double__Sequence * member =
-    (rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return &member->data[index];
-}
-
-void robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__fetch_function__DiverseArray__poi_coords(
-  const void * untyped_member, size_t index, void * untyped_value)
-{
-  const double * item =
-    ((const double *)
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_const_function__DiverseArray__poi_coords(untyped_member, index));
-  double * value =
-    (double *)(untyped_value);
-  *value = *item;
-}
-
-void robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__assign_function__DiverseArray__poi_coords(
-  void * untyped_member, size_t index, const void * untyped_value)
-{
-  double * item =
-    ((double *)
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_function__DiverseArray__poi_coords(untyped_member, index));
-  const double * value =
-    (const double *)(untyped_value);
-  *item = *value;
-}
-
-bool robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__resize_function__DiverseArray__poi_coords(
-  void * untyped_member, size_t size)
-{
-  rosidl_runtime_c__double__Sequence * member =
-    (rosidl_runtime_c__double__Sequence *)(untyped_member);
-  rosidl_runtime_c__double__Sequence__fini(member);
-  return rosidl_runtime_c__double__Sequence__init(member, size);
-}
-
-static rosidl_typesupport_introspection_c__MessageMember robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__DiverseArray_message_member_array[3] = {
+static rosidl_typesupport_introspection_c__MessageMember robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__DiverseArray_message_member_array[5] = {
   {
     "robot_name",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
@@ -111,21 +54,55 @@ static rosidl_typesupport_introspection_c__MessageMember robot_interfaces__msg__
     NULL  // resize(index) function pointer
   },
   {
-    "poi_coords",  // name
+    "poi_x",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_DOUBLE,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
-    true,  // is array
+    false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(robot_interfaces__msg__DiverseArray, poi_coords),  // bytes offset in struct
+    offsetof(robot_interfaces__msg__DiverseArray, poi_x),  // bytes offset in struct
     NULL,  // default value
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__size_function__DiverseArray__poi_coords,  // size() function pointer
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_const_function__DiverseArray__poi_coords,  // get_const(index) function pointer
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__get_function__DiverseArray__poi_coords,  // get(index) function pointer
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__fetch_function__DiverseArray__poi_coords,  // fetch(index, &value) function pointer
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__assign_function__DiverseArray__poi_coords,  // assign(index, value) function pointer
-    robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__resize_function__DiverseArray__poi_coords  // resize(index) function pointer
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "poi_y",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_DOUBLE,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(robot_interfaces__msg__DiverseArray, poi_y),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "poi_z",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_DOUBLE,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(robot_interfaces__msg__DiverseArray, poi_z),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
   },
   {
     "arrival_time",  // name
@@ -149,7 +126,7 @@ static rosidl_typesupport_introspection_c__MessageMember robot_interfaces__msg__
 static const rosidl_typesupport_introspection_c__MessageMembers robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__DiverseArray_message_members = {
   "robot_interfaces__msg",  // message namespace
   "DiverseArray",  // message name
-  3,  // number of fields
+  5,  // number of fields
   sizeof(robot_interfaces__msg__DiverseArray),
   robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__DiverseArray_message_member_array,  // message members
   robot_interfaces__msg__DiverseArray__rosidl_typesupport_introspection_c__DiverseArray_init_function,  // function to initialize message memory (memory has to be allocated)

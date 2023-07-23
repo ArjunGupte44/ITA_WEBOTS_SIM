@@ -8,7 +8,11 @@ module robot_interfaces {
     struct DiverseArray {
       string robot_name;
 
-      sequence<double> poi_coords;
+      double poi_x;
+
+      double poi_y;
+
+      double poi_z;
 
       double arrival_time;
     };

@@ -34,8 +34,6 @@ extern "C"
 {
 #endif
 
-#include "rosidl_runtime_c/primitives_sequence.h"  // poi_coords
-#include "rosidl_runtime_c/primitives_sequence_functions.h"  // poi_coords
 #include "rosidl_runtime_c/string.h"  // robot_name
 #include "rosidl_runtime_c/string_functions.h"  // robot_name
 
@@ -67,12 +65,19 @@ static bool _DiverseArray__cdr_serialize(
     cdr << str->data;
   }
 
-  // Field name: poi_coords
+  // Field name: poi_x
   {
-    size_t size = ros_message->poi_coords.size;
-    auto array_ptr = ros_message->poi_coords.data;
-    cdr << static_cast<uint32_t>(size);
-    cdr.serializeArray(array_ptr, size);
+    cdr << ros_message->poi_x;
+  }
+
+  // Field name: poi_y
+  {
+    cdr << ros_message->poi_y;
+  }
+
+  // Field name: poi_z
+  {
+    cdr << ros_message->poi_z;
   }
 
   // Field name: arrival_time
@@ -108,20 +113,19 @@ static bool _DiverseArray__cdr_deserialize(
     }
   }
 
-  // Field name: poi_coords
+  // Field name: poi_x
   {
-    uint32_t cdrSize;
-    cdr >> cdrSize;
-    size_t size = static_cast<size_t>(cdrSize);
-    if (ros_message->poi_coords.data) {
-      rosidl_runtime_c__double__Sequence__fini(&ros_message->poi_coords);
-    }
-    if (!rosidl_runtime_c__double__Sequence__init(&ros_message->poi_coords, size)) {
-      fprintf(stderr, "failed to create array for field 'poi_coords'");
-      return false;
-    }
-    auto array_ptr = ros_message->poi_coords.data;
-    cdr.deserializeArray(array_ptr, size);
+    cdr >> ros_message->poi_x;
+  }
+
+  // Field name: poi_y
+  {
+    cdr >> ros_message->poi_y;
+  }
+
+  // Field name: poi_z
+  {
+    cdr >> ros_message->poi_z;
   }
 
   // Field name: arrival_time
@@ -150,15 +154,22 @@ size_t get_serialized_size_robot_interfaces__msg__DiverseArray(
   current_alignment += padding +
     eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
     (ros_message->robot_name.size + 1);
-  // field.name poi_coords
+  // field.name poi_x
   {
-    size_t array_size = ros_message->poi_coords.size;
-    auto array_ptr = ros_message->poi_coords.data;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
-    (void)array_ptr;
-    size_t item_size = sizeof(array_ptr[0]);
-    current_alignment += array_size * item_size +
+    size_t item_size = sizeof(ros_message->poi_x);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name poi_y
+  {
+    size_t item_size = sizeof(ros_message->poi_y);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name poi_z
+  {
+    size_t item_size = sizeof(ros_message->poi_z);
+    current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
   // field.name arrival_time
@@ -206,13 +217,23 @@ size_t max_serialized_size_robot_interfaces__msg__DiverseArray(
         1;
     }
   }
-  // member: poi_coords
+  // member: poi_x
   {
-    size_t array_size = 0;
-    full_bounded = false;
-    is_plain = false;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint64_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint64_t));
+  }
+  // member: poi_y
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint64_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint64_t));
+  }
+  // member: poi_z
+  {
+    size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint64_t) +
       eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint64_t));

@@ -91,7 +91,9 @@ class MavicAutonomy:
     def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
         visitInfo = DiverseArray()
         visitInfo.robot_name = self.__robot.getName()
-        visitInfo.poi_coords = poiCoords
+        visitInfo.poi_x = poiCoords[0]
+        visitInfo.poi_y = poiCoords[1]
+        visitInfo.poi_z = poiCoords[2]
         visitInfo.arrival_time = timeToVisitPOI
         self.__poiPublisher.publish(visitInfo)
 

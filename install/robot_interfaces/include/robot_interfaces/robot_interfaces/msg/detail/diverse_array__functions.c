@@ -14,8 +14,6 @@
 // Include directives for member types
 // Member `robot_name`
 #include "rosidl_runtime_c/string_functions.h"
-// Member `poi_coords`
-#include "rosidl_runtime_c/primitives_sequence_functions.h"
 
 bool
 robot_interfaces__msg__DiverseArray__init(robot_interfaces__msg__DiverseArray * msg)
@@ -28,11 +26,9 @@ robot_interfaces__msg__DiverseArray__init(robot_interfaces__msg__DiverseArray * 
     robot_interfaces__msg__DiverseArray__fini(msg);
     return false;
   }
-  // poi_coords
-  if (!rosidl_runtime_c__double__Sequence__init(&msg->poi_coords, 0)) {
-    robot_interfaces__msg__DiverseArray__fini(msg);
-    return false;
-  }
+  // poi_x
+  // poi_y
+  // poi_z
   // arrival_time
   return true;
 }
@@ -45,8 +41,9 @@ robot_interfaces__msg__DiverseArray__fini(robot_interfaces__msg__DiverseArray * 
   }
   // robot_name
   rosidl_runtime_c__String__fini(&msg->robot_name);
-  // poi_coords
-  rosidl_runtime_c__double__Sequence__fini(&msg->poi_coords);
+  // poi_x
+  // poi_y
+  // poi_z
   // arrival_time
 }
 
@@ -62,10 +59,16 @@ robot_interfaces__msg__DiverseArray__are_equal(const robot_interfaces__msg__Dive
   {
     return false;
   }
-  // poi_coords
-  if (!rosidl_runtime_c__double__Sequence__are_equal(
-      &(lhs->poi_coords), &(rhs->poi_coords)))
-  {
+  // poi_x
+  if (lhs->poi_x != rhs->poi_x) {
+    return false;
+  }
+  // poi_y
+  if (lhs->poi_y != rhs->poi_y) {
+    return false;
+  }
+  // poi_z
+  if (lhs->poi_z != rhs->poi_z) {
     return false;
   }
   // arrival_time
@@ -89,12 +92,12 @@ robot_interfaces__msg__DiverseArray__copy(
   {
     return false;
   }
-  // poi_coords
-  if (!rosidl_runtime_c__double__Sequence__copy(
-      &(input->poi_coords), &(output->poi_coords)))
-  {
-    return false;
-  }
+  // poi_x
+  output->poi_x = input->poi_x;
+  // poi_y
+  output->poi_y = input->poi_y;
+  // poi_z
+  output->poi_z = input->poi_z;
   // arrival_time
   output->arrival_time = input->arrival_time;
   return true;
