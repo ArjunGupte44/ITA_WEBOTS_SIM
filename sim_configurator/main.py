@@ -74,10 +74,10 @@ def writeToFile(clustersMatrix, numUGVs, numUAVs, uavHeight):
 
 
 numSafe = 1
-numThreats = 0
+numThreats = 1
 numHumans = 1
 numUAVs = 1
-numUGVs = 0
+numUGVs = 1
 numRobots = numUAVs + numUGVs
 uavHeight = 19
 

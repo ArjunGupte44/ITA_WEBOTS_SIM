@@ -42,11 +42,21 @@ Floor {
 
 
 SolidBox {
-  translation 1206.3550972132853 -768.0758987103933 6.0
+  translation 12.705328965367244 461.62738524656174 6.0
   name "safe_0"
   size 13 13 8
   appearance PBRAppearance {
     baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -254.87589867524457 -1112.1003553682428 6.0
+  name "threat_0"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
     roughness 0.5
     metalness 0
   }
@@ -66,6 +76,24 @@ Mavic2Pro {
       width 400
       height 240
       near 0.2
+    }
+  ]
+}
+Moose {
+  translation 5.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose0"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
     }
   ]
 }

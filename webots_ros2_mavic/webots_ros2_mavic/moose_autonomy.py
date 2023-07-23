@@ -25,6 +25,8 @@ from std_msgs.msg import String
 from webots_ros2_msgs.msg import FloatStamped
 from ament_index_python.packages import get_package_share_directory
 
+from robot_interfaces.msg import DiverseArray
+
 
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
@@ -35,6 +37,7 @@ def clamp(value, value_min, value_max):
 
 class MooseAutonomy:
     def init(self, webots_node, properties):
+        self.__systemStartTime = time.time()
         self.__robot = webots_node.robot
         self.__timestep = int(self.__robot.getBasicTimeStep())
         self.__package_dir = get_package_share_directory('webots_ros2_mavic')
@@ -89,7 +92,15 @@ class MooseAutonomy:
         self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
         #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
+        self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
         self.__path_follow_callback('ugvCoords.txt')
+
+    def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
+        visitInfo = DiverseArray()
+        visitInfo.robot_name = self.__robot.getName()
+        visitInfo.poi_coords = poiCoords
+        visitInfo.arrival_time = timeToVisitPOI
+        self.__poiPublisher.publish(visitInfo)
 
     def __path_follow_callback(self, fileName):
         self.__path_follow = True
@@ -175,9 +186,12 @@ class MooseAutonomy:
         else:
             self.__onTargetLine = True
             if linearError <= 1 and self.__justReachedPOI == False:
+                timeToVisitPOI = time.time() - self.__systemStartTime
                 self.__startTime = time.time()
                 self.__justReachedPOI = True
+                poiCoords = self.__waypoints[self.__target_index]
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
+                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
                 return 0.0, 0.0
             
             if linearError <= 1 and self.__justReachedPOI == True:
