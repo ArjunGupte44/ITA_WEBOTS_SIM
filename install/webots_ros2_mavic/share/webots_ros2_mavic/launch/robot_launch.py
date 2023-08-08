@@ -35,8 +35,9 @@ import random
 
 
 import sys
-sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/sim_configurator')
-#from sim_configurator.main import itapSim
+sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/src')
+print(sys.path)
+from main import itapSim
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -55,9 +56,9 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = 1 #itapSim.getNumUAVs()
-    numUGVs = 1 #itapSim.getNumUGVs()
-    numHumans = 1
+    numUAVs = itapSim.getNumUAVs()
+    numUGVs = itapSim.getNumUGVs()
+    numHumans = itapSim.getNumHumans()
 
     #Get POIs assigned to UAVs
     uavWaypoints = 'uavCoords.txt'

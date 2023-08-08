@@ -27,7 +27,6 @@ class OperatorHub(Node):
         self.poiAttributes = poiAttributes
         self.humanPoiAssignments = humanPoiAssignments
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
-        self.pubisher = self.create_publisher()
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
         self.numPois = len(self.poiAttributes)

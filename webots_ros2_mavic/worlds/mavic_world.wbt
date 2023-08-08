@@ -42,7 +42,7 @@ Floor {
 
 
 SolidBox {
-  translation 12.705328965367244 461.62738524656174 6.0
+  translation 492.52517219755237 -699.7062819279854 6.0
   name "safe_0"
   size 13 13 8
   appearance PBRAppearance {
@@ -52,8 +52,188 @@ SolidBox {
   }
 }
 SolidBox {
-  translation -254.87589867524457 -1112.1003553682428 6.0
+  translation -44.033417703791656 -1284.0364832982677 6.0
+  name "safe_1"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 179.52615326103682 -845.0226102830874 6.0
+  name "safe_2"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -1433.3876256156152 -342.6962759725234 6.0
+  name "safe_3"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 1230.6903468310502 578.1927417268621 6.0
+  name "safe_4"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -1486.3865839597333 -1367.7906162192007 6.0
+  name "safe_5"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 1349.4157262268682 1087.1178306936336 6.0
+  name "safe_6"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 477.7304801177611 409.7553450298499 6.0
+  name "safe_7"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 847.0746123907206 -965.6883130744288 6.0
+  name "safe_8"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 13.420452000878413 616.9054516502565 6.0
+  name "safe_9"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 1422.4275709878966 -293.70805021066167 6.0
   name "threat_0"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -237.65447773882443 -1250.8338929350266 6.0
+  name "threat_1"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -288.1019960958108 -871.1128603569322 6.0
+  name "threat_2"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -1409.904917941706 710.9360129641259 6.0
+  name "threat_3"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation 1055.5569679804266 339.1356162756583 6.0
+  name "threat_4"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -999.6606619365305 -101.14184300126226 6.0
+  name "threat_5"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -30.34890394928857 -184.07545234094005 6.0
+  name "threat_6"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -1296.3386230768156 482.6096857497398 6.0
+  name "threat_7"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -564.8504525505365 1269.4613992403965 6.0
+  name "threat_8"
+  size 13 13 8
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+SolidBox {
+  translation -718.494051567008 -721.4768972548347 6.0
+  name "threat_9"
   size 13 13 8
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -79,10 +259,289 @@ Mavic2Pro {
     }
   ]
 }
+Mavic2Pro {
+  translation -4.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_1"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -7.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_2"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -10.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_3"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -13.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_4"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -16.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_5"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -19.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_6"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -22.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_7"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -25.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_8"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -28.0 -1490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_9"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
 Moose {
   translation 5.0 -1485.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose0"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 8.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose1"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 11.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose2"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 14.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose3"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 17.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose4"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 20.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose5"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 23.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose6"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 26.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose7"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 29.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose8"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 32.0 -1485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose9"
   controller "<extern>"
   bodySlot [
     Compass {

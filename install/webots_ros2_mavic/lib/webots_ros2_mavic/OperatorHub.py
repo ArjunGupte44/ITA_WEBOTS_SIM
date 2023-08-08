@@ -27,7 +27,6 @@ class OperatorHub(Node):
         self.poiAttributes = poiAttributes
         self.humanPoiAssignments = humanPoiAssignments
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
-        self.pubisher = self.create_publisher()
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
         self.numPois = len(self.poiAttributes)
@@ -37,9 +36,9 @@ class OperatorHub(Node):
         self.poisVisited = 0
 
         self.initializeNestedLists(self.operatorMetrics, len(self.humanAttributes), self.numParams)
-        self.initializeCurrentTimes(self.currentTimes, len(self.humanAttributes), 0)
+        self.initializeNestedLists(self.currentTimes, len(self.humanAttributes), 0)
 
-    def initializeOperatorMetrics(self, array, outerParam, innerParam):
+    def initializeNestedLists(self, array, outerParam, innerParam):
         for i in range(outerParam):
             array.append([])
             for param in range(innerParam):
