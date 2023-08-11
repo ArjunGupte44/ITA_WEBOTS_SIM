@@ -24,6 +24,7 @@ setup(
     version='2023.0.4',
     packages=[package_name],
     data_files=data_files,
+    #py_modules=['src.main', 'src.OperatorHub', 'src.WebotsEnv'],
     install_requires=['setuptools', 'launch'],
     zip_safe=True,
     author='Cyberbotics',

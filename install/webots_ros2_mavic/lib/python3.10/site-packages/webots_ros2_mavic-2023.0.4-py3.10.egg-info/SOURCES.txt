@@ -14,7 +14,10 @@ resource/mavic_webots.urdf
 resource/moose_webots.urdf
 resource/webots_ros2_mavic
 test/test_copyright.py
+webots_ros2_mavic/OperatorHub.py
+webots_ros2_mavic/WebotsEnv.py
 webots_ros2_mavic/__init__.py
+webots_ros2_mavic/main.py
 webots_ros2_mavic/mavic_autonomy.py
 webots_ros2_mavic/mavic_driver.py
 webots_ros2_mavic/moose_autonomy.py

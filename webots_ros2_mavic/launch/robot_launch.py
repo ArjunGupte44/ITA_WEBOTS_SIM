@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Copyright 1996-2023 Cyberbotics Ltd.
 #
@@ -32,12 +32,9 @@ from webots_ros2_driver.wait_for_controller_connection import WaitForControllerC
 from webots_ros2_driver.utils import controller_url_prefix
 import xacro
 import random
-
-
+import numpy as np
 import sys
-sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/src')
-print(sys.path)
-from main import itapSim
+
 
 def get_ros2_nodes(*args):
     package_dir_mavic = get_package_share_directory('webots_ros2_mavic')
@@ -56,9 +53,11 @@ def get_ros2_nodes(*args):
     launchList = []
 
     #Get num robot info from object of class
-    numUAVs = itapSim.getNumUAVs()
-    numUGVs = itapSim.getNumUGVs()
-    numHumans = itapSim.getNumHumans()
+    f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/numSimAgents', 'r')
+    lines = f.readlines()
+    numHumans = int(lines[2])
+    numUAVs = int(lines[3])
+    numUGVs = int(lines[4])
 
     #Get POIs assigned to UAVs
     uavWaypoints = 'uavCoords.txt'
@@ -82,13 +81,13 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mavic_driver)
 
-        mavicManager = Node(
-            package='webots_ros2_mavic',
-            executable='UAVManager.py',
-            output='screen',
-            arguments=['-name', 'mavic_' + str(i), '-assignedPOIs', '0'] #replace 0 with uavPOIs[i]
-        )
-        launchList.append(mavicManager)
+        #mavicManager = Node(
+        #    package='webots_ros2_mavic',
+        #    executable='UAVManager.py',
+        #    output='screen',
+        #    arguments=['-name', 'mavic_' + str(i), '-assignedPOIs', '0'] #replace 0 with uavPOIs[i]
+        #)
+        #launchList.append(mavicManager)
 
     #Launch all Meese
     #moose_robot_description = pathlib.Path(os.path.join(package_dir_mavic, 'resource', 'moose_webots.urdf')).read_text()
@@ -107,16 +106,13 @@ def get_ros2_nodes(*args):
         )
         launchList.append(mooseDriver)
     
-    for i in range(numHumans):
-        humanManager = Node(
-            package='webots_ros2_mavic',
-            executable='OperatorHub.py',
-            output='screen',
-            arguments=['-humanAttributes', '0', '-poiAttributes', '0', '-humanPoiAssignments', '0'] #replace 0 with humanAttributes[i], poiAttributes[i]
-        )
-        launchList.append(humanManager)
-
-
+    humanManager = Node(
+        package='webots_ros2_mavic',
+        executable='OperatorHub',
+        output='screen',
+    )
+    launchList.append(humanManager)
+    
     return launchList
 
 def generate_launch_description():

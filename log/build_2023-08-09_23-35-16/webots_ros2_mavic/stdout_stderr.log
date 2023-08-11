@@ -1,0 +1,7 @@
+running egg_info
+writing ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/PKG-INFO
+writing dependency_links to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/dependency_links.txt
+writing entry points to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/entry_points.txt
+writing requirements to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/requires.txt
+writing top-level names to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/top_level.txt
+error: package directory 'webots_ros2_mavic/src' does not exist

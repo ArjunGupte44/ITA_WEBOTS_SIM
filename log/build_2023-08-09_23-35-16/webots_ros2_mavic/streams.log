@@ -1,0 +1,9 @@
+[0.600s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed
+[0.821s] running egg_info
+[0.821s] writing ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/PKG-INFO
+[0.822s] writing dependency_links to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/dependency_links.txt
+[0.822s] writing entry points to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/entry_points.txt
+[0.822s] writing requirements to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/requires.txt
+[0.822s] writing top-level names to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/top_level.txt
+[0.823s] error: package directory 'webots_ros2_mavic/src' does not exist
+[0.838s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic' returned '1': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed
