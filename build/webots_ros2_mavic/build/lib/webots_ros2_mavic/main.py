@@ -11,6 +11,8 @@ UGV_COORDS_FILE = "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/s
 SIM_AGENT_NUM_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/numSimAgents'
 HUMAN_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/humanAttributes'
 POI_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/poiAttributes'
+POIS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/pois'
+
 
 def main():
     def performKMeans(numRobots, pois):
@@ -92,16 +94,16 @@ def main():
 
     itapSim = WebotsEnv(numSafe, numThreats, numHumans, numUAVs, numUGVs)
     pois = itapSim.getPOIs()
+    poisFlattened = list(np.concatenate(pois).flat)
+    writeToFile(poisFlattened, POIS_FILE)
     clustersMatrix = performKMeans(numRobots, pois)
     writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight)
 
     humanAttributes = itapSim.getHumanAttributes()
-    print(f"ORIG HUMAN ATTR: {humanAttributes}")
     humanAttrFlattened = list(np.concatenate(humanAttributes).flat)
     writeToFile(humanAttrFlattened, HUMAN_ATTRIBUTES_FILE)
 
     poiAttributes = itapSim.getPOIAttributes()
-    print(f"ORIG POI ATTR: {poiAttributes}")
     poiAttrFlattened = list(np.concatenate(poiAttributes).flat)
     writeToFile(poiAttrFlattened, POI_ATTRIBUTES_FILE)
 

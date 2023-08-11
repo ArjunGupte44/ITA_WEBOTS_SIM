@@ -15,14 +15,14 @@ import random
 
 from robot_interfaces.msg import DiverseArray
 sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/webots_ros2_mavic')
-#from webots_ros2_mavic.main import itapSim
-print(f"OPER:")
 
 NUM_HUMAN_ATTRIBUTES = 5
 NUM_POI_ATTRIBUTES = 5
 
 HUMAN_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/humanAttributes'
 POI_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/poiAttributes'
+
+POIS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/pois'
 
 FIVE_MINS_IN_SECONDS = 300
 ONE_HOUR_IN_SECONDS = 3600
@@ -33,7 +33,7 @@ class OperatorHub(Node):
         super().__init__("OperatorHub")
         self.humanAttributes = self.getAgentAttributes('human', NUM_HUMAN_ATTRIBUTES)
         self.poiAttributes = self.getAgentAttributes('poi', NUM_POI_ATTRIBUTES)
-        self.humanPoiAssignments = [] #humanPoiAssignments
+        self.humanPoiAssignments = self.getPoiAssignments()
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
@@ -65,6 +65,36 @@ class OperatorHub(Node):
         attributesArray.append(currAgentAttributes)
         
         return attributesArray
+
+    def getPoiAssignments(self):
+        f = open(POIS_FILE, '+r')
+        pois = f.readlines()
+    
+        humanPoiAssignments = []
+        for i in range(len(self.humanAttributes)):
+            humanPoiAssignments.append([])
+
+        index = 0
+        counter = 0
+        currPoi = []
+        for coord in pois:
+            if index < len(self.humanAttributes):
+                if counter == 0 or counter % 3 != 0:
+                    currPoi.append(float(coord[0:len(coord) - 2]))
+                    counter += 1
+                else:
+                    humanPoiAssignments[index].append(currPoi)
+                    index += 1
+                    currPoi = []
+                    currPoi.append(float(coord[0:len(coord) - 2]))
+                    counter = 1
+            else:
+                index = 0
+                currPoi.append(float(coord[0:len(coord) - 2]))
+                counter += 1
+        humanPoiAssignments[index].append(currPoi)
+
+        return humanPoiAssignments
 
 
     def initializeNestedLists(self, array, outerParam, innerParam):
