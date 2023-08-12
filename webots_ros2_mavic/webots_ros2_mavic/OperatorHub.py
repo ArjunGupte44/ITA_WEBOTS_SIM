@@ -80,17 +80,17 @@ class OperatorHub(Node):
         for coord in pois:
             if index < len(self.humanAttributes):
                 if counter == 0 or counter % 3 != 0:
-                    currPoi.append(float(coord[0:len(coord) - 2]))
+                    currPoi.append(round(float(coord[0:len(coord) - 2]), 2))
                     counter += 1
                 else:
                     humanPoiAssignments[index].append(currPoi)
                     index += 1
                     currPoi = []
-                    currPoi.append(float(coord[0:len(coord) - 2]))
+                    currPoi.append(round(float(coord[0:len(coord) - 2]), 2))
                     counter = 1
             else:
                 index = 0
-                currPoi.append(float(coord[0:len(coord) - 2]))
+                currPoi.append(round(float(coord[0:len(coord) - 2]), 2))
                 counter += 1
         humanPoiAssignments[index].append(currPoi)
 
@@ -106,7 +106,7 @@ class OperatorHub(Node):
     def subCallback(self, msg):
         self.poisVisited += 1
         robotName = msg.robot_name
-        visitedPoiCoords = [msg.poi_x, msg.poi_y, msg.poi_z]
+        visitedPoiCoords = [round(msg.poi_x, 2), round(msg.poi_y, 2), round(msg.poi_z, 2)]
         arrivalTime = msg.arrival_time
         self.get_logger().info(f" {robotName}, {visitedPoiCoords}, {arrivalTime}")
 
@@ -114,20 +114,25 @@ class OperatorHub(Node):
         foundAssignedHuman = False
         row = 0
         assignedOperator = -1
+        self.get_logger().info(f"visited: {visitedPoiCoords}")
         for i, row in enumerate(self.humanPoiAssignments):
+            self.get_logger().info(f"row: {row}")
             if visitedPoiCoords in row:
                 assignedOperator = i
                 break
+        self.get_logger().info(f"oper: {assignedOperator}")
         
         #Determine the poi difficulty and calculate t-bar value from the table II
         tBar = 10 if 'moose' in robotName else 20
         poiDifficulty = -1
+        self.get_logger().info(f"VISITED POI X: {visitedPoiCoords[0]}")
         for i in range(len(self.poiAttributes)):
+            self.get_logger().info(f"MATCH POI X: {self.poiAttributes[i][0]}")
             if self.poiAttributes[i][0] == visitedPoiCoords[0]:
                 poiDifficulty = self.poiAttributes[i][4]
                 self.poiVisitTimes[i][0] = arrivalTime #add arrival time to poi to poi visit times column vector
                 break
-        
+        self.get_logger().info(f"PPO DIFF: {poiDifficulty}")
         if poiDifficulty == 2:
             tBar *= 3
         elif poiDifficulty == 3:
@@ -151,7 +156,7 @@ class OperatorHub(Node):
         self.operatorMetrics[assignedOperator][2].append(Ff)
 
         #Calculate value of Fw - this param is a cumulative value so look through previous values in tBar list for a given operator
-        if len(self.operatorMetrics[assignedOperator][0]) == 0 or arrivalTime >= self.currentTimes[assignedOperator][-1]:
+        if len(self.operatorMetrics[assignedOperator][0]) == 0 or len(self.currentTimes[assignedOperator]) == 0 or arrivalTime >= self.currentTimes[assignedOperator][-1]:
             currentTime = arrivalTime + self.pictureTakingTime + tBar
         else:
             currentTime = self.currentTimes[assignedOperator][-1] + tBar
@@ -159,7 +164,7 @@ class OperatorHub(Node):
 
         fiveMinCutoff = max(0, currentTime - FIVE_MINS_IN_SECONDS) #if more than 5 mins have passed by, all good ; if not then cutoff is simply t = 0s
         workingTime = 0 #seconds
-        for i, time in reversed(enumerate(self.currentTimes[assignedOperator])):
+        for i, time in reversed(list(enumerate(self.currentTimes[assignedOperator]))):
             if time > fiveMinCutoff:
                 workingTime += self.operatorMetrics[assignedOperator][0][i] #append the values of tBar for the current operator while traversing in reverse
             else:
@@ -175,6 +180,8 @@ class OperatorHub(Node):
             Fw = -4.08 * m.pow(utilization, 2) + 5.31 * utilization - 0.724
         self.operatorMetrics[assignedOperator][3].append(Fw)
 
+        self.get_logger().info(f"Fs: {Fs}   Ff: {Ff}   Fw: {Fw}")
+        
         #Calculate probability of operator predicting a given poi correctly
         predictionProbability = 0.5 + (Fs * Ff * Fw * m.sin(self.humanAttributes[assignedOperator][3]) * m.sin(self.humanAttributes[assignedOperator][4]))
         self.operatorMetrics[assignedOperator][4].append(predictionProbability)
@@ -182,7 +189,7 @@ class OperatorHub(Node):
         #Use flip function to convert probability into correct/wrong prediction
         binaryResult = (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else (poiDifficulty * -10)
         self.operatorMetrics[assignedOperator][5].append(binaryResult)
-
+        self.get_logger().info(f"Oper metrics: {self.operatorMetrics}")
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
 
