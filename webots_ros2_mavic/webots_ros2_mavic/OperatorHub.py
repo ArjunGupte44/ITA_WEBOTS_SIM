@@ -117,9 +117,10 @@ class OperatorHub(Node):
         self.get_logger().info(f"visited: {visitedPoiCoords}")
         for i, row in enumerate(self.humanPoiAssignments):
             self.get_logger().info(f"row: {row}")
-            if visitedPoiCoords[0] == row[0][0] and visitedPoiCoords[1] == row[0][1]:
-                assignedOperator = i
-                break
+            for coord in row:
+                if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
+                    assignedOperator = i
+                    break
         self.get_logger().info(f"oper: {assignedOperator}")
         
         #Determine the poi difficulty and calculate t-bar value from the table II

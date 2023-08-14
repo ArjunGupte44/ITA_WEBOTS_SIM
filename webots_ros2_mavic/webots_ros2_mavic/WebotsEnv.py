@@ -86,8 +86,8 @@ class WebotsEnv:
 
         #Assign cognitive ability and operator skill level
         for i in range(self.numHumans):
-            self.humanAttributes[i][3] = round(random.uniform(0, 1 + math.pi / 4), 4)
-            self.humanAttributes[i][4] = round(random.uniform(0, 1 + math.pi / 4), 4)
+            self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 4), 4)
+            self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 4), 4)
 
         #Write to sim
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")

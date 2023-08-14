@@ -84,9 +84,9 @@ def main():
 
     numSafe = 2
     numThreats = 2
-    numHumans = 4
-    numUAVs = 1
-    numUGVs = 3
+    numHumans = 3
+    numUAVs = 0
+    numUGVs = 4
     numRobots = numUAVs + numUGVs
     uavHeight = 19
 
