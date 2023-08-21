@@ -116,7 +116,7 @@ class OperatorHub(Node):
         assignedOperator = -1
         self.get_logger().info(f"visited: {visitedPoiCoords}")
         for i, row in enumerate(self.humanPoiAssignments):
-            self.get_logger().info(f"row: {row}")
+            #self.get_logger().info(f"row: {row}")
             for coord in row:
                 if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
                     assignedOperator = i
@@ -126,14 +126,12 @@ class OperatorHub(Node):
         #Determine the poi difficulty and calculate t-bar value from the table II
         tBar = 10 if 'moose' in robotName else 20
         poiDifficulty = -1
-        self.get_logger().info(f"VISITED POI X: {visitedPoiCoords[0]}")
         for i in range(len(self.poiAttributes)):
-            self.get_logger().info(f"MATCH POI X: {self.poiAttributes[i][0]}")
             if self.poiAttributes[i][0] == visitedPoiCoords[0]:
                 poiDifficulty = self.poiAttributes[i][4]
                 self.poiVisitTimes[i][0] = arrivalTime #add arrival time to poi to poi visit times column vector
                 break
-        self.get_logger().info(f"PPO DIFF: {poiDifficulty}")
+        #self.get_logger().info(f"POI DIFF: {poiDifficulty}")
         if poiDifficulty == 2:
             tBar *= 3
         elif poiDifficulty == 3:
@@ -180,8 +178,6 @@ class OperatorHub(Node):
         elif utilization >= 0.65 and utilization <= 1:
             Fw = -4.08 * m.pow(utilization, 2) + 5.31 * utilization - 0.724
         self.operatorMetrics[assignedOperator][3].append(Fw)
-
-        self.get_logger().info(f"Fs: {Fs}   Ff: {Ff}   Fw: {Fw}")
         
         #Calculate probability of operator predicting a given poi correctly
         predictionProbability = 0.5 + (Fs * Ff * Fw * m.sin(self.humanAttributes[assignedOperator][3]) * m.sin(self.humanAttributes[assignedOperator][4]))

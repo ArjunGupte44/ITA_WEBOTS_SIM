@@ -180,8 +180,8 @@ class MooseAutonomy:
         linearVelocity, linearError = self.linearVelocityController(targetPOI)
         angularVelocity, angularError = self.angularVelocityController(targetPOI)
         
-        if int(self.__mooseNumber) == 4:
-            self.__node.get_logger().info(f"x: {degrees(angularError)}")
+        #if int(self.__mooseNumber) == 4:
+        #    self.__node.get_logger().info(f"x: {degrees(angularError)}")
 
         if abs(degrees(angularError)) >= 1 and self.__onTargetLine == False:
             return 0.0, angularVelocity
@@ -191,7 +191,7 @@ class MooseAutonomy:
                 timeToVisitPOI = time.time() - self.__systemStartTime
                 self.__startTime = time.time()
                 self.__justReachedPOI = True
-                poiCoords = self.__waypoints[self.__target_index]
+                poiCoords = self.__waypoints[self.__index]
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
                 self.__publishVisitInfo(poiCoords, timeToVisitPOI)
                 return 0.0, 0.0
