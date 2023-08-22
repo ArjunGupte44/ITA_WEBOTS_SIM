@@ -9,6 +9,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/humans/pedestrian/protos/Pedestrian.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/devices/robotis/protos/RobotisLds01.proto"
+EXTERNPROTO "/home/arjun/SMART-LAB-ITAP-WEBOTS/model_to_proto/HotAirBalloon.proto"
 
 WorldInfo {
   info [
@@ -39,7 +40,9 @@ Floor {
   appearance SandyGround {
   }
 }
+HotAirBalloon {
 
+}
 
 SolidBox {
   translation -777.0 1101.0 6.0

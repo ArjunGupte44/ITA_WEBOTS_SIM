@@ -1,0 +1,49 @@
+#VRML_SIM R2023b utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the HotAirBalloon
+# Extracted from: /home/arjun/SMART-LAB-ITAP-WEBOTS/model_to_proto/hot_air_balloon.urdf
+
+PROTO HotAirBalloon [
+  field  SFVec3f     translation     0 0 10
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "HotAirBalloon"  # Is `Robot.name`.
+  field  SFString    controller      "void"           # Is `Robot.controller`.
+  field  MFString    controllerArgs  []               # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""               # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE            # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE             # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE            # Is `Robot.selfCollision`.
+  field  SFNode      physics         NULL             # Is `Solid.physics`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Transform {
+        scale 0.001000 0.001000 0.001000
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.500000 0.500000 0.500000
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF hot_air_balloon Mesh {
+              url "hot_air_balloon.stl"
+            }
+          }
+        ]
+      }
+    ]
+    name IS name
+    physics IS physics
+  }
+}

@@ -114,14 +114,14 @@ class OperatorHub(Node):
         foundAssignedHuman = False
         row = 0
         assignedOperator = -1
-        self.get_logger().info(f"visited: {visitedPoiCoords}")
+        #self.get_logger().info(f"Visited: {visitedPoiCoords}")
         for i, row in enumerate(self.humanPoiAssignments):
             #self.get_logger().info(f"row: {row}")
             for coord in row:
                 if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
                     assignedOperator = i
                     break
-        self.get_logger().info(f"oper: {assignedOperator}")
+        self.get_logger().info(f"Assigned operator: {assignedOperator}")
         
         #Determine the poi difficulty and calculate t-bar value from the table II
         tBar = 10 if 'moose' in robotName else 20
