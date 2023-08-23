@@ -155,7 +155,7 @@ class OperatorHub(Node):
         self.operatorMetrics[assignedOperator][2].append(Ff)
 
         #Calculate value of Fw - this param is a cumulative value so look through previous values in tBar list for a given operator
-        if len(self.operatorMetrics[assignedOperator][0]) == 0 or len(self.currentTimes[assignedOperator]) == 0 or arrivalTime >= self.currentTimes[assignedOperator][-1]:
+        if len(self.operatorMetrics[assignedOperator][0]) == 0 or len(self.currentTimes[assignedOperator]) == 0 or (arrivalTime + self.pictureTakingTime >= self.currentTimes[assignedOperator][-1]):
             currentTime = arrivalTime + self.pictureTakingTime + tBar
         else:
             currentTime = self.currentTimes[assignedOperator][-1] + tBar
@@ -170,7 +170,10 @@ class OperatorHub(Node):
                 break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
         
         #Apply formula to calculate Fw and get result
-        utilization = workingTime / FIVE_MINS_IN_SECONDS
+        #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
+        #Therefore there is a chance that the total working time within the last 5 minutes is actually greater than 300 seconds (5 mins)
+        #Therefore if this is the case simple cap the utilization to its maximum value of 1
+        utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS) 
         if utilization >= 0 and utilization < 0.45:
             Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
         elif utilization >= 0.45 and utilization < 0.65:
