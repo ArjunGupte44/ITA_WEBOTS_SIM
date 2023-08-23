@@ -18,7 +18,6 @@ def main():
     def performKMeans(numRobots, pois):
         kMeans = KMeans(n_clusters = numRobots)
         clusterIndexes = kMeans.fit_predict(pois)
-        print(clusterIndexes)
         clustersMatrix = [] #Each element is a list corresponding to a single cluster - the inner lists contain tuples of the xyz coordinates of pois in that cluster
         poisInCluster = []
         minDist = sys.maxsize
@@ -83,11 +82,11 @@ def main():
         f.close()
 
 
-    numSafe = 1
-    numThreats = 1
-    numHumans = 2
-    numUAVs = 1
-    numUGVs = 0
+    numSafe = 10
+    numThreats = 10
+    numHumans = 10
+    numUAVs = 5
+    numUGVs = 8
     numRobots = numUAVs + numUGVs
     uavHeight = 19
 
@@ -120,8 +119,6 @@ def main():
         else:
             index = 0
 
-
-    print(humanPoiAssignments)
     #robotPoiAssignments, humanPoiAssignments = RL()
     #writeToFile(robotPoiAssignments, humanPoiAssignments)
 

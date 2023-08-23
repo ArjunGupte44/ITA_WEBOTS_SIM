@@ -5,9 +5,10 @@
 # Extracted from: /home/arjun/SMART-LAB-ITAP-WEBOTS/model_to_proto/hot_air_balloon.urdf
 
 PROTO HotAirBalloon [
-  field  SFVec3f     translation     0 0 10
+  field  SFVec3f     translation     0 -1480 10
   field  SFRotation  rotation        0 0 1 0
   field  SFString    name            "HotAirBalloon"  # Is `Robot.name`.
+  field  SFNode      appearance      PBRAppearance {}
   field  SFString    controller      "void"           # Is `Robot.controller`.
   field  MFString    controllerArgs  []               # Is `Robot.controllerArgs`.
   field  SFString    customData      ""               # Is `Robot.customData`.
@@ -28,14 +29,10 @@ PROTO HotAirBalloon [
     selfCollision IS selfCollision
     children [
       Transform {
-        scale 0.001000 0.001000 0.001000
+        scale 0.1 0.1 0.1
         children [
           Shape {
-            appearance PBRAppearance {
-              baseColor 0.500000 0.500000 0.500000
-              roughness 1.000000
-              metalness 0
-            }
+            appearance  IS appearance
             geometry DEF hot_air_balloon Mesh {
               url "hot_air_balloon.stl"
             }

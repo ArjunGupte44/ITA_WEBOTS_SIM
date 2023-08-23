@@ -62,11 +62,13 @@ class WebotsEnv:
             zCoord =self.poiAttributes[i][2]
 
             if i < self.numSafe:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"safe_" + str(i) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nHotAirBalloon {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"safe_" + str(i) + "\"\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                #poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"safe_" + str(i) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 0 1 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
             else:
-                poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                poiDeclaration = "\nHotAirBalloon {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"threat_" + str(i - self.numThreats) + "\"\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
+                #poiDeclaration = "\nSolidBox {\n  translation " + str(xCoord) + " " + str(yCoord) + " " + str(zCoord) + "\n  name \"threat_" + str(i - self.numThreats) + "\"\n  size 13 13 8\n  appearance PBRAppearance {\n    baseColor 1 0 0\n    roughness 0.5\n    metalness 0\n  }\n}"
                 f.write(poiDeclaration)
                 f2.write(poiDeclaration)
         
