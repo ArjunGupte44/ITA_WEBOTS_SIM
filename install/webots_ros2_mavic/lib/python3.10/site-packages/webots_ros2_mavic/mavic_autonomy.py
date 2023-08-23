@@ -141,7 +141,7 @@ class MavicAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = False
                 poiCoords = self.__waypoints[self.__target_index]
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached {poiCoords}")
+                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {poiCoords}")
                 self.__publishVisitInfo(poiCoords, timeToVisitPOI)
             
             elapsedTime = time.time() - self.__startTime
@@ -151,9 +151,9 @@ class MavicAutonomy:
                 if self.__target_index > len(self.__waypoints)-1:
                     self.__target_index -= 1
                     self.__path_follow = False
-                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!")
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!\n")
                 else:
-                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} heading to {self.__waypoints[self.__target_index]}")
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {self.__waypoints[self.__target_index]}")
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]

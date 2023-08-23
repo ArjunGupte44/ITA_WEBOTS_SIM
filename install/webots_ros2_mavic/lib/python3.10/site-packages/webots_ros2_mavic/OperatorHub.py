@@ -108,7 +108,7 @@ class OperatorHub(Node):
         robotName = msg.robot_name
         visitedPoiCoords = [round(msg.poi_x, 2), round(msg.poi_y, 2), round(msg.poi_z, 2)]
         arrivalTime = msg.arrival_time
-        self.get_logger().info(f" {robotName}, {visitedPoiCoords}, {arrivalTime}")
+        #self.get_logger().info(f" {robotName}, {visitedPoiCoords}, {arrivalTime}")
 
         #Find the operator assigned to this poi based on its xyz location
         foundAssignedHuman = False
@@ -121,7 +121,7 @@ class OperatorHub(Node):
                 if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
                     assignedOperator = i
                     break
-        self.get_logger().info(f"Assigned operator: {assignedOperator}")
+        self.get_logger().info(f"AD assigned to operator {assignedOperator}")
         
         #Determine the poi difficulty and calculate t-bar value from the table II
         tBar = 10 if 'moose' in robotName else 20
@@ -189,7 +189,15 @@ class OperatorHub(Node):
         #Use flip function to convert probability into correct/wrong prediction
         binaryResult = (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else (poiDifficulty * -10)
         self.operatorMetrics[assignedOperator][5].append(binaryResult)
-        self.get_logger().info(f"Oper metrics: {self.operatorMetrics}")
+        #self.get_logger().info(f"Oper metrics: {self.operatorMetrics}")
+        if binaryResult >= 0:
+            self.get_logger().info(f"Operator {assignedOperator} identified AD correctly!")
+        else:
+            self.get_logger().info(f"Operator {assignedOperator} identified AD incorrectly!")
+
+        currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
+        self.get_logger().info(f"Operator {assignedOperator} current score is {currentOperatorScore}")
+
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
 

@@ -151,10 +151,10 @@ class MooseAutonomy:
             # Move to the next house
             if self.__index < len(self.__waypoints) - 1:
                 self.__index += 1
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to {self.__waypoints[self.__index]}")
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {self.__waypoints[self.__index]}")
             else:
                 # If it's the last house, stop the robot and shut down the node
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!")
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!\n")
                 self.__visitedAllWaypoints = True
 
 
@@ -192,7 +192,7 @@ class MooseAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = True
                 poiCoords = self.__waypoints[self.__index]
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached {self.__waypoints[self.__index]}")
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
                 self.__publishVisitInfo(poiCoords, timeToVisitPOI)
                 return 0.0, 0.0
             
