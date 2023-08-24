@@ -1,0 +1,482 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/develop/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/develop/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/develop/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/develop/projects/appearances/protos/SandyGround.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/clearpath/moose/protos/Moose.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/humans/pedestrian/protos/Pedestrian.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/devices/robotis/protos/RobotisLds01.proto"
+EXTERNPROTO "/home/arjun/SMART-LAB-ITAP-WEBOTS/model_to_proto/HotAirBalloon.proto"
+
+WorldInfo {
+  info [
+    "This demonstration shows a DJI Mavic 2 PRO flying over a rural area by exposing the ROS2 Twist topic."
+  ]
+  title "ROS2 and DJI Mavic 2 PRO demo"
+  basicTimeStep 20
+  defaultDamping Damping {
+    linear 0.5
+    angular 0.5
+  }
+}
+Viewpoint {
+  orientation -0.061533923553624914 0.05562770495985827 0.9965536286086141 1.7246771142139286
+  position 11.618437465010038 -1549.5068844425682 9.694753819025367
+  near 0.2
+  follow "Mavic 2 PRO"
+  followSmoothness 0.2
+}
+TexturedBackground {
+  luminosity 3
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+  tileSize 6 6
+  appearance SandyGround {
+  }
+}
+
+HotAirBalloon {
+  translation -494.0 -25.0 6.0
+  name "safe_0"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -382.0 202.0 6.0
+  name "safe_1"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -80.0 -323.0 6.0
+  name "safe_2"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -198.0 -285.0 6.0
+  name "safe_3"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -287.0 367.0 6.0
+  name "safe_4"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -91.0 302.0 6.0
+  name "safe_5"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 202.0 189.0 6.0
+  name "safe_6"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -217.0 -299.0 6.0
+  name "safe_7"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 277.0 -267.0 6.0
+  name "safe_8"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 244.0 495.0 6.0
+  name "safe_9"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -289.0 170.0 6.0
+  name "threat_0"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 495.0 109.0 6.0
+  name "threat_1"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -172.0 446.0 6.0
+  name "threat_2"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 14.0 -178.0 6.0
+  name "threat_3"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -491.0 -352.0 6.0
+  name "threat_4"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -270.0 -375.0 6.0
+  name "threat_5"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 423.0 298.0 6.0
+  name "threat_6"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 96.0 434.0 6.0
+  name "threat_7"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -341.0 405.0 6.0
+  name "threat_8"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -9.0 387.0 6.0
+  name "threat_9"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+Pedestrian {
+  translation -9.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_0"
+}
+Pedestrian {
+  translation -7.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_1"
+}
+Pedestrian {
+  translation -5.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_2"
+}
+Pedestrian {
+  translation -3.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_3"
+}
+Pedestrian {
+  translation -1.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_4"
+}
+Pedestrian {
+  translation 1.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_5"
+}
+Pedestrian {
+  translation 3.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_6"
+}
+Pedestrian {
+  translation 5.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_7"
+}
+Pedestrian {
+  translation 7.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_8"
+}
+Pedestrian {
+  translation 9.0 -493.0 1.28
+  rotation 0 0 1 1.5707963267948966
+  name "human_9"
+}
+Mavic2Pro {
+  translation -1.0 -490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_0"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -4.0 -490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_1"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -7.0 -490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_2"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -10.0 -490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_3"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Mavic2Pro {
+  translation -13.0 -490.0 0.1
+  rotation 0 0 1 1.5707963267948966
+  name "Mavic_2_PRO_4"
+  controller "<extern>"
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
+Moose {
+  translation 5.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose0"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 10.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose1"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 15.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose2"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 20.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose3"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 25.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose4"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 30.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose5"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 35.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose6"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}
+Moose {
+  translation 40.0 -485.0 0.2
+  rotation 0 0 1 1.5707963267948966
+  name "moose7"
+  controller "<extern>"
+  bodySlot [
+    Compass {
+    }
+    Camera {
+      translation 0 0 0.3
+      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
+      width 200
+      height 140
+    }
+    GPS {
+    }
+  ]
+}

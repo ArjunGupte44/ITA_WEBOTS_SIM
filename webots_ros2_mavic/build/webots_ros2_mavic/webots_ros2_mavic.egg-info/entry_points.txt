@@ -1,0 +1,6 @@
+[console_scripts]
+OperatorHub = webots_ros2_mavic.OperatorHub:main
+
+[launch.frontend.launch_extension]
+launch_ros = launch_ros
+

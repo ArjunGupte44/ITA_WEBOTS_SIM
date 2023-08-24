@@ -1,0 +1,224 @@
+[0.000000] (-) TimerEvent: {}
+[0.000098] (webots_ros2_mavic) JobQueued: {'identifier': 'webots_ros2_mavic', 'dependencies': OrderedDict()}
+[0.000124] (webots_ros2_mavic) JobStarted: {'identifier': 'webots_ros2_mavic'}
+[0.099490] (-) TimerEvent: {}
+[0.200179] (-) TimerEvent: {}
+[0.300765] (-) TimerEvent: {}
+[0.401904] (-) TimerEvent: {}
+[0.502603] (-) TimerEvent: {}
+[0.603373] (-) TimerEvent: {}
+[0.703646] (-) TimerEvent: {}
+[0.803987] (-) TimerEvent: {}
+[0.904302] (-) TimerEvent: {}
+[1.004590] (-) TimerEvent: {}
+[1.105057] (-) TimerEvent: {}
+[1.205805] (-) TimerEvent: {}
+[1.306520] (-) TimerEvent: {}
+[1.407151] (-) TimerEvent: {}
+[1.507394] (-) TimerEvent: {}
+[1.607930] (-) TimerEvent: {}
+[1.708377] (-) TimerEvent: {}
+[1.808604] (-) TimerEvent: {}
+[1.908983] (-) TimerEvent: {}
+[2.009362] (-) TimerEvent: {}
+[2.109983] (-) TimerEvent: {}
+[2.210288] (-) TimerEvent: {}
+[2.310710] (-) TimerEvent: {}
+[2.411412] (-) TimerEvent: {}
+[2.512114] (-) TimerEvent: {}
+[2.612888] (-) TimerEvent: {}
+[2.713326] (-) TimerEvent: {}
+[2.813763] (-) TimerEvent: {}
+[2.914410] (-) TimerEvent: {}
+[3.014828] (-) TimerEvent: {}
+[3.115328] (-) TimerEvent: {}
+[3.215965] (-) TimerEvent: {}
+[3.316267] (-) TimerEvent: {}
+[3.416482] (-) TimerEvent: {}
+[3.516747] (-) TimerEvent: {}
+[3.617129] (-) TimerEvent: {}
+[3.717787] (-) TimerEvent: {}
+[3.955359] (-) TimerEvent: {}
+[4.056075] (-) TimerEvent: {}
+[4.156723] (-) TimerEvent: {}
+[4.257430] (-) TimerEvent: {}
+[4.358149] (-) TimerEvent: {}
+[4.458805] (-) TimerEvent: {}
+[4.559445] (-) TimerEvent: {}
+[4.660133] (-) TimerEvent: {}
+[4.760636] (-) TimerEvent: {}
+[4.861297] (-) TimerEvent: {}
+[4.997260] (-) TimerEvent: {}
+[5.097910] (-) TimerEvent: {}
+[5.198358] (-) TimerEvent: {}
+[5.299073] (-) TimerEvent: {}
+[5.399782] (-) TimerEvent: {}
+[5.500422] (-) TimerEvent: {}
+[5.601128] (-) TimerEvent: {}
+[5.701875] (-) TimerEvent: {}
+[5.802510] (-) TimerEvent: {}
+[5.903200] (-) TimerEvent: {}
+[6.003905] (-) TimerEvent: {}
+[6.104535] (-) TimerEvent: {}
+[6.205157] (-) TimerEvent: {}
+[6.305814] (-) TimerEvent: {}
+[6.406409] (-) TimerEvent: {}
+[6.507105] (-) TimerEvent: {}
+[6.607731] (-) TimerEvent: {}
+[6.708269] (-) TimerEvent: {}
+[6.808925] (-) TimerEvent: {}
+[6.909503] (-) TimerEvent: {}
+[7.009886] (-) TimerEvent: {}
+[7.110523] (-) TimerEvent: {}
+[7.211231] (-) TimerEvent: {}
+[7.311886] (-) TimerEvent: {}
+[7.412494] (-) TimerEvent: {}
+[7.552565] (-) TimerEvent: {}
+[7.652904] (-) TimerEvent: {}
+[7.753512] (-) TimerEvent: {}
+[7.854204] (-) TimerEvent: {}
+[7.954886] (-) TimerEvent: {}
+[8.055519] (-) TimerEvent: {}
+[8.156157] (-) TimerEvent: {}
+[8.256561] (-) TimerEvent: {}
+[8.357008] (-) TimerEvent: {}
+[8.457745] (-) TimerEvent: {}
+[8.558381] (-) TimerEvent: {}
+[8.658969] (-) TimerEvent: {}
+[8.759264] (-) TimerEvent: {}
+[8.859900] (-) TimerEvent: {}
+[8.960548] (-) TimerEvent: {}
+[9.060848] (-) TimerEvent: {}
+[9.161241] (-) TimerEvent: {}
+[9.261859] (-) TimerEvent: {}
+[9.362495] (-) TimerEvent: {}
+[9.463031] (-) TimerEvent: {}
+[9.563393] (-) TimerEvent: {}
+[9.664103] (-) TimerEvent: {}
+[9.764734] (-) TimerEvent: {}
+[9.865215] (-) TimerEvent: {}
+[9.965847] (-) TimerEvent: {}
+[10.066456] (-) TimerEvent: {}
+[10.166997] (-) TimerEvent: {}
+[10.267504] (-) TimerEvent: {}
+[10.367841] (-) TimerEvent: {}
+[10.468641] (-) TimerEvent: {}
+[10.569323] (-) TimerEvent: {}
+[10.669903] (-) TimerEvent: {}
+[10.770185] (-) TimerEvent: {}
+[10.870515] (-) TimerEvent: {}
+[10.971027] (-) TimerEvent: {}
+[11.071333] (-) TimerEvent: {}
+[11.172115] (-) TimerEvent: {}
+[11.272548] (-) TimerEvent: {}
+[11.373207] (-) TimerEvent: {}
+[11.494927] (-) TimerEvent: {}
+[11.595246] (-) TimerEvent: {}
+[11.695618] (-) TimerEvent: {}
+[11.796334] (-) TimerEvent: {}
+[11.896953] (-) TimerEvent: {}
+[11.997800] (-) TimerEvent: {}
+[12.098449] (-) TimerEvent: {}
+[12.199158] (-) TimerEvent: {}
+[12.299918] (-) TimerEvent: {}
+[12.400538] (-) TimerEvent: {}
+[12.501326] (-) TimerEvent: {}
+[12.602014] (-) TimerEvent: {}
+[12.702746] (-) TimerEvent: {}
+[12.803457] (-) TimerEvent: {}
+[12.904110] (-) TimerEvent: {}
+[13.004516] (-) TimerEvent: {}
+[13.105189] (-) TimerEvent: {}
+[13.205722] (-) TimerEvent: {}
+[13.306478] (-) TimerEvent: {}
+[13.407212] (-) TimerEvent: {}
+[13.507806] (-) TimerEvent: {}
+[13.608261] (-) TimerEvent: {}
+[13.708796] (-) TimerEvent: {}
+[13.809345] (-) TimerEvent: {}
+[13.909979] (-) TimerEvent: {}
+[14.010276] (-) TimerEvent: {}
+[14.036573] (webots_ros2_mavic) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', 'build/webots_ros2_mavic', 'build', '--build-base', '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build', 'install', '--record', '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/install.log', '--single-version-externally-managed'], 'cwd': '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'arjun', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/arjun', 'OLDPWD': '/home/arjun/SMART-LAB-ITAP-WEBOTS', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1368', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'humble', 'LOGNAME': 'arjun', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'arjun', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/home/arjun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/arjun-WS63-8SK:@/tmp/.ICE-unix/1329,unix/arjun-WS63-8SK:/tmp/.ICE-unix/1329', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f81b5921_39fc_4810_be30_376fb36849c0', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.UP8591', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.102', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[14.110437] (-) TimerEvent: {}
+[14.210720] (-) TimerEvent: {}
+[14.311027] (-) TimerEvent: {}
+[14.411282] (-) TimerEvent: {}
+[14.436611] (webots_ros2_mavic) StdoutLine: {'line': b'running egg_info\n'}
+[14.437058] (webots_ros2_mavic) StdoutLine: {'line': b'creating build/webots_ros2_mavic/webots_ros2_mavic.egg-info\n'}
+[14.437239] (webots_ros2_mavic) StdoutLine: {'line': b'writing build/webots_ros2_mavic/webots_ros2_mavic.egg-info/PKG-INFO\n'}
+[14.437483] (webots_ros2_mavic) StdoutLine: {'line': b'writing dependency_links to build/webots_ros2_mavic/webots_ros2_mavic.egg-info/dependency_links.txt\n'}
+[14.437675] (webots_ros2_mavic) StdoutLine: {'line': b'writing entry points to build/webots_ros2_mavic/webots_ros2_mavic.egg-info/entry_points.txt\n'}
+[14.437991] (webots_ros2_mavic) StdoutLine: {'line': b'writing requirements to build/webots_ros2_mavic/webots_ros2_mavic.egg-info/requires.txt\n'}
+[14.438062] (webots_ros2_mavic) StdoutLine: {'line': b'writing top-level names to build/webots_ros2_mavic/webots_ros2_mavic.egg-info/top_level.txt\n'}
+[14.438155] (webots_ros2_mavic) StdoutLine: {'line': b"writing manifest file 'build/webots_ros2_mavic/webots_ros2_mavic.egg-info/SOURCES.txt'\n"}
+[14.439455] (webots_ros2_mavic) StdoutLine: {'line': b"reading manifest file 'build/webots_ros2_mavic/webots_ros2_mavic.egg-info/SOURCES.txt'\n"}
+[14.440179] (webots_ros2_mavic) StdoutLine: {'line': b"writing manifest file 'build/webots_ros2_mavic/webots_ros2_mavic.egg-info/SOURCES.txt'\n"}
+[14.440414] (webots_ros2_mavic) StdoutLine: {'line': b'running build\n'}
+[14.440514] (webots_ros2_mavic) StdoutLine: {'line': b'running build_py\n'}
+[14.440623] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build\n'}
+[14.440716] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib\n'}
+[14.440775] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.440866] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/mavic_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.440922] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/WebotsEnv.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.440990] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/moose_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441057] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/main.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441120] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/OperatorHub.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441219] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/mavic_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441309] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/moose_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441402] (webots_ros2_mavic) StdoutLine: {'line': b'copying webots_ros2_mavic/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic\n'}
+[14.441587] (webots_ros2_mavic) StdoutLine: {'line': b'running install\n'}
+[14.441833] (webots_ros2_mavic) StdoutLine: {'line': b'running install_lib\n'}
+[14.442372] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.442527] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/mavic_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.442756] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/WebotsEnv.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.442951] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/moose_autonomy.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443104] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/main.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443167] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/OperatorHub.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443329] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/mavic_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443418] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/moose_driver.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443486] (webots_ros2_mavic) StdoutLine: {'line': b'copying /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/__init__.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic\n'}
+[14.443724] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/mavic_autonomy.py to mavic_autonomy.cpython-310.pyc\n'}
+[14.445429] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/WebotsEnv.py to WebotsEnv.cpython-310.pyc\n'}
+[14.446389] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/moose_autonomy.py to moose_autonomy.cpython-310.pyc\n'}
+[14.447854] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/main.py to main.cpython-310.pyc\n'}
+[14.448603] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/OperatorHub.py to OperatorHub.cpython-310.pyc\n'}
+[14.449842] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/mavic_driver.py to mavic_driver.cpython-310.pyc\n'}
+[14.450511] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/moose_driver.py to moose_driver.cpython-310.pyc\n'}
+[14.451031] (webots_ros2_mavic) StdoutLine: {'line': b'byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/__init__.py to __init__.cpython-310.pyc\n'}
+[14.451226] (webots_ros2_mavic) StdoutLine: {'line': b'running install_data\n'}
+[14.451712] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/ament_index\n'}
+[14.451798] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/ament_index/resource_index\n'}
+[14.451963] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/ament_index/resource_index/packages\n'}
+[14.452143] (webots_ros2_mavic) StdoutLine: {'line': b'copying resource/webots_ros2_mavic -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/ament_index/resource_index/packages\n'}
+[14.452209] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/launch\n'}
+[14.452265] (webots_ros2_mavic) StdoutLine: {'line': b'copying launch/robot_launch.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/launch\n'}
+[14.452318] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds\n'}
+[14.452371] (webots_ros2_mavic) StdoutLine: {'line': b'copying worlds/mavic_world.wbt -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds\n'}
+[14.511581] (-) TimerEvent: {}
+[14.568885] (webots_ros2_mavic) StdoutLine: {'line': b'copying worlds/.mavic_world.wbproj -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/worlds\n'}
+[14.611805] (-) TimerEvent: {}
+[14.653656] (webots_ros2_mavic) StdoutLine: {'line': b'creating /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/resource\n'}
+[14.653838] (webots_ros2_mavic) StdoutLine: {'line': b'copying resource/mavic_webots.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/resource\n'}
+[14.711959] (-) TimerEvent: {}
+[14.743172] (webots_ros2_mavic) StdoutLine: {'line': b'copying resource/moose_webots.urdf -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic/resource\n'}
+[14.798408] (webots_ros2_mavic) StdoutLine: {'line': b'copying package.xml -> /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/share/webots_ros2_mavic\n'}
+[14.798946] (webots_ros2_mavic) StdoutLine: {'line': b'running install_egg_info\n'}
+[14.803113] (webots_ros2_mavic) StdoutLine: {'line': b'Copying build/webots_ros2_mavic/webots_ros2_mavic.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info\n'}
+[14.804894] (webots_ros2_mavic) StdoutLine: {'line': b'running install_scripts\n'}
+[14.812069] (-) TimerEvent: {}
+[14.830152] (webots_ros2_mavic) StdoutLine: {'line': b'Installing OperatorHub script to /home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/install/webots_ros2_mavic/lib/webots_ros2_mavic\n'}
+[14.830523] (webots_ros2_mavic) StdoutLine: {'line': b"writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/build/webots_ros2_mavic/install.log'\n"}
+[14.852160] (webots_ros2_mavic) CommandEnded: {'returncode': 0}
+[14.912331] (-) TimerEvent: {}
+[15.013076] (-) TimerEvent: {}
+[15.113723] (-) TimerEvent: {}
+[15.214141] (-) TimerEvent: {}
+[15.315146] (-) TimerEvent: {}
+[15.415395] (-) TimerEvent: {}
+[15.515735] (-) TimerEvent: {}
+[15.616105] (-) TimerEvent: {}
+[15.716547] (-) TimerEvent: {}
+[15.817218] (-) TimerEvent: {}
+[15.917445] (webots_ros2_mavic) JobEnded: {'identifier': 'webots_ros2_mavic', 'rc': 0}
+[15.918104] (-) TimerEvent: {}
+[15.918177] (-) EventReactorShutdown: {}
