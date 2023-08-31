@@ -15,7 +15,7 @@ from robot_interfaces.msg import DiverseArray
 K_VERTICAL_THRUST = 68.5    # with this thrust, the drone lifts.
 K_VERTICAL_P = 3.0          # P constant of the vertical PID.
 K_ROLL_P = 50.0             # P constant of the roll PID.
-K_PITCH_P = 30.0            # P constant of the pitch PID.
+K_PITCH_P = 1.0 #30.0            # P constant of the pitch PID.
 K_YAW_P = 2.0
 K_VERTICAL_OFFSET = 0.6
 K_X_VELOCITY_P = 1
@@ -235,6 +235,7 @@ class MavicAutonomy:
             m3 = K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input
             m4 = K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input
 
+            #self.__node.get_logger().info(f"Motor cmd: {-m1} {m2} {m3} {-m4}")
             # Apply control
             self.__propellers[0].setVelocity(-m1)
             self.__propellers[1].setVelocity(m2)

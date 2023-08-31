@@ -164,7 +164,7 @@ class MooseAutonomy:
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
     def linearVelocityController(self, targetPOI):
-        maxVelocity = 0.5
+        maxVelocity = 0.5 #Note this is not a true velocity value in m/s  -> more of a scaling unitless value (refer to calculations on PAGE  4)
         kP = 1
         error = self.euclidean_distance(targetPOI) - self.__target_precision #make the robot stop 30 meters away from poi
         linearVelocity = kP * error
@@ -269,6 +269,7 @@ class MooseAutonomy:
 
             command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
             #command_motor_right = clamp(command_motor_right, -2, 2)
+            #self.__node.get_logger().info(f"motors: {command_motor_left}    {command_motor_right}")
             
             # Apply control
             self.__motors[0].setVelocity(command_motor_left)
