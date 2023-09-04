@@ -82,11 +82,11 @@ def main():
         f.close()
 
 
-    numSafe = 10
-    numThreats = 10
-    numHumans = 10
-    numUAVs = 5
-    numUGVs = 8
+    numSafe = 5
+    numThreats = 5
+    numHumans = 6
+    numUAVs = 3
+    numUGVs = 3
     numRobots = numUAVs + numUGVs
     uavHeight = 19
 

@@ -185,8 +185,9 @@ class OperatorHub(Node):
                         break
             self.get_logger().info(f"AD assigned to operator {assignedOperator}")
             
+            #THE 2 LINES BELOW ARE NOT NEEDED AS TBAR INDEPENDENT OF CLASSIFICATION SKILL LEVEL
             #Adjust image quality one more time - this time to adjust/account for operator skill level in CLASSIFYING POI
-            imageQuality = self.getImageQuality(robotName, assignedOperator, sharedMode=True)
+            #imageQuality = self.getImageQuality(robotName, assignedOperator, sharedMode=True)
             
             #Assign the t Bar value based on final image quality and poi difficulty
             tBar = self.tBarLUT[imageQuality][poiDifficulty - 1]
