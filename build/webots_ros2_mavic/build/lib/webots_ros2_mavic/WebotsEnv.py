@@ -25,9 +25,9 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numSafe + self.numThreats):
-            self.poiAttributes[i][0] = int(random.uniform(-50, 50))
+            self.poiAttributes[i][0] = int(random.uniform(-1000, 1000))
             #self.poiAttributes[i][0] = int(random.uniform(-1500, 1500))
-            self.poiAttributes[i][1] = int(random.uniform(-40, 50))
+            self.poiAttributes[i][1] = int(random.uniform(-990, 1000))
             #self.poiAttributes[i][1] = int(random.uniform(-1400, 1500)) #-1400 to avoid overlapping with the robots and humans
             self.poiAttributes[i][2] = 6
 
@@ -86,7 +86,7 @@ class WebotsEnv:
         for i in range(self.numHumans):
             self.humanAttributes[i][0] = (2 * i + 1) - 10
             #self.humanAttributes[i][1] = -1493
-            self.humanAttributes[i][1] = -49
+            self.humanAttributes[i][1] = -995
             self.humanAttributes[i][2] = 1.28
 
         #Assign cognitive ability and operator skill level
@@ -118,13 +118,13 @@ class WebotsEnv:
         for i in range(self.numUAVs):
             self.robotAttributes[i][0] = -(3 * i + 1)
             #self.robotAttributes[i][1] = -1490
-            self.robotAttributes[i][1] = -47
+            self.robotAttributes[i][1] = -990
             self.robotAttributes[i][2] = 0.1
         
         for i in range(self.numUGVs):
             self.robotAttributes[i + self.numUAVs][0] = (5 * i + 5)
             #self.robotAttributes[i + self.numUAVs][1] = -1485
-            self.robotAttributes[i + self.numUAVs][1] = -47
+            self.robotAttributes[i + self.numUAVs][1] = -990
             self.robotAttributes[i + self.numUAVs][2] = 0.2
 
         #Assign vehicle speed
