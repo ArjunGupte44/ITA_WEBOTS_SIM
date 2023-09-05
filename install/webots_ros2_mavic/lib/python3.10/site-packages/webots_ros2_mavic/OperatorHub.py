@@ -42,6 +42,7 @@ class OperatorHub(Node):
 
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
+        self.operatorArrivalTimes = []
         
         #0: Safe POIs, 1: Threat POIs, 2: Humans, 3: UAVs, 4: UGVs
         self.numUAVs = self.getNumAgents(3)
@@ -52,6 +53,8 @@ class OperatorHub(Node):
         self.numPois = len(self.poiAttributes)
         self.poiVisitTimes = np.zeros((self.numPois, 1))
         self.currentTimes = []
+        self.uavArrivalTimes = []
+        self.ugvArrivalTimes = []
         self.pictureTakingTime = 3 #seconds
         self.poisVisited = 0
         
@@ -59,10 +62,13 @@ class OperatorHub(Node):
         self.tBarLUT = {"low": [45, 125, 245], "medium": [35, 95, 195], "upper-medium": [25, 65, 145], "high": [15, 35, 95]}
         self.robotProbabilitiesLUT = {"low": [0.5, 0.3, 0.1], "medium": [0.6, 0.4, 0.2], "upper-medium": [0.7, 0.5, 0.3], "high": [0.8, 0.6, 0.4]}
 
-        self.initializeNestedLists(self.operatorMetrics, len(self.humanAttributes), self.numParams)
-        self.initializeNestedLists(self.uavMetrics, self.numUAVs, 2)
-        self.initializeNestedLists(self.ugvMetrics, self.numUGVs, 2)
-        self.initializeNestedLists(self.currentTimes, len(self.humanAttributes), 0)
+        self.initializeNestedStructure(self.operatorMetrics, len(self.humanAttributes), self.numParams, 'l')
+        self.initializeNestedStructure(self.uavMetrics, self.numUAVs, 2, 'l')
+        self.initializeNestedStructure(self.ugvMetrics, self.numUGVs, 2, 'l')
+        self.initializeNestedStructure(self.currentTimes, len(self.humanAttributes), 0, 'l')
+        self.initializeNestedStructure(self.uavArrivalTimes, self.numUAVs, 0, 'l')
+        self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
+        self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
 
     def getAgentAttributes(self, agentType, numAttributes):
         attributesArray = []
@@ -118,18 +124,28 @@ class OperatorHub(Node):
         f = open(NUM_AGENTS_FILE, '+r')
         return int(f.readline(i))
 
-    def initializeNestedLists(self, array, outerParam, innerParam):
+    def initializeNestedStructure(self, array, outerParam, innerParam, dType):
         for i in range(outerParam):
-            array.append([])
+            array.append([]) if dType == 'l' else array.append({})
             for param in range(innerParam):
-                array[i].append([])
+                array[i].append([]) if dType == 'l' else array.append({})
 
     def subCallback(self, msg):
         self.poisVisited += 1
         robotName = msg.robot_name
         visitedPoiCoords = [round(msg.poi_x, 2), round(msg.poi_y, 2), round(msg.poi_z, 2)]
         arrivalTime = msg.arrival_time
-    
+
+        #Determine whether a uav/ugv arrived at poi and what its number was
+        robotNumber = re.findall(r"\d+", robotName)
+        uavArrived = 1 if "mavic" in robotName else 0
+
+        #Add arrival time to appropriate array 
+        if "moose" in robotName:
+            self.ugvArrivalTimes[robotNumber].append(arrivalTime)
+        else:
+            self.uavArrivalTimes[robotNumber].append(arrivalTime)
+
         #Determine the poi difficulty level
         poiDifficulty = -1
         for i in range(len(self.poiAttributes)):
@@ -142,10 +158,21 @@ class OperatorHub(Node):
         #If sharedMode then adjust image quality based on operator skill level in TAKING PICTURE
         navigatingAgent = "robot" #or "operator"
         if navigatingAgent == "robot":
-            imageQuality = self.getImageQuality(robotName, assignedOperator, sharedMode=False)
+            imageQuality = self.getImageQuality(robotName, assignedNavigator=-1, sharedMode=False)
+            
         else:
-            assignedOperator = 0 #Determine which operator was assigned to drive the robot to this poi
-            imageQuality = self.getImageQuality(robotName, assignedOperator, sharedMode=True)
+            assignedNavigator = 0 #Determine which operator was assigned to drive the robot to this poi
+            imageQuality = self.getImageQuality(robotName, assignedNavigator, sharedMode=True)
+            
+            #Determine how long it took human to drive this robot from the previous poi to this one
+            robotArrivalTimes = self.uavArrivalTimes if uavArrived else self.ugvArrivalTimes
+            if len(robotArrivalTimes[robotNumber]) == 1:
+                navigationTime = arrivalTime
+            else:
+                navigationTime = arrivalTime - robotArrivalTimes[robotNumber][-2] - self.pictureTakingTime #[-2] = arrival time for prev poi
+
+            #Now append this navigation time to the dict: {arrival time: navigation time}
+            self.operatorArrivalTimes[assignedNavigator][arrivalTime] = navigationTime
 
         #Now work on determining which agent has been assigned to classify the poi
         #First try to find the robot assigned to this poi based on its xyz location
@@ -185,10 +212,7 @@ class OperatorHub(Node):
                         break
             self.get_logger().info(f"AD assigned to operator {assignedOperator}")
             
-            #Adjust image quality one more time - this time to adjust/account for operator skill level in CLASSIFYING POI
-            imageQuality = self.getImageQuality(robotName, assignedOperator, sharedMode=True)
-            
-            #Assign the t Bar value based on final image quality and poi difficulty
+            #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
             tBar = self.tBarLUT[imageQuality][poiDifficulty - 1]
             self.operatorMetrics[assignedOperator][0].append(tBar)
             
@@ -201,11 +225,18 @@ class OperatorHub(Node):
             for val in self.operatorMetrics[assignedOperator][0]:
                 tBarCumulative += val
 
-            #Calculate value of Ff - this param is a cumulative value so look through previous values in tBar list for a given operator
-            if tBarCumulative >= 0 and tBarCumulative < ONE_HOUR_IN_SECONDS: #between 0 and 1 hour in seconds
+            #The following parameters also need a cumulative value of all the navigation times for the assigned operator
+            navTimeCumulative = 0
+            for arrivalTime in self.operatorArrivalTimes[assignedOperator].keys():
+                navTimeCumulative += self.operatorArrivalTimes[assignedOperator][arrivalTime]
+            
+            cumulativeWorkingTime = tBarCumulative + navTimeCumulative
+
+            #Calculate value of Ff - this param is a cumulative value so look through previous values in tBar + navTime lists for a given operator
+            if cumulativeWorkingTime >= 0 and cumulativeWorkingTime < ONE_HOUR_IN_SECONDS: #between 0 and 1 hour in seconds
                 Ff = 1
-            elif tBarCumulative >= ONE_HOUR_IN_SECONDS and tBarCumulative <= TWO_HOURS_IN_SECONDS: #between 1 and 2 hours in seconds
-                Ff = -0.66 * tBarCumulative + 1.33
+            elif cumulativeWorkingTime >= ONE_HOUR_IN_SECONDS and cumulativeWorkingTime <= TWO_HOURS_IN_SECONDS: #between 1 and 2 hours in seconds
+                Ff = -0.66 * cumulativeWorkingTime + 1.33
             self.operatorMetrics[assignedOperator][2].append(Ff)
 
             #Calculate value of Fw - this param is a cumulative value so look through previous values in tBar list for a given operator
@@ -217,12 +248,21 @@ class OperatorHub(Node):
 
             fiveMinCutoff = max(0, currentTime - FIVE_MINS_IN_SECONDS) #if more than 5 mins have passed by, all good ; if not then cutoff is simply t = 0s
             workingTime = 0 #seconds
+
+            #append the values of tBar for the current operator while traversing in reverse
             for i, time in reversed(list(enumerate(self.currentTimes[assignedOperator]))):
                 if time > fiveMinCutoff:
-                    workingTime += self.operatorMetrics[assignedOperator][0][i] #append the values of tBar for the current operator while traversing in reverse
+                    workingTime += self.operatorMetrics[assignedOperator][0][i] 
                 else:
                     break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
             
+            #append the values of navigation time for the current operator while traversing through dict in reverse
+            for arrivalTime in reversed(self.operatorArrivalTimes[assignedOperator].keys()):
+                if arrivalTime > fiveMinCutoff:
+                    workingTime += self.operatorArrivalTimes[assignedOperator][arrivalTime]
+                else:
+                    break
+
             #Apply formula to calculate Fw and get result
             #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
             #Therefore there is a chance that the total working time within the last 5 minutes is actually greater than 300 seconds (5 mins)
@@ -255,18 +295,18 @@ class OperatorHub(Node):
             self.getSimScore()
 
 
-    def getImageQuality(self, robotName, assignedOperator, sharedMode):
+    def getImageQuality(self, robotName, assignedNavigator, sharedMode):
         #1. Determine the base image quality based on the type of robot that took the image - UAV (medium) and UGV (upper-medium)
         imageQuality = "upper-medium" if "moose" in robotName else "medium"
 
         if sharedMode == True:
-            #2. Upgrade or downgrade the image quality by 1 based on the skill level of the human operator assigned
+            #2. Upgrade or downgrade the image quality by 1 based on the skill level of the human operator that drove the robot
             #Downgrade image quality if skill level is LOW
-            if self.humanAttributes[assignedOperator][4] > 0 and self.humanAttributes[assignedOperator][4] < m.pi / 12:
+            if self.humanAttributes[assignedNavigator][4] > 0 and self.humanAttributes[assignedNavigator][4] < m.pi / 12:
                 imageQuality = self.imageQualities[self.imageQualities.index(imageQuality) - 1]
                 
             #Upgrade image quality if skill level is high
-            elif self.humanAttributes[assignedOperator][4] > m.pi / 6 and self.humanAttributes[assignedOperator][4] < m.pi / 4:
+            elif self.humanAttributes[assignedNavigator][4] > m.pi / 6 and self.humanAttributes[assignedNavigator][4] < m.pi / 4:
                 imageQuality = self.imageQualities[self.imageQualities.index(imageQuality) + 1]
         
         return imageQuality

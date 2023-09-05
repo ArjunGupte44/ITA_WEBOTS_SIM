@@ -31,6 +31,10 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
+SLOWEST_SPEED = 0.314
+MEDIUM_SPEED = 0.471
+FASTEST_SPEED = 0.7065
+
 def clamp(value, value_min, value_max):
     return min(max(value, value_min), value_max)
 
@@ -86,13 +90,15 @@ class MooseAutonomy:
         self.__mooseNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
         self.__onTargetLine = False
+        self.__forwardSpeed = MEDIUM_SPEED
 
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
         #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
-        self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
         self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
+        self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
+        self.__node.create_subscription(String, 'speedMode', self.__adjustDrivingSpeed, 10)
         self.__path_follow_callback('ugvCoords.txt')
 
     def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
@@ -139,7 +145,15 @@ class MooseAutonomy:
         heading = radians(heading) #in radians now
         self.__current_pose = [x, y, z, heading]
         #self.__node.get_logger().info(f"pos: {self.__current_pose}")
+    
 
+    def __adjustDrivingSpeed(self, speedMode):
+        if speedMode == 'low':
+            self.__forwardSpeed = SLOWEST_SPEED
+        elif speedMode == "medium":
+            self.__forwardSpeed = MEDIUM_SPEED
+        else:
+            self.__forwardSpeed = FASTEST_SPEED
 
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target
@@ -164,7 +178,7 @@ class MooseAutonomy:
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
     def linearVelocityController(self, targetPOI):
-        maxVelocity = 0.5 #Note this is not a true velocity value in m/s  -> more of a scaling unitless value (refer to calculations on PAGE  4)
+        maxVelocity = self.__forwardSpeed #Note this is not a true velocity value in m/s  -> more of a scaling unitless value (refer to calculations on PAGE  4)
         kP = 1
         error = self.euclidean_distance(targetPOI) - self.__target_precision #make the robot stop 30 meters away from poi
         linearVelocity = kP * error

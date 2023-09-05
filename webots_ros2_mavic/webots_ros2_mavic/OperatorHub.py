@@ -39,6 +39,7 @@ class OperatorHub(Node):
         self.robotPoiAssignments = [] #from RL MODEL
 
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
+        self.publisher = self.create_publisher(String, 'speedMode', 10)
 
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
         self.operatorMetrics = []
@@ -129,6 +130,15 @@ class OperatorHub(Node):
             array.append([]) if dType == 'l' else array.append({})
             for param in range(innerParam):
                 array[i].append([]) if dType == 'l' else array.append({})
+    
+    def findAssignedOperator(self, visitedPoiCoords):
+        assignedOperator = -1
+        for i, row in enumerate(self.humanPoiAssignments):
+            for coord in row:
+                if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
+                    assignedOperator = i
+                    break
+        return assignedOperator
 
     def subCallback(self, msg):
         self.poisVisited += 1
@@ -204,12 +214,7 @@ class OperatorHub(Node):
             #Find the operator assigned to this poi based on its xyz location
             foundAssignedHuman = False
             row = 0
-            assignedOperator = -1
-            for i, row in enumerate(self.humanPoiAssignments):
-                for coord in row:
-                    if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
-                        assignedOperator = i
-                        break
+            assignedOperator = self.findAssignedOperator(visitedPoiCoords)
             self.get_logger().info(f"AD assigned to operator {assignedOperator}")
             
             #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
@@ -228,7 +233,7 @@ class OperatorHub(Node):
             #The following parameters also need a cumulative value of all the navigation times for the assigned operator
             navTimeCumulative = 0
             for arrivalTime in self.operatorArrivalTimes[assignedOperator].keys():
-                navTimeCumulative += self.operatorArrivalTimes[assignedOperator][arrivalTime]\
+                navTimeCumulative += self.operatorArrivalTimes[assignedOperator][arrivalTime]
             
             cumulativeWorkingTime = tBarCumulative + navTimeCumulative
 
@@ -293,6 +298,30 @@ class OperatorHub(Node):
 
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
+        
+        #As a last step in processing this visit to the poi...
+        #1. Determine the next poi the robot is going to - if there is one
+        poiIndex = self.robotPoiAssignments[assignedRobot].index(visitedPoiCoords) 
+        if poiIndex != len(self.robotPoiAssignments[assignedRobot]) - 1:
+            nextPoi = self.robotPoiAssignments[assignedRobot][poiIndex + 1]
+
+            #2. Determine if a human operator will be controlling the robot or whether the robot will be autonomous
+            if any(nextPoi in operatorAssignments for operatorAssignments in self.humanPoiAssignments):
+            
+                #3. If it is teleoperated, get the human skill level and publish a low/high speed mode message
+                assignedOperator = self.findAssignedOperator(nextPoi)
+                #No operator assigned to the next poi which means the robot drives autonomously
+                if assignedOperator == -1:
+                    self.publisher.publish("medium")
+                #An operator is assigned to the next poi so adjust speed based on skill level
+                else:
+                    operatorSkillLevel = self.humanAttributes[assignedOperator][4]
+                    if operatorSkillLevel > 0 and operatorSkillLevel < m.pi / 12:
+                        self.publisher.publish("low")
+                    elif operatorSkillLevel >= m.pi / 12 and operatorSkillLevel <= m.pi / 6:
+                        self.publisher.publish("medium")
+                    else:
+                        self.publisher.publish("high")
 
 
     def getImageQuality(self, robotName, assignedNavigator, sharedMode):
