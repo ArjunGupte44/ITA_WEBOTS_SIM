@@ -35,8 +35,10 @@ class OperatorHub(Node):
         self.humanAttributes = self.getAgentAttributes('human', NUM_HUMAN_ATTRIBUTES)
         self.poiAttributes = self.getAgentAttributes('poi', NUM_POI_ATTRIBUTES)
 
+        #Make the following variables have this structure: [{"mavic1": [poi1, poi2,...], "moose1": [poi3, poi4,...]}]
         self.humanPoiAssignments = self.getPoiAssignments()
         self.robotPoiAssignments = [] #from RL MODEL
+        self.navigatorPoiAssignments = [] #from RL MODEL
 
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
         self.publisher = self.create_publisher(String, 'speedMode', 10)
@@ -70,6 +72,9 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.uavArrivalTimes, self.numUAVs, 0, 'l')
         self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
         self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
+
+        self.setInititalUGVSpeeds()
+        #repeat for uavs
 
     def getAgentAttributes(self, agentType, numAttributes):
         attributesArray = []
@@ -131,14 +136,20 @@ class OperatorHub(Node):
             for param in range(innerParam):
                 array[i].append([]) if dType == 'l' else array.append({})
     
-    def findAssignedOperator(self, visitedPoiCoords):
-        assignedOperator = -1
-        for i, row in enumerate(self.humanPoiAssignments):
+    def findAssignedHuman(self, visitedPoiCoords, mode):
+        assignedHuman = -1
+        searchList = self.humanPoiAssignments if mode == 'o' else self.navigatorPoiAssignments
+        for i, row in enumerate(searchList):
             for coord in row:
                 if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
-                    assignedOperator = i
+                    assignedHuman = i
                     break
-        return assignedOperator
+
+        return assignedHuman
+    
+    def setInititalUGVSpeeds(self):
+        for ugv in self.robotPoiAssignments:
+            self.configureRobotSpeedMode(ugv)
 
     def subCallback(self, msg):
         self.poisVisited += 1
@@ -147,7 +158,7 @@ class OperatorHub(Node):
         arrivalTime = msg.arrival_time
 
         #Determine whether a uav/ugv arrived at poi and what its number was
-        robotNumber = re.findall(r"\d+", robotName)
+        robotNumber = int(re.findall(r"\d+", robotName)[0])
         uavArrived = 1 if "mavic" in robotName else 0
 
         #Add arrival time to appropriate array 
@@ -214,7 +225,7 @@ class OperatorHub(Node):
             #Find the operator assigned to this poi based on its xyz location
             foundAssignedHuman = False
             row = 0
-            assignedOperator = self.findAssignedOperator(visitedPoiCoords)
+            assignedOperator = self.findAssignedHuman(visitedPoiCoords, 'o')
             self.get_logger().info(f"AD assigned to operator {assignedOperator}")
             
             #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
@@ -300,28 +311,7 @@ class OperatorHub(Node):
             self.getSimScore()
         
         #As a last step in processing this visit to the poi...
-        #1. Determine the next poi the robot is going to - if there is one
-        poiIndex = self.robotPoiAssignments[assignedRobot].index(visitedPoiCoords) 
-        if poiIndex != len(self.robotPoiAssignments[assignedRobot]) - 1:
-            nextPoi = self.robotPoiAssignments[assignedRobot][poiIndex + 1]
-
-            #2. Determine if a human operator will be controlling the robot or whether the robot will be autonomous
-            if any(nextPoi in operatorAssignments for operatorAssignments in self.humanPoiAssignments):
-            
-                #3. If it is teleoperated, get the human skill level and publish a low/high speed mode message
-                assignedOperator = self.findAssignedOperator(nextPoi)
-                #No operator assigned to the next poi which means the robot drives autonomously
-                if assignedOperator == -1:
-                    self.publisher.publish(robotName + " medium")
-                #An operator is assigned to the next poi so adjust speed based on skill level
-                else:
-                    operatorSkillLevel = self.humanAttributes[assignedOperator][4]
-                    if operatorSkillLevel > 0 and operatorSkillLevel < m.pi / 12:
-                        self.publisher.publish(robotName + " low")
-                    elif operatorSkillLevel >= m.pi / 12 and operatorSkillLevel <= m.pi / 6:
-                        self.publisher.publish(robotName + " medium")
-                    else:
-                        self.publisher.publish(robotName + " high")
+        self.configureRobotSpeedMode(robotName, visitedPoiCoords)
 
 
     def getImageQuality(self, robotName, assignedNavigator, sharedMode):
@@ -355,6 +345,40 @@ class OperatorHub(Node):
 
         finalSimScore = np.mean(operatorNetScores)
         self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
+    
+
+    def configureRobotSpeedMode(self, robotName, visitedPoiCoords=-1):
+        #1. Determine the next poi the robot is going to - if there is one
+        #-1 means we are at start of sim and havent visited anything yet => next poi is index 0 in robot poi assignments
+        if visitedPoiCoords == -1:
+            nextPoi = self.robotPoiAssignments[robotName][0]
+            foundValidPoi = True
+        else:
+            poiIndex = self.robotPoiAssignments[robotName].index(visitedPoiCoords) 
+            if poiIndex != len(self.robotPoiAssignments[robotName]) - 1:
+                nextPoi = self.robotPoiAssignments[robotName][poiIndex + 1]
+                foundValidPoi = True
+            else:
+                foundValidPoi = False
+        
+        if foundValidPoi:
+            #2. Determine if a human operator will be controlling the robot or whether the robot will be autonomous
+            if any(nextPoi in navigatorAssignments for navigatorAssignments in self.navigatorPoiAssignments):
+            
+                #3. If it is teleoperated, get the human skill level and publish a low/high speed mode message
+                assignedNavigator = self.findAssignedHuman(nextPoi, 'n')
+                #No operator assigned to the next poi which means the robot drives autonomously
+                if assignedNavigator == -1:
+                    self.publisher.publish(robotName + " medium")
+                #An operator is assigned to the next poi so adjust speed based on skill level
+                else:
+                    navigatorSkillLevel = self.humanAttributes[assignedNavigator][4]
+                    if navigatorSkillLevel > 0 and navigatorSkillLevel < m.pi / 12:
+                        self.publisher.publish(robotName + " low")
+                    elif navigatorSkillLevel >= m.pi / 12 and navigatorSkillLevel <= m.pi / 6:
+                        self.publisher.publish(robotName + " medium")
+                    else:
+                        self.publisher.publish(robotName + " high")
         
 
     

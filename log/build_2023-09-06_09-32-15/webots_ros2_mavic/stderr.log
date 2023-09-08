@@ -1,0 +1,5 @@
+  File "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/mavic_autonomy.py", line 242
+    [m1, m2, m3, m4] *= SPEED_CONSTANT
+    ^^^^^^^^^^^^^^^^
+SyntaxError: 'list' is an illegal expression for augmented assignment
+
