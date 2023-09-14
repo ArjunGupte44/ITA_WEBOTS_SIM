@@ -229,7 +229,7 @@ class OperatorHub(Node):
             self.get_logger().info(f"AD assigned to operator {assignedOperator}")
             
             #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
-            tBar = self.tBarLUT[imageQuality][poiDifficulty - 1]
+            tBar = self.tBarLUT[self.imageQualities.index(imageQuality)][poiDifficulty - 1]
             self.operatorMetrics[assignedOperator][0].append(tBar)
             
             #Calculate value of Fs - this param is not a cumulative value from all the previously visited pois

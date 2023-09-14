@@ -80,7 +80,7 @@ class MooseAutonomy:
         self.__target_position = [0, 0]
         self.__target_index = 0
         self.__current_pose = 5 * [0]
-        self.__target_precision = 30
+        self.__target_precision = 15
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
         self.__startTime = 0

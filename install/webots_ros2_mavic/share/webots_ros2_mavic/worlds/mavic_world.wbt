@@ -24,7 +24,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.061533923553624914 0.05562770495985827 0.9965536286086141 1.7246771142139286
-  position 11.618437465010038 -549.5068844425682 9.694753819025367
+  position 11.618437465010038 -1000.5068844425682 9.694753819025367
   near 0.2
   follow "Mavic 2 PRO"
   followSmoothness 0.2
@@ -35,14 +35,14 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 Floor {
-  size 2000 2000
+  size 1000 1000
   tileSize 6 6
   appearance SandyGround {
   }
 }
 
 HotAirBalloon {
-  translation -862.0 879.0 6.0
+  translation -54.0 337.0 1.5
   name "safe_0"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -51,7 +51,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 834.0 -53.0 6.0
+  translation 419.0 374.0 1.5
   name "safe_1"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -60,7 +60,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 121.0 -226.0 6.0
+  translation 257.0 159.0 1.5
   name "safe_2"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -69,7 +69,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 827.0 753.0 6.0
+  translation -129.0 378.0 1.5
   name "safe_3"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -78,7 +78,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 210.0 -313.0 6.0
+  translation 433.0 -485.0 1.5
   name "safe_4"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -87,7 +87,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -810.0 -604.0 6.0
+  translation 458.0 89.0 1.5
   name "safe_5"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -96,7 +96,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 807.0 915.0 6.0
+  translation 294.0 -43.0 1.5
   name "safe_6"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -105,7 +105,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 994.0 121.0 6.0
+  translation -461.0 -404.0 1.5
   name "safe_7"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -114,7 +114,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 947.0 767.0 6.0
+  translation 404.0 18.0 1.5
   name "safe_8"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -123,7 +123,151 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 66.0 676.0 6.0
+  translation 138.0 -474.0 1.5
+  name "safe_9"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 430.0 241.0 1.5
+  name "safe_10"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 127.0 10.0 1.5
+  name "safe_11"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 334.0 -328.0 1.5
+  name "safe_12"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 433.0 -245.0 1.5
+  name "safe_13"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 148.0 -177.0 1.5
+  name "safe_14"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 54.0 -338.0 1.5
+  name "safe_15"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -199.0 -407.0 1.5
+  name "safe_16"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -120.0 393.0 1.5
+  name "safe_17"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -195.0 -45.0 1.5
+  name "safe_18"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -411.0 446.0 1.5
+  name "safe_19"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 183.0 -309.0 1.5
+  name "safe_20"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -459.0 -413.0 1.5
+  name "safe_21"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -244.0 -351.0 1.5
+  name "safe_22"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 260.0 -166.0 1.5
+  name "safe_23"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 183.0 -289.0 1.5
+  name "safe_24"
+  appearance PBRAppearance {
+    baseColor 0 1 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 305.0 365.0 1.5
   name "threat_0"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -132,7 +276,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 433.0 -156.0 6.0
+  translation 415.0 -381.0 1.5
   name "threat_1"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -141,7 +285,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 421.0 -42.0 6.0
+  translation -179.0 -47.0 1.5
   name "threat_2"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -150,7 +294,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 730.0 245.0 6.0
+  translation 396.0 -86.0 1.5
   name "threat_3"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -159,7 +303,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -661.0 786.0 6.0
+  translation -185.0 -372.0 1.5
   name "threat_4"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -168,7 +312,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 252.0 -240.0 6.0
+  translation 340.0 -201.0 1.5
   name "threat_5"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -177,7 +321,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -310.0 -160.0 6.0
+  translation -333.0 147.0 1.5
   name "threat_6"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -186,7 +330,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 335.0 243.0 6.0
+  translation 136.0 -274.0 1.5
   name "threat_7"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -195,7 +339,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 14.0 149.0 6.0
+  translation 190.0 111.0 1.5
   name "threat_8"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -203,58 +347,177 @@ HotAirBalloon {
     metalness 0
   }
 }
+HotAirBalloon {
+  translation -236.0 -282.0 1.5
+  name "threat_9"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 376.0 125.0 1.5
+  name "threat_10"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 445.0 -4.0 1.5
+  name "threat_11"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 331.0 344.0 1.5
+  name "threat_12"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 465.0 -89.0 1.5
+  name "threat_13"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 248.0 -94.0 1.5
+  name "threat_14"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -254.0 376.0 1.5
+  name "threat_15"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 304.0 -68.0 1.5
+  name "threat_16"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -141.0 -344.0 1.5
+  name "threat_17"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -426.0 -91.0 1.5
+  name "threat_18"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -217.0 367.0 1.5
+  name "threat_19"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -233.0 -248.0 1.5
+  name "threat_20"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -482.0 261.0 1.5
+  name "threat_21"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 271.0 -260.0 1.5
+  name "threat_22"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation 408.0 451.0 1.5
+  name "threat_23"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
+HotAirBalloon {
+  translation -479.0 -253.0 1.5
+  name "threat_24"
+  appearance PBRAppearance {
+    baseColor 1 0 0
+    roughness 0.5
+    metalness 0
+  }
+}
 Pedestrian {
-  translation -9.0 -995.0 1.28
+  translation -9.0 -495.0 1.28
   rotation 0 0 1 1.5707963267948966
   name "human_0"
 }
 Pedestrian {
-  translation -7.0 -995.0 1.28
+  translation -7.0 -495.0 1.28
   rotation 0 0 1 1.5707963267948966
   name "human_1"
 }
 Pedestrian {
-  translation -5.0 -995.0 1.28
+  translation -5.0 -495.0 1.28
   rotation 0 0 1 1.5707963267948966
   name "human_2"
 }
 Pedestrian {
-  translation -3.0 -995.0 1.28
+  translation -3.0 -495.0 1.28
   rotation 0 0 1 1.5707963267948966
   name "human_3"
 }
 Pedestrian {
-  translation -1.0 -995.0 1.28
+  translation -1.0 -495.0 1.28
   rotation 0 0 1 1.5707963267948966
   name "human_4"
 }
-Pedestrian {
-  translation 1.0 -995.0 1.28
-  rotation 0 0 1 1.5707963267948966
-  name "human_5"
-}
-Pedestrian {
-  translation 3.0 -995.0 1.28
-  rotation 0 0 1 1.5707963267948966
-  name "human_6"
-}
-Pedestrian {
-  translation 5.0 -995.0 1.28
-  rotation 0 0 1 1.5707963267948966
-  name "human_7"
-}
-Pedestrian {
-  translation 7.0 -995.0 1.28
-  rotation 0 0 1 1.5707963267948966
-  name "human_8"
-}
-Pedestrian {
-  translation 9.0 -995.0 1.28
-  rotation 0 0 1 1.5707963267948966
-  name "human_9"
-}
 Mavic2Pro {
-  translation -1.0 -990.0 0.1
+  translation -1.0 -490.0 0.1
   rotation 0 0 1 1.5707963267948966
   name "Mavic_2_PRO_0"
   controller "<extern>"
@@ -267,7 +530,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -4.0 -990.0 0.1
+  translation -4.0 -490.0 0.1
   rotation 0 0 1 1.5707963267948966
   name "Mavic_2_PRO_1"
   controller "<extern>"
@@ -280,7 +543,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -7.0 -990.0 0.1
+  translation -7.0 -490.0 0.1
   rotation 0 0 1 1.5707963267948966
   name "Mavic_2_PRO_2"
   controller "<extern>"
@@ -292,47 +555,8 @@ Mavic2Pro {
     }
   ]
 }
-Mavic2Pro {
-  translation -10.0 -990.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_3"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -13.0 -990.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_4"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
-Mavic2Pro {
-  translation -16.0 -990.0 0.1
-  rotation 0 0 1 1.5707963267948966
-  name "Mavic_2_PRO_5"
-  controller "<extern>"
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
-}
 Moose {
-  translation 5.0 -990.0 0.2
+  translation 5.0 -490.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose0"
   controller "<extern>"
@@ -350,7 +574,7 @@ Moose {
   ]
 }
 Moose {
-  translation 10.0 -990.0 0.2
+  translation 10.0 -490.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose1"
   controller "<extern>"
@@ -368,7 +592,7 @@ Moose {
   ]
 }
 Moose {
-  translation 15.0 -990.0 0.2
+  translation 15.0 -490.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose2"
   controller "<extern>"
@@ -386,63 +610,9 @@ Moose {
   ]
 }
 Moose {
-  translation 20.0 -990.0 0.2
+  translation 20.0 -490.0 0.2
   rotation 0 0 1 1.5707963267948966
   name "moose3"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 25.0 -990.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose4"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 30.0 -990.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose5"
-  controller "<extern>"
-  bodySlot [
-    Compass {
-    }
-    Camera {
-      translation 0 0 0.3
-      rotation -0.5773502691896257 0.5773502691896257 0.5773502691896257 -2.09
-      width 200
-      height 140
-    }
-    GPS {
-    }
-  ]
-}
-Moose {
-  translation 35.0 -990.0 0.2
-  rotation 0 0 1 1.5707963267948966
-  name "moose6"
   controller "<extern>"
   bodySlot [
     Compass {
