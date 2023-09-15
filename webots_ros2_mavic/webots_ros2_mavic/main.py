@@ -23,7 +23,7 @@ def main():
                 if distance < minDistance:
                     minDistance = distance
                     closestPoi = poi
-        print(f"centroid: {centroid}   closest: {closestPoi}")
+        #print(f"centroid: {centroid}   closest: {closestPoi}")
         return closestPoi
 
 
@@ -63,7 +63,7 @@ def main():
                 poisSorted = sorted(poiList, key=lambda d: m.dist(d, poiList[0]))
                 clustersMatrix.append(poisSorted)
 
-        print(sum)
+        #print(sum)
         count = 0
         for r in clustersMatrix:
             for point in r:
@@ -152,6 +152,8 @@ def main():
 
     #robotPoiAssignments, humanPoiAssignments = RL()
     #writeToFile(robotPoiAssignments, humanPoiAssignments)
+
+    return clustersMatrix
 
 print(__name__)
 if __name__ == '__main__':

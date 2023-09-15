@@ -31,8 +31,8 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
-SLOWEST_SPEED = 0.059 #0.314
-MEDIUM_SPEED =  0.059 #0.471
+SLOWEST_SPEED = 0.019 #0.314
+MEDIUM_SPEED =  0.039 #0.471
 FASTEST_SPEED = 0.059 #0.7065
 
 
@@ -162,9 +162,7 @@ class MooseAutonomy:
         # Check if the turtle is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
         
-        self.__node.get_logger().info(f"{self.__mooseNumber}: {self.euclidean_distance(self.__waypoints[self.__index])}")
         if int(self.euclidean_distance(self.__waypoints[self.__index])) <= self.__target_precision + 1 and int(self.euclidean_distance(self.__waypoints[self.__index])) >= 0:
-
             # Move to the next house
             if self.__index < len(self.__waypoints) - 1:
                 self.__index += 1
@@ -211,7 +209,6 @@ class MooseAutonomy:
                 poiCoords = self.__waypoints[self.__index]
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
                 self.__publishVisitInfo(poiCoords, timeToVisitPOI)
-                self.__node.get_logger().info("PASSED")
                 return 0.0, 0.0
             
             if linearError <= 1 and self.__justReachedPOI == True:

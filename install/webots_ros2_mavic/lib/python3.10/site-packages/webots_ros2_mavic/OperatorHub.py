@@ -12,9 +12,9 @@ import random
 import re
 import math as m
 import random
-
 from robot_interfaces.msg import DiverseArray
 sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/webots_ros2_mavic')
+
 
 NUM_HUMAN_ATTRIBUTES = 5
 NUM_POI_ATTRIBUTES = 5
@@ -25,6 +25,9 @@ POI_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resou
 POIS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/pois'
 NUM_AGENTS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/numSimAgents'
 
+UAV_COORDS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/uavCoords.txt'
+UGV_COORDS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt'
+
 FIVE_MINS_IN_SECONDS = 300
 ONE_HOUR_IN_SECONDS = 3600
 TWO_HOURS_IN_SECONDS = 7200
@@ -32,10 +35,28 @@ TWO_HOURS_IN_SECONDS = 7200
 class OperatorHub(Node):
     def __init__(self):
         super().__init__("OperatorHub")
+        #0: Safe POIs, 1: Threat POIs, 2: Humans, 3: UAVs, 4: UGVs
+        self.numPois = self.getNumAgents(0) + self.getNumAgents(1)
+        self.numHumans = self.getNumAgents(2)
+        self.numUAVs = self.getNumAgents(3)
+        self.numUGVs = self.getNumAgents(4)
+        self.numTotal = self.numPois + self.numHumans + self.numUAVs + self.numUGVs
+        self.uavMetrics = []
+        self.ugvMetrics = []
+
+        #Get list of all Pois
+        self.pois = self.createPoiList()
+
+        #Create assignment structures
         self.humanAttributes = self.getAgentAttributes('human', NUM_HUMAN_ATTRIBUTES)
         self.poiAttributes = self.getAgentAttributes('poi', NUM_POI_ATTRIBUTES)
 
         #Make the following variables have this structure: [{"mavic1": [poi1, poi2,...], "moose1": [poi3, poi4,...]}]
+        self.masterPoiDict = {}
+        self.masterPoiDict = self.performAllAssignments()
+        self.get_logger().info(f"{self.masterPoiDict}")
+
+        #Original structures for assignments
         self.humanPoiAssignments = self.getPoiAssignments()
         self.robotPoiAssignments = [] #from RL MODEL
         self.navigatorPoiAssignments = [] #from RL MODEL
@@ -47,13 +68,7 @@ class OperatorHub(Node):
         self.operatorMetrics = []
         self.operatorArrivalTimes = []
         
-        #0: Safe POIs, 1: Threat POIs, 2: Humans, 3: UAVs, 4: UGVs
-        self.numUAVs = self.getNumAgents(3)
-        self.numUGVs = self.getNumAgents(4)
-        self.uavMetrics = []
-        self.ugvMetrics = []
 
-        self.numPois = len(self.poiAttributes)
         self.poiVisitTimes = np.zeros((self.numPois, 1))
         self.currentTimes = []
         self.uavArrivalTimes = []
@@ -76,6 +91,19 @@ class OperatorHub(Node):
         self.setInititalUGVSpeeds()
         #repeat for uavs
 
+    def getNumAgents(self, i):
+        f = open(NUM_AGENTS_FILE, '+r')
+        list = f.read().splitlines()
+        return(int(list[i]))
+        
+    
+    def createPoiList(self):
+        f = open(POIS_FILE, '+r')
+        pois = f.readlines()
+        processedPois = list(zip(*[iter(pois)] * 3))
+        return processedPois
+    
+    
     def getAgentAttributes(self, agentType, numAttributes):
         attributesArray = []
         if agentType == 'human':
@@ -95,6 +123,91 @@ class OperatorHub(Node):
         attributesArray.append(currAgentAttributes)
         
         return attributesArray
+    
+    def performAllAssignments(self):
+        localDict = {}
+        paramsList = []
+
+        for i in range(self.numPois):
+            navigatingAgent = ""
+            classifyingAgent = ""
+            
+            #PART 1
+            #First perform navigation assignment - who is navigation mode: ROBOT (0) or HUMAN (1)
+            navigationMode = random.randint(0, 1)
+            
+            #Next if navigation mode is robot, look through the assignments from k means to determine which robot navigated
+            if navigationMode == 0:
+                #Now search through UAVCoords and UGVCoords files to determine which robot was assigned to navigate to the poi
+                #Search through UAV file:
+                uavNumber = self.findAssignedRobot('uav', self.pois[i])
+                
+                #UAV did not take the robot to this poi, so it must be a UGV
+                if uavNumber == -1:
+                    ugvNumber = self.findAssignedRobot('ugv', self.pois[i])
+                    navigatingAgent = "moose" + str(ugvNumber)
+                else:
+                    navigatingAgent = "mavic" + str(uavNumber)
+
+            else:
+                humanNavigator = random.randint(0, self.numHumans - 1)
+                navigatingAgent = "human" + str(humanNavigator)
+            
+            #PART 2
+            #First perform classification assignment - who is classifying image: ROBOT (0) or HUMAN (1)
+            classificationMode = random.randint(0, 1)
+
+            #If the classification mode = navigation mode then the agent doing classification must be same as agent doing navigation
+            if classificationMode == navigationMode:
+                classifyingAgent = navigatingAgent
+            else:
+                if classificationMode == 0:
+                    #Determine if the robot doing the classification is a UAV (0) or UGV(1)
+                    robotClassifierType = random.randint(0, 1)
+                    if robotClassifierType == 0:
+                        classifyingAgent = "mavic" + str(random.randint(0, self.numUAVs - 1))
+                    else:
+                        classifyingAgent = "moose" + str(random.randint(0, self.numUGVs - 1))
+                else:
+                    classifyingAgent = "human" + str(random.randint(0, self.numHumans - 1))
+            
+            #Add the navigating and classifying agents to the params list for this poi to be added to the master dict
+            self.pois[i] = list(self.pois[i])
+            for j, coord in enumerate(self.pois[i]):
+                self.pois[i][j] = self.pois[i][j].replace("\n", "")
+
+            localDict[tuple(self.pois[i])] = [navigatingAgent, classifyingAgent]
+
+        return localDict
+
+    def findAssignedRobot(self, mode, targetPoi):
+        #Select correct file based on which robot we are checking
+        file = UAV_COORDS_FILE if mode == 'uav' else UGV_COORDS_FILE
+        f = open(file, '+r')
+        allCoords = f.read().splitlines()
+        
+        #Pre-process targetPoi to first combine all coords into 1 string
+        targetPoiString = targetPoi[0].replace("\n", "") + " " + targetPoi[1].replace("\n", "")
+
+        #Get list of poi clusters in same format as clustersMatrix from main.py
+        robotNumber = -1
+        for i, cluster in enumerate(allCoords):
+            clusterCoords = cluster.split(", ")
+            #self.get_logger().info(f"CLUSTER: {clusterCoords}")
+            #self.get_logger().info(f"TARGET: {targetPoiString}")
+
+            for poi in clusterCoords:
+                #self.get_logger().info(f"{targetPoiString}       {poi}")
+                if targetPoiString in poi:
+                    robotNumber = i
+                    break
+            
+            if robotNumber != -1:
+                break
+        
+        #targetPoi -> if found return robot number, else return -1
+        return robotNumber
+    
 
     def getPoiAssignments(self):
         f = open(POIS_FILE, '+r')
@@ -126,9 +239,7 @@ class OperatorHub(Node):
 
         return humanPoiAssignments
 
-    def getNumAgents(self, i):
-        f = open(NUM_AGENTS_FILE, '+r')
-        return int(f.readline(i))
+
 
     def initializeNestedStructure(self, array, outerParam, innerParam, dType):
         for i in range(outerParam):

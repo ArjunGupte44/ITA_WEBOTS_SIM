@@ -89,27 +89,27 @@ class WebotsEnv:
         #Assign cognitive ability and operator skill level
         #The following values are hard-coded specifically for our demo
         #0 is low, 1 is medium, 2 is high
-        cognitiveAbility = [0, 0, 2, 2, 1]
-        skillLevel = [2, 0, 2, 2, 0]
+        #cognitiveAbility = [0, 0, 2, 2, 1]
+        #skillLevel = [2, 0, 2, 2, 0]
         for i in range(self.numHumans):
             #The following two lines are used normally
-            #self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 4), 4)
-            #self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 4), 4)
+            self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 4), 4)
+            self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 4), 4)
             
-            #Demo requires following code instead
-            if cognitiveAbility[i] == 0:
-                self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 12), 4)
-            elif cognitiveAbility[i] == 1:
-                 self.humanAttributes[i][3] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
-            else:
-                 self.humanAttributes[i][3] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
+            # #Demo requires following code instead
+            # if cognitiveAbility[i] == 0:
+            #     self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 12), 4)
+            # elif cognitiveAbility[i] == 1:
+            #      self.humanAttributes[i][3] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
+            # else:
+            #      self.humanAttributes[i][3] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
             
-            if skillLevel[i] == 0:
-                self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 12), 4)
-            elif skillLevel[i] == 1:
-                 self.humanAttributes[i][4] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
-            else:
-                 self.humanAttributes[i][4] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
+            # if skillLevel[i] == 0:
+            #     self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 12), 4)
+            # elif skillLevel[i] == 1:
+            #      self.humanAttributes[i][4] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
+            # else:
+            #      self.humanAttributes[i][4] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
 
         #Write to sim
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
