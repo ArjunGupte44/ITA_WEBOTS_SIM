@@ -88,7 +88,7 @@ def main():
     numUAVs = 3
     numUGVs = 4
     numRobots = numUAVs + numUGVs
-    uavHeight = 10
+    uavHeight = 19
 
     writeToFile([numSafe, numThreats, numHumans, numUAVs, numUGVs], SIM_AGENT_NUM_FILE)
 

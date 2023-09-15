@@ -25,8 +25,8 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numSafe + self.numThreats):
-            self.poiAttributes[i][0] = int(random.uniform(-500, 500))
-            self.poiAttributes[i][1] = int(random.uniform(-490, 500)) #-490 to avoid overlapping with the robots and humans
+            self.poiAttributes[i][0] = int(random.uniform(-90, 90))
+            self.poiAttributes[i][1] = int(random.uniform(-75, 90)) #-490 to avoid overlapping with the robots and humans
             self.poiAttributes[i][2] = 3
 
         #Assign threat/safe
@@ -38,7 +38,7 @@ class WebotsEnv:
             self.poiAttributes[i][4] = int(random.uniform(1,4))
         
         #Write to sim
-        cutoff = 42
+        cutoff = 44
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "r+")
         lines = f.readlines()
         f.seek(0)
@@ -83,7 +83,7 @@ class WebotsEnv:
         #Assign xyz location
         for i in range(self.numHumans):
             self.humanAttributes[i][0] = (2 * i + 1) - 10
-            self.humanAttributes[i][1] = -495
+            self.humanAttributes[i][1] = -85
             self.humanAttributes[i][2] = 1.28
 
         #Assign cognitive ability and operator skill level
@@ -114,12 +114,12 @@ class WebotsEnv:
         #Assign xyz location
         for i in range(self.numUAVs):
             self.robotAttributes[i][0] = -(3 * i + 1)
-            self.robotAttributes[i][1] = -490
+            self.robotAttributes[i][1] = -80
             self.robotAttributes[i][2] = 0.1
         
         for i in range(self.numUGVs):
             self.robotAttributes[i + self.numUAVs][0] = (5 * i + 5)
-            self.robotAttributes[i + self.numUAVs][1] = -490
+            self.robotAttributes[i + self.numUAVs][1] = -80
             self.robotAttributes[i + self.numUAVs][2] = 0.2
 
         #Assign vehicle speed

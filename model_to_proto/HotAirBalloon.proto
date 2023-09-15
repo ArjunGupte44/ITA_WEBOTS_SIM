@@ -15,6 +15,7 @@ PROTO HotAirBalloon [
   field  SFBool      supervisor      FALSE            # Is `Robot.supervisor`.
   field  SFBool      synchronization TRUE             # Is `Robot.synchronization`.
   field  SFBool      selfCollision   FALSE            # Is `Robot.selfCollision`.
+  field  SFBool      castShadows     FALSE            # Is 'Robot.castShadows'.
   field  SFNode      physics         NULL             # Is `Solid.physics`.
 ]
 {
@@ -29,7 +30,7 @@ PROTO HotAirBalloon [
     selfCollision IS selfCollision
     children [
       Transform {
-        scale 0.05 0.05 0.05
+        scale 0.025 0.025 0.025
         children [
           Shape {
             appearance  IS appearance

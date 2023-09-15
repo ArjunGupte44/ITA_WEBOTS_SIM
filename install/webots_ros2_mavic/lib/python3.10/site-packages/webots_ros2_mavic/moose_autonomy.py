@@ -31,9 +31,10 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
-SLOWEST_SPEED = 0.314
-MEDIUM_SPEED = 0.471
-FASTEST_SPEED = 0.7065
+SLOWEST_SPEED = 0.019 #0.314
+MEDIUM_SPEED =  0.039 #0.471
+FASTEST_SPEED = 0.059 #0.7065
+
 
 def clamp(value, value_min, value_max):
     return min(max(value, value_min), value_max)
@@ -80,7 +81,7 @@ class MooseAutonomy:
         self.__target_position = [0, 0]
         self.__target_index = 0
         self.__current_pose = 5 * [0]
-        self.__target_precision = 15
+        self.__target_precision = 7
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
         self.__startTime = 0
