@@ -44,7 +44,7 @@ Floor {
 }
 
 HotAirBalloon {
-  translation 20.0 -46.0 3.0
+  translation 43.0 -32.0 3.0
   name "safe_0"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -53,7 +53,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -69.0 39.0 3.0
+  translation 0.0 -2.0 3.0
   name "safe_1"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -62,7 +62,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -16.0 -42.0 3.0
+  translation 36.0 42.0 3.0
   name "safe_2"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -71,7 +71,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -31.0 52.0 3.0
+  translation -28.0 30.0 3.0
   name "safe_3"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -80,7 +80,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -17.0 -62.0 3.0
+  translation 58.0 -21.0 3.0
   name "safe_4"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -89,7 +89,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 39.0 79.0 3.0
+  translation 52.0 0.0 3.0
   name "safe_5"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -98,7 +98,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 81.0 -48.0 3.0
+  translation 34.0 50.0 3.0
   name "safe_6"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -107,7 +107,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 72.0 23.0 3.0
+  translation -45.0 85.0 3.0
   name "safe_7"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -116,7 +116,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -73.0 -2.0 3.0
+  translation 9.0 -54.0 3.0
   name "safe_8"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -125,7 +125,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -28.0 80.0 3.0
+  translation 80.0 22.0 3.0
   name "safe_9"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -134,7 +134,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 37.0 69.0 3.0
+  translation 40.0 80.0 3.0
   name "safe_10"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -143,7 +143,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 5.0 39.0 3.0
+  translation -38.0 -4.0 3.0
   name "safe_11"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -152,7 +152,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -67.0 -49.0 3.0
+  translation -43.0 89.0 3.0
   name "safe_12"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -161,7 +161,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -50.0 -73.0 3.0
+  translation 88.0 -15.0 3.0
   name "safe_13"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -170,7 +170,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 67.0 24.0 3.0
+  translation 46.0 7.0 3.0
   name "safe_14"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -179,7 +179,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 46.0 -13.0 3.0
+  translation -67.0 54.0 3.0
   name "safe_15"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -188,7 +188,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 24.0 -23.0 3.0
+  translation 50.0 37.0 3.0
   name "safe_16"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -197,7 +197,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -86.0 32.0 3.0
+  translation -54.0 32.0 3.0
   name "safe_17"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -206,7 +206,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 78.0 -2.0 3.0
+  translation 52.0 -5.0 3.0
   name "safe_18"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -215,7 +215,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -76.0 -55.0 3.0
+  translation 76.0 -23.0 3.0
   name "safe_19"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -224,7 +224,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 67.0 -43.0 3.0
+  translation -58.0 38.0 3.0
   name "safe_20"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -233,7 +233,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -67.0 25.0 3.0
+  translation 86.0 -14.0 3.0
   name "safe_21"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -242,7 +242,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 15.0 -36.0 3.0
+  translation 51.0 21.0 3.0
   name "safe_22"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -251,7 +251,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 49.0 69.0 3.0
+  translation 69.0 -68.0 3.0
   name "safe_23"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -260,7 +260,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -73.0 -42.0 3.0
+  translation 25.0 34.0 3.0
   name "safe_24"
   appearance PBRAppearance {
     baseColor 0 1 0
@@ -269,7 +269,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -74.0 -17.0 3.0
+  translation 24.0 -51.0 3.0
   name "threat_0"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -278,7 +278,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -20.0 -4.0 3.0
+  translation 8.0 81.0 3.0
   name "threat_1"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -287,7 +287,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 77.0 -35.0 3.0
+  translation -12.0 -5.0 3.0
   name "threat_2"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -296,7 +296,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 63.0 -55.0 3.0
+  translation -48.0 -56.0 3.0
   name "threat_3"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -305,7 +305,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 62.0 -55.0 3.0
+  translation 67.0 -5.0 3.0
   name "threat_4"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -314,7 +314,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -32.0 23.0 3.0
+  translation -4.0 -22.0 3.0
   name "threat_5"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -323,7 +323,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -21.0 -45.0 3.0
+  translation 50.0 -60.0 3.0
   name "threat_6"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -332,7 +332,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -83.0 18.0 3.0
+  translation -65.0 -54.0 3.0
   name "threat_7"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -341,7 +341,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 2.0 -2.0 3.0
+  translation 9.0 75.0 3.0
   name "threat_8"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -350,7 +350,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -68.0 -36.0 3.0
+  translation 37.0 41.0 3.0
   name "threat_9"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -359,7 +359,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 81.0 52.0 3.0
+  translation 2.0 58.0 3.0
   name "threat_10"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -368,7 +368,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 33.0 38.0 3.0
+  translation -67.0 -4.0 3.0
   name "threat_11"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -377,7 +377,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 13.0 70.0 3.0
+  translation -15.0 -18.0 3.0
   name "threat_12"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -386,7 +386,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -61.0 37.0 3.0
+  translation 77.0 -46.0 3.0
   name "threat_13"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -395,7 +395,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -25.0 11.0 3.0
+  translation 26.0 88.0 3.0
   name "threat_14"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -404,7 +404,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -28.0 -22.0 3.0
+  translation -19.0 -56.0 3.0
   name "threat_15"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -413,7 +413,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 81.0 -20.0 3.0
+  translation -15.0 87.0 3.0
   name "threat_16"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -422,7 +422,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -63.0 -37.0 3.0
+  translation 11.0 5.0 3.0
   name "threat_17"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -431,7 +431,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -26.0 45.0 3.0
+  translation -31.0 -67.0 3.0
   name "threat_18"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -440,7 +440,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -20.0 -34.0 3.0
+  translation -76.0 55.0 3.0
   name "threat_19"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -449,7 +449,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -79.0 56.0 3.0
+  translation 21.0 -19.0 3.0
   name "threat_20"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -458,7 +458,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 0.0 -35.0 3.0
+  translation 34.0 -45.0 3.0
   name "threat_21"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -467,7 +467,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation -30.0 -61.0 3.0
+  translation -22.0 35.0 3.0
   name "threat_22"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -476,7 +476,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 34.0 -37.0 3.0
+  translation -15.0 -57.0 3.0
   name "threat_23"
   appearance PBRAppearance {
     baseColor 1 0 0
@@ -485,7 +485,7 @@ HotAirBalloon {
   }
 }
 HotAirBalloon {
-  translation 55.0 -23.0 3.0
+  translation 24.0 -46.0 3.0
   name "threat_24"
   appearance PBRAppearance {
     baseColor 1 0 0

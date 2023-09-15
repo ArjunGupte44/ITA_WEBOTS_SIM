@@ -113,7 +113,7 @@ def main():
     numUAVs = 3
     numUGVs = 4
     numRobots = numUAVs + numUGVs
-    uavHeight = 19
+    uavHeight = 7
 
     writeToFile([numSafe, numThreats, numHumans, numUAVs, numUGVs], SIM_AGENT_NUM_FILE)
 
@@ -121,8 +121,14 @@ def main():
     pois = itapSim.getPOIs()
     poisFlattened = list(np.concatenate(pois).flat)
     writeToFile(poisFlattened, POIS_FILE)
-    clustersMatrix = performKMeans(numRobots, pois)
+    
+    #Normal line of code
+    clustersMatrix = performKMeans(numRobots, pois) 
     writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight)
+    
+    #Hard-coded line for demo
+    
+
 
     humanAttributes = itapSim.getHumanAttributes()
     humanAttrFlattened = list(np.concatenate(humanAttributes).flat)
