@@ -30,7 +30,7 @@ def main():
     def performKMeans(numRobots, pois):
         kMeans = KMeans(n_clusters = numRobots)
         clusterIndexes = kMeans.fit_predict(pois)
-        print(kMeans.cluster_centers_)
+        #print(kMeans.cluster_centers_)
         clustersMatrix = [] #Each element is a list corresponding to a single cluster - the inner lists contain tuples of the xyz coordinates of pois in that cluster
         poisInCluster = []
         minDist = sys.maxsize
@@ -59,11 +59,10 @@ def main():
         for cluster in clustersDict.keys():
             poiList = clustersDict[cluster]
             sum += len(poiList)
-            #print(f"cCenter: {cluster}")
-            #print(f"inClustecr: {poiList}")
             if len(poiList) > 0:
-                poisSorted = sorted(poiList, key=lambda d: m.dist(d, kMeans.cluster_centers_[cluster]))
+                poisSorted = sorted(poiList, key=lambda d: m.dist(d, poiList[0]))
                 clustersMatrix.append(poisSorted)
+
         print(sum)
         count = 0
         for r in clustersMatrix:
@@ -71,7 +70,8 @@ def main():
                 if point not in pois:
                     count += 1
 
-        #print("\n", clustersMatrix)
+        for r in clustersMatrix:
+            print(r)
         return clustersMatrix
 
     def RL():
