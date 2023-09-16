@@ -70,31 +70,51 @@ def main():
                 if point not in pois:
                     count += 1
 
-        for r in clustersMatrix:
-            print(r)
         return clustersMatrix
 
-    def RL():
-        pass
+    def getStartingCoords(itapSim):
+        uavStartingCoords = []
+        ugvStartingCoords = []
 
-    def writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight):
+        #Initialize UAV coords first
+        robotAttributes = itapSim.getRobotAttributes()
+        for i in range(itapSim.getNumUAVs()):
+            uavStartingCoords.append([robotAttributes[i][0], robotAttributes[i][1], robotAttributes[i][2]])
+        
+        #Initialize UGV coords first
+        for i in range(itapSim.getNumUGVs()):
+            ugvStartingCoords.append([robotAttributes[i + itapSim.getNumUAVs()][0], robotAttributes[i + itapSim.getNumUAVs()][1], robotAttributes[i + itapSim.getNumUAVs()][2]])
+
+        return uavStartingCoords, ugvStartingCoords
+    
+
+    def writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight, uavStartingCoords, ugvStartingCoords):
         f = open(UAV_COORDS_FILE, 'w')
         line = ""
 
         for i, row in enumerate(clustersMatrix[0: numUAVs]):
+            #Add all normal coords to visit
             for poi in row:
                 line += str(poi[0]) + " " + str(poi[1]) + " " + str(uavHeight + 0.5 * i) + " 0.0, "
-        
+
+            #Add the starting coord at very end to return to home
+            line += str(uavStartingCoords[i][0]) + " " + str(uavStartingCoords[i][1]) + " " + str(0.1) + " 0.0, "
+
             line = line[:len(line) - 2] #delete ,SPACE at the end of the line
             f.write(line + "\n")
             line = ""
         f.close()
 
         f = open(UGV_COORDS_FILE, 'w')
-        for row in clustersMatrix[numUAVs:]:
+        for i, row in enumerate(clustersMatrix[numUAVs:]):
+            #Add all normal coords to visit
             for poi in row:
                 line += str(poi[0]) + " " + str(poi[1]) + " " + str(poi[2]) + ", "
         
+            #Add the starting coord at very end to return to home
+            #print(str(ugvStartingCoords[i][0]) + " " + str(ugvStartingCoords[i][1]) + " " + str(3.0) + ", ")
+            line += str(ugvStartingCoords[i][0]) + " " + str(ugvStartingCoords[i][1]) + " " + str(3.0) + ", "
+            #print(f"line: {line}")
             line = line[:len(line) - 2] #delete ,SPACE at the end of the line
             f.write(line + "\n")
             line = ""
@@ -107,8 +127,8 @@ def main():
         f.close()
 
 
-    numSafe = 25
-    numThreats = 25
+    numSafe = 20
+    numThreats = 20
     numHumans = 5
     numUAVs = 3
     numUGVs = 4
@@ -122,14 +142,10 @@ def main():
     poisFlattened = list(np.concatenate(pois).flat)
     writeToFile(poisFlattened, POIS_FILE)
     
-    #Normal line of code
     clustersMatrix = performKMeans(numRobots, pois) 
-    writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight)
+    uavStartingCoords, ugvStartingCoords = getStartingCoords(itapSim)
+    writeWaypoints(clustersMatrix, numUGVs, numUAVs, uavHeight, uavStartingCoords, ugvStartingCoords)
     
-    #Hard-coded line for demo
-    
-
-
     humanAttributes = itapSim.getHumanAttributes()
     humanAttrFlattened = list(np.concatenate(humanAttributes).flat)
     writeToFile(humanAttrFlattened, HUMAN_ATTRIBUTES_FILE)

@@ -81,7 +81,7 @@ class MooseAutonomy:
         self.__target_position = [0, 0]
         self.__target_index = 0
         self.__current_pose = 5 * [0]
-        self.__target_precision = 7
+        self.__target_precision = 1
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
         self.__startTime = 0
@@ -264,7 +264,7 @@ class MooseAutonomy:
         rclpy.spin_once(self.__node, timeout_sec=0)
         elapsedTime = time.time() - self.__launchTime
 
-        if elapsedTime < 8 * int(self.__mooseNumber):
+        if elapsedTime < 15 * int(self.__mooseNumber):
             pass
         else:
             self.__move_to_target()
