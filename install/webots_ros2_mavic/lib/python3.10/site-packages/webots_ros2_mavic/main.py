@@ -98,7 +98,7 @@ def main():
                 line += str(poi[0]) + " " + str(poi[1]) + " " + str(uavHeight + 0.5 * i) + " 0.0, "
 
             #Add the starting coord at very end to return to home
-            line += str(uavStartingCoords[i][0]) + " " + str(uavStartingCoords[i][1]) + " " + str(0.1) + " 0.0, "
+            line += str(uavStartingCoords[i][0]) + " " + str(uavStartingCoords[i][1]) + " " + str(uavHeight + 0.5 * i) + " 0.0, "
 
             line = line[:len(line) - 2] #delete ,SPACE at the end of the line
             f.write(line + "\n")

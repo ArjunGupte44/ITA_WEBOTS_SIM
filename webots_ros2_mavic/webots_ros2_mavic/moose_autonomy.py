@@ -262,9 +262,9 @@ class MooseAutonomy:
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
-        elapsedTime = time.time() - self.__launchTime
+        elapsedTime = (time.time() - self.__launchTime)
 
-        if elapsedTime < 15 * int(self.__mooseNumber):
+        if elapsedTime < 20 * int(self.__mooseNumber):
             pass
         else:
             self.__move_to_target()
