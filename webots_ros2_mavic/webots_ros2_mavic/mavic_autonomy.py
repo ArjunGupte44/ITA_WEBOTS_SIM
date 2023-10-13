@@ -458,7 +458,7 @@ class MavicAutonomy:
                 self.__publishVisitInfo(poiCoords, timeToVisitPOI)
             
             elapsedTime = time.time() - self.__startTime
-            if elapsedTime > 10:
+            if elapsedTime > 1: #This number controls how long the UAV spends at each POI
                 self.__target_index += 1
                 self.__justReachedPOI = True
                 if self.__target_index > len(self.__waypoints)-1:

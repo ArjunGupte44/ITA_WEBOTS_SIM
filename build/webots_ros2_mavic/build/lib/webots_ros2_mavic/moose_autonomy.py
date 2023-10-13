@@ -164,9 +164,12 @@ class MooseAutonomy:
         
         if int(self.euclidean_distance(self.__waypoints[self.__index])) <= self.__target_precision + 1 and int(self.euclidean_distance(self.__waypoints[self.__index])) >= 0:
             # Move to the next house
-            if self.__index < len(self.__waypoints) - 1:
+            if self.__index < len(self.__waypoints) - 2:
                 self.__index += 1
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {self.__waypoints[self.__index]}")
+            elif self.__index == len(self.__waypoints) - 2:
+                self.__index += 1
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed HOME")
             else:
                 # If it's the last house, stop the robot and shut down the node
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!\n")

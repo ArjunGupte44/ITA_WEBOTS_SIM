@@ -58,8 +58,8 @@ class OperatorHub(Node):
 
         #Original structures for assignments
         self.humanPoiAssignments = self.getPoiAssignments()
-        self.robotPoiAssignments = [] #from RL MODEL
-        self.navigatorPoiAssignments = [] #from RL MODEL
+        self.robotPoiAssignments = {} #from RL MODEL
+        self.navigatorPoiAssignments = {} #from RL MODEL
 
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
         self.publisher = self.create_publisher(String, 'speedMode', 10)
@@ -88,7 +88,7 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
         self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
 
-        self.setInititalUGVSpeeds()
+        #self.setInititalUGVSpeeds()
         #repeat for uavs
 
     def getNumAgents(self, i):
@@ -419,11 +419,12 @@ class OperatorHub(Node):
             currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
             self.get_logger().info(f"Operator {assignedOperator} current average score is {currentOperatorScore}")
 
+        self.get_logger().info(f"NUM_VISITED: {self.poisVisited}")
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
         
         #As a last step in processing this visit to the poi...
-        self.configureRobotSpeedMode(robotName, visitedPoiCoords)
+        #self.configureRobotSpeedMode(robotName, visitedPoiCoords)
 
 
     def getImageQuality(self, robotName, assignedNavigator, sharedMode):
