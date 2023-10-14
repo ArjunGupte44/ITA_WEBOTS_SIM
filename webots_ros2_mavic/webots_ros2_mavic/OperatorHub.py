@@ -417,8 +417,9 @@ class OperatorHub(Node):
             else:
                 self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
 
-            currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
-            self.get_logger().info(f"{classifyingAgent} current average score is {currentOperatorScore}")
+            #OPTIONAL STATISTIC TO PRINT
+            #currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
+            #self.get_logger().info(f"{classifyingAgent} current average score is {currentOperatorScore}")
 
         self.get_logger().info(f"NUM_VISITED: {self.poisVisited}")
         if self.poisVisited == len(self.poiAttributes):
