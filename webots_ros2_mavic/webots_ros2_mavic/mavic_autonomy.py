@@ -454,17 +454,24 @@ class MavicAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = False
                 poiCoords = self.__waypoints[self.__target_index]
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {poiCoords}")
-                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
-            
+
+                #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
+                if self.__target_index != len(self.__waypoints) - 1:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {poiCoords}")
+                    self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+                else:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached HOME")
+
             elapsedTime = time.time() - self.__startTime
             if elapsedTime > 1: #This number controls how long the UAV spends at each POI
                 self.__target_index += 1
                 self.__justReachedPOI = True
-                if self.__target_index > len(self.__waypoints)-1:
+                if self.__target_index > len(self.__waypoints) - 1:
                     self.__target_index -= 1
                     self.__path_follow = False
                     self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!\n")
+                elif self.__target_index == len(self.__waypoints) - 1:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed HOME")
                 else:
                     self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {self.__waypoints[self.__target_index]}")
 

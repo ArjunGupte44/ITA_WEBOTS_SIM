@@ -210,8 +210,14 @@ class MooseAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = True
                 poiCoords = self.__waypoints[self.__index]
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
-                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+
+                #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
+                if self.__index != len(self.__waypoints) - 1:
+                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
+                    self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+                else:
+                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached HOME")
+                
                 return 0.0, 0.0
             
             if linearError <= 1 and self.__justReachedPOI == True:
