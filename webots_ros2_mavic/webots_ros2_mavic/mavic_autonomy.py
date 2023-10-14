@@ -457,7 +457,8 @@ class MavicAutonomy:
 
                 #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
                 if self.__target_index != len(self.__waypoints) - 1:
-                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {poiCoords}")
+                    formattedPoiCoords = (self.__waypoints[self.__target_index][0], self.__waypoints[self.__target_index][1])
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {formattedPoiCoords}")
                     self.__publishVisitInfo(poiCoords, timeToVisitPOI)
                 else:
                     self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached HOME")
@@ -473,7 +474,8 @@ class MavicAutonomy:
                 elif self.__target_index == len(self.__waypoints) - 1:
                     self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed HOME")
                 else:
-                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {self.__waypoints[self.__target_index]}")
+                    formattedPoiCoords = (self.__waypoints[self.__target_index][0], self.__waypoints[self.__target_index][1])
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {formattedPoiCoords}\n")
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]

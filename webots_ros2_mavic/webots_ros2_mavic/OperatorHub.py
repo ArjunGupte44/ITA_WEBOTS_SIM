@@ -421,7 +421,7 @@ class OperatorHub(Node):
             #currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
             #self.get_logger().info(f"{classifyingAgent} current average score is {currentOperatorScore}")
 
-        self.get_logger().info(f"NUM_VISITED: {self.poisVisited}")
+        self.get_logger().info(f"Visited {self.poisVisited}/{self.numPois}")
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
         
@@ -451,14 +451,25 @@ class OperatorHub(Node):
 
 
     def getSimScore(self):
-        operatorNetScores = np.zeros((1, len(self.humanAttributes))) 
+        operatorNetScores = np.zeros((1, self.numHumans)) 
         for i, metrics in enumerate(self.operatorMetrics):
-            netScore = 0
-            for score in metrics[5]:
-                netScore += score
-            operatorNetScores[0][i] = netScore
+            humanTotalScore = np.sum(metrics[5])
+            operatorNetScores[0][i] = humanTotalScore
+        humansNetScore = np.mean(operatorNetScores)
 
-        finalSimScore = np.mean(operatorNetScores)
+        ugvNetScores = np.zeros((1, self.numUGVs))
+        for i, metrics in enumerate(self.ugvMetrics):
+            ugvTotalScore = np.sum(metrics[1])
+            ugvNetScores[0][i] = ugvTotalScore
+        ugvsNetScore = np.mean(ugvNetScores[0])
+
+        uavNetScores = np.zeros((1, self.numUAVs))
+        for i, metrics in enumerate(self.uavMetrics):
+            uavTotalScore = np.sum(metrics[1])
+            uavNetScores[0][i] = uavTotalScore
+        uavsNetScore = np.mean(uavNetScores[0])
+
+        finalSimScore = round((humansNetScore + ugvsNetScore + uavsNetScore) / 3, 2)
         self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
     
 

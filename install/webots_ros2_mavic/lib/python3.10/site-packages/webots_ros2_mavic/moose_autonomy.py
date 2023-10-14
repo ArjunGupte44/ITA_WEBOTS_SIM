@@ -166,7 +166,8 @@ class MooseAutonomy:
             # Move to the next house
             if self.__index < len(self.__waypoints) - 2:
                 self.__index += 1
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {self.__waypoints[self.__index]}")
+                formattedPoiCoords = (self.__waypoints[self.__index][0], self.__waypoints[self.__index][1])
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {formattedPoiCoords}\n")
             elif self.__index == len(self.__waypoints) - 2:
                 self.__index += 1
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed HOME")
@@ -213,7 +214,8 @@ class MooseAutonomy:
 
                 #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
                 if self.__index != len(self.__waypoints) - 1:
-                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
+                    formattedPoiCoords = (self.__waypoints[self.__index][0], self.__waypoints[self.__index][1])
+                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {formattedPoiCoords}")
                     self.__publishVisitInfo(poiCoords, timeToVisitPOI)
                 else:
                     self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached HOME")
