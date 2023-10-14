@@ -55,7 +55,6 @@ class OperatorHub(Node):
         self.masterPoiDict = {}
         self.masterPoiDict = self.performAllAssignments()
         self.get_logger().info(f"{self.masterPoiDict}")
-        self.get_logger().info(f"LEN: {len(self.masterPoiDict)}")
 
         #Original structures for assignments
         self.humanPoiAssignments = self.getPoiAssignments()
@@ -174,9 +173,9 @@ class OperatorHub(Node):
             #Add the navigating and classifying agents to the params list for this poi to be added to the master dict
             self.pois[i] = list(self.pois[i])
             for j, coord in enumerate(self.pois[i]):
-                self.pois[i][j] = self.pois[i][j].replace("\n", "")
+                self.pois[i][j] = float(self.pois[i][j].replace("\n", ""))
 
-            localDict[tuple(self.pois[i])] = [robotUsed, navigatingAgent, classifyingAgent]
+            localDict[(self.pois[i][0], self.pois[i][1])] = [robotUsed, navigatingAgent, classifyingAgent]
 
         return localDict
 
@@ -264,14 +263,14 @@ class OperatorHub(Node):
 
     def subCallback(self, msg):
         self.poisVisited += 1
-        robotName = msg.robot_name
-        visitedPoiCoords = [round(msg.poi_x, 2), round(msg.poi_y, 2), round(msg.poi_z, 2)]
+        robotName = msg.robot_name #if UAV: Mavic_2_Pro_# but if UGV: moose#
+        visitedPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
         arrivalTime = msg.arrival_time
 
         #Determine whether a uav/ugv arrived at poi and what its number was
         robotNumber = int(re.findall(r"\d+", robotName)[0])
-        uavArrived = 1 if "mavic" in robotName else 0
-
+        uavArrived = 1 if "Mavic" in robotName else 0
+        
         #Add arrival time to appropriate array 
         if "moose" in robotName:
             self.ugvArrivalTimes[robotNumber].append(arrivalTime)
@@ -282,19 +281,22 @@ class OperatorHub(Node):
         poiDifficulty = -1
         for i in range(len(self.poiAttributes)):
             if self.poiAttributes[i][0] == visitedPoiCoords[0]:
-                poiDifficulty = self.poiAttributes[i][4]
+                poiDifficulty = int(self.poiAttributes[i][4])
                 self.poiVisitTimes[i][0] = arrivalTime #add arrival time to poi to "poi visit times" column vector
                 break
         
         #Determine how the robot got to the poi - robot means autonomous, operator means sharedMode
         #If sharedMode then adjust image quality based on operator skill level in TAKING PICTURE
-        navigatingAgent = "robot" #or "operator"
-        if navigatingAgent == "robot":
+        navigatingAgent = self.masterPoiDict[visitedPoiCoords][1]
+        navigatingAgentNumber = int(re.findall(r"\d+", navigatingAgent)[0])
+
+        #If the robot was driven autonomously to the POI
+        if "human" not in navigatingAgent:
             imageQuality = self.getImageQuality(robotName, assignedNavigator=-1, sharedMode=False)
-            
+        
+        #If a human drove the robot to the POI
         else:
-            assignedNavigator = 0 #Determine which operator was assigned to drive the robot to this poi
-            imageQuality = self.getImageQuality(robotName, assignedNavigator, sharedMode=True)
+            imageQuality = self.getImageQuality(robotName, navigatingAgentNumber, sharedMode=True)
             
             #Determine how long it took human to drive this robot from the previous poi to this one
             robotArrivalTimes = self.uavArrivalTimes if uavArrived else self.ugvArrivalTimes
@@ -304,43 +306,42 @@ class OperatorHub(Node):
                 navigationTime = arrivalTime - robotArrivalTimes[robotNumber][-2] - self.pictureTakingTime #[-2] = arrival time for prev poi
 
             #Now append this navigation time to the dict: {arrival time: navigation time}
-            self.operatorArrivalTimes[assignedNavigator][arrivalTime] = navigationTime
+            self.operatorArrivalTimes[navigatingAgentNumber][arrivalTime] = navigationTime
 
-        #Now work on determining which agent has been assigned to classify the poi
-        #First try to find the robot assigned to this poi based on its xyz location
-        foundAssignedRobot = False
-        row = 0
-        assignedRobot = -1
-        for i, row in enumerate(self.robotPoiAssignments):
-            for coord in row:
-                if visitedPoiCoords[0] == coord[0] and visitedPoiCoords[1] == coord[1]:
-                    assignedRobot = i
-                    break
-        
-        #POI was actually assigned to a robot
-        if assignedRobot != -1:
-            self.get_logger().info(f"AD assigned to {assignedRobot}")
-            robotNumber = re.findall(r"\d+", assignedRobot)[0] #extract the number of the robot from string
+        ###  At this point, we have identified how the robot got to the POI (robot controlled or human controlled). ###
+        ###  We also determined the image quality based on how the robot got to the POI. ###
+        ###  It is now time to determine who has been assigned to classify the POI and calculate the prediction probability score accordingly  ###
+
+        classifyingAgent = self.masterPoiDict[visitedPoiCoords][2]
+        classifyingAgentNumber = int(re.findall(r"\d+", classifyingAgent)[0])
+
+        #Robot will be classifying POI
+        if "human" not in classifyingAgent:
+            self.get_logger().info(f"AD assigned to {classifyingAgent}")
+            robotNumber = classifyingAgentNumber
             robotClassificationAccuracy = self.robotProbabilitiesLUT[imageQuality][poiDifficulty - 1]
             robotPredictionResult = self.flipFunction(robotClassificationAccuracy, poiDifficulty)
             
-            if "moose" in assignedRobot:
-                self.mooseMetrics[robotNumber][0].append(robotClassificationAccuracy)
-                self.mooseMetrics[robotNumber][1].append(robotPredictionResult)
+            if robotPredictionResult >= 0:
+                self.get_logger().info(f"{classifyingAgent} identified AD correctly!")
             else:
-                self.mavicMetrics[robotNumber][0].append(robotClassificationAccuracy)
-                self.mavicMetrics[robotNumber][1].append(robotPredictionResult)
+                self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
 
-        #POI was not assigned to a robot -> it was assigned to an operator instead
+            if "moose" in classifyingAgent:
+                self.ugvMetrics[robotNumber][0].append(robotClassificationAccuracy)
+                self.ugvMetrics[robotNumber][1].append(robotPredictionResult)
+            else:
+                self.uavMetrics[robotNumber][0].append(robotClassificationAccuracy)
+                self.uavMetrics[robotNumber][1].append(robotPredictionResult)
+
+        #Human will be classifying POI
         else:
-            #Find the operator assigned to this poi based on its xyz location
-            foundAssignedHuman = False
             row = 0
-            assignedOperator = self.findAssignedHuman(visitedPoiCoords, 'o')
-            self.get_logger().info(f"AD assigned to operator {assignedOperator}")
+            assignedOperator = classifyingAgentNumber
+            self.get_logger().info(f"AD assigned to {classifyingAgent}")
             
             #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
-            self.get_logger().info(f"{self.imageQualities.index(imageQuality)}  {poiDifficulty - 1}")
+            #self.get_logger().info(f"{self.imageQualities.index(imageQuality)}  {poiDifficulty - 1}")
             tBar = self.tBarLUT[imageQuality][int(poiDifficulty - 1)]
             self.operatorMetrics[assignedOperator][0].append(tBar)
             
@@ -412,12 +413,12 @@ class OperatorHub(Node):
             binaryResult = self.flipFunction(predictionProbability, poiDifficulty)
             self.operatorMetrics[assignedOperator][5].append(binaryResult)
             if binaryResult >= 0:
-                self.get_logger().info(f"Operator {assignedOperator} identified AD correctly!")
+                self.get_logger().info(f"{classifyingAgent} identified AD correctly!")
             else:
-                self.get_logger().info(f"Operator {assignedOperator} identified AD incorrectly!")
+                self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
 
             currentOperatorScore = round(np.mean(self.operatorMetrics[assignedOperator][5]), 2)
-            self.get_logger().info(f"Operator {assignedOperator} current average score is {currentOperatorScore}")
+            self.get_logger().info(f"{classifyingAgent} current average score is {currentOperatorScore}")
 
         self.get_logger().info(f"NUM_VISITED: {self.poisVisited}")
         if self.poisVisited == len(self.poiAttributes):
