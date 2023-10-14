@@ -2,7 +2,8 @@
 
 import rclpy
 from rclpy.node import Node
-from example_interfaces.msg import String
+import std_msgs
+from std_msgs.msg import String
 from std_msgs.msg import Int32MultiArray
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
@@ -62,6 +63,7 @@ class OperatorHub(Node):
         self.navigatorPoiAssignments = {} #from RL MODEL
 
         self.subscriber = self.create_subscription(DiverseArray, 'poiVisits', self.subCallback, 10)
+        self.nextPoiSubscriber = self.create_subscription(DiverseArray, 'nextPoiLocation', self.nextPoiCallback, 10)
         self.publisher = self.create_publisher(String, 'speedMode', 10)
 
         self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
@@ -88,8 +90,7 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
         self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
 
-        #self.setInititalUGVSpeeds()
-        #repeat for uavs
+        self.setInitialRobotSpeeds()
 
     def getNumAgents(self, i):
         f = open(NUM_AGENTS_FILE, '+r')
@@ -257,9 +258,12 @@ class OperatorHub(Node):
 
         return assignedHuman
     
-    def setInititalUGVSpeeds(self):
-        for ugv in self.robotPoiAssignments:
-            self.configureRobotSpeedMode(ugv)
+    def setInitialRobotSpeeds(self):
+        for i in range(self.numUAVs):
+            self.configureRobotSpeedMode("Mavic" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
+        
+        for i in range(self.numUGVs):
+            self.configureRobotSpeedMode("moose" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
 
     def subCallback(self, msg):
         self.poisVisited += 1
@@ -449,34 +453,99 @@ class OperatorHub(Node):
     def flipFunction(self, predictionProbability, poiDifficulty):
         return (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else (poiDifficulty * -10)
 
+    def calculateAgentNetScore(self, agentType):
+        if agentType == "human":
+            numSlots = self.numHumans
+            metricsArray = self.operatorMetrics
+            index = 5
+        elif agentType == "uav":
+            numSlots = self.numUAVs
+            metricsArray = self.uavMetrics
+            index = 1
+        else:
+            numSlots = self.numUGVs
+            metricsArray = self.ugvMetrics
+            index = 1
+
+        netScores = np.zeros((1, numSlots))
+        for i, metrics in enumerate(metricsArray):
+            agentTotalScore = np.sum(metrics[index])
+            netScores[0][i] = agentTotalScore
+        agentTypeNetScore = np.mean(netScores[0])
+        return agentTypeNetScore
 
     def getSimScore(self):
-        operatorNetScores = np.zeros((1, self.numHumans)) 
-        for i, metrics in enumerate(self.operatorMetrics):
-            humanTotalScore = np.sum(metrics[5])
-            operatorNetScores[0][i] = humanTotalScore
-        humansNetScore = np.mean(operatorNetScores)
-
-        ugvNetScores = np.zeros((1, self.numUGVs))
-        for i, metrics in enumerate(self.ugvMetrics):
-            ugvTotalScore = np.sum(metrics[1])
-            ugvNetScores[0][i] = ugvTotalScore
-        ugvsNetScore = np.mean(ugvNetScores[0])
-
-        uavNetScores = np.zeros((1, self.numUAVs))
-        for i, metrics in enumerate(self.uavMetrics):
-            uavTotalScore = np.sum(metrics[1])
-            uavNetScores[0][i] = uavTotalScore
-        uavsNetScore = np.mean(uavNetScores[0])
+        humansNetScore = self.calculateAgentNetScore("human")
+        ugvsNetScore = self.calculateAgentNetScore("ugv")
+        uavsNetScore = self.calculateAgentNetScore("uav")
 
         finalSimScore = round((humansNetScore + ugvsNetScore + uavsNetScore) / 3, 2)
         self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
     
 
-    def configureRobotSpeedMode(self, robotName, visitedPoiCoords=-1):
-        #1. Determine the next poi the robot is going to - if there is one
-        #-1 means we are at start of sim and havent visited anything yet => next poi is index 0 in robot poi assignments
-        if visitedPoiCoords == -1:
+    def nextPoiCallback(self, msg):
+        robotName = msg.robot_name #if UAV: Mavic# but if UGV: moose#
+        nextPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
+        self.configureRobotSpeedMode(robotName, nextPoiCoords, 0)
+
+
+    def configureRobotSpeedMode(self, robotName, nextPoiCoords, atStartofSim):
+        robotNumber = int(re.findall(r"\d+", robotName)[0])
+
+        #if at start of sim and going to visit first POI
+        if atStartofSim:
+            if "Mavic" in robotName:
+                file = UAV_COORDS_FILE
+            else:
+                file = UGV_COORDS_FILE
+
+            f = open(file, '+r')
+            allCoords = f.read().splitlines()
+
+            #Examine the line in the file corresponding to the number of the robot
+            robotPois = allCoords[robotNumber]
+
+            #Extract the first POI coordinate from this line and store as tuple (x, y)
+            #First split the whole line at each comma to separate out each POI coordinate
+            splitAtCommas = robotPois.split(',')
+
+            #Then split the first POI coordinate at each space to extract each x, y, z coordinate
+            splitAtSpaces = splitAtCommas[0].split(' ')
+
+            #Generate the POI coordinate tuple
+            nextPoiCoords = (round(float(splitAtSpaces[0]), 2), round(float(splitAtSpaces[1]), 2))
+            self.get_logger().info(f"first POI coords: {nextPoiCoords}")
+
+        navigatingAgent = self.masterPoiDict[nextPoiCoords][1]
+        navigatingAgentNumber = int(re.findall(r"\d+", navigatingAgent)[0])
+
+        message = String()
+        #Robot is driving autonomously to next POI so use MEDIUM speed
+        if "human" not in navigatingAgent:
+            message.data = robotName + " medium"
+            self.publisher.publish(message)
+        
+        #Human is driving to next POI to use operator skill level to determine speed
+        else:
+            navigatorSkillLevel = self.humanAttributes[navigatingAgentNumber][4]
+            if navigatorSkillLevel > 0 and navigatorSkillLevel < m.pi / 12:
+                message.data = robotName + " low"
+                self.publisher.publish(message)
+            elif navigatorSkillLevel >= m.pi / 12 and navigatorSkillLevel <= m.pi / 6:
+                message.data = robotName + " medium"
+                self.publisher.publish(message)
+            else:
+                message.data = robotName + " high"
+                self.publisher.publish(message)
+            
+        
+        self.get_logger().info(f"{message.data}")
+
+
+""""
+        #
+        #0 means we are at start of sim and havent visited anything yet => next poi is index 0 in robot poi assignments
+        if visitedPoiCoords == 0:
             nextPoi = self.robotPoiAssignments[robotName][0]
             foundValidPoi = True
         else:
@@ -505,6 +574,7 @@ class OperatorHub(Node):
                         self.publisher.publish(robotName + " medium")
                     else:
                         self.publisher.publish(robotName + " high")
+"""
         
 
     
