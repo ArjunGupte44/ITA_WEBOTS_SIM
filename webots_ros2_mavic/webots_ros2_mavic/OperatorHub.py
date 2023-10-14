@@ -51,10 +51,11 @@ class OperatorHub(Node):
         self.humanAttributes = self.getAgentAttributes('human', NUM_HUMAN_ATTRIBUTES)
         self.poiAttributes = self.getAgentAttributes('poi', NUM_POI_ATTRIBUTES)
 
-        #Make the following variables have this structure: [{"mavic1": [poi1, poi2,...], "moose1": [poi3, poi4,...]}]
+        #Master POI Dict has following structure: {(x1, y1, z1): [robotUsed, navigatingAgent, classifyingAgent], (x2, y2, z2): [...], ...}
         self.masterPoiDict = {}
         self.masterPoiDict = self.performAllAssignments()
         self.get_logger().info(f"{self.masterPoiDict}")
+        self.get_logger().info(f"LEN: {len(self.masterPoiDict)}")
 
         #Original structures for assignments
         self.humanPoiAssignments = self.getPoiAssignments()
@@ -131,24 +132,29 @@ class OperatorHub(Node):
         for i in range(self.numPois):
             navigatingAgent = ""
             classifyingAgent = ""
-            
+            robotUsed = ""
+
             #PART 1
-            #First perform navigation assignment - who is navigation mode: ROBOT (0) or HUMAN (1)
+            #Determine which robot was used to get to the POI
+
+            #Now search through UAVCoords and UGVCoords files to determine which robot was assigned to navigate to the poi
+            #Search through UAV file:
+            uavNumber = self.findAssignedRobot('uav', self.pois[i])
+                
+            #UAV did not take the robot to this poi, so it must be a UGV
+            if uavNumber == -1:
+                ugvNumber = self.findAssignedRobot('ugv', self.pois[i])
+                robotUsed = "moose" + str(ugvNumber)
+            else:
+                robotUsed = "mavic" + str(uavNumber)
+
+
+            #Next, perform navigation assignment - who is navigation mode: ROBOT (0) or HUMAN (1)
             navigationMode = random.randint(0, 1)
             
             #Next if navigation mode is robot, look through the assignments from k means to determine which robot navigated
             if navigationMode == 0:
-                #Now search through UAVCoords and UGVCoords files to determine which robot was assigned to navigate to the poi
-                #Search through UAV file:
-                uavNumber = self.findAssignedRobot('uav', self.pois[i])
-                
-                #UAV did not take the robot to this poi, so it must be a UGV
-                if uavNumber == -1:
-                    ugvNumber = self.findAssignedRobot('ugv', self.pois[i])
-                    navigatingAgent = "moose" + str(ugvNumber)
-                else:
-                    navigatingAgent = "mavic" + str(uavNumber)
-
+                navigatingAgent = robotUsed
             else:
                 humanNavigator = random.randint(0, self.numHumans - 1)
                 navigatingAgent = "human" + str(humanNavigator)
@@ -157,26 +163,20 @@ class OperatorHub(Node):
             #First perform classification assignment - who is classifying image: ROBOT (0) or HUMAN (1)
             classificationMode = random.randint(0, 1)
 
-            #If the classification mode = navigation mode then the agent doing classification must be same as agent doing navigation
-            if classificationMode == navigationMode:
-                classifyingAgent = navigatingAgent
+            #If the classification mode is ROBOT(0) then we check to see which robot was used to get to the POI and assign that to be classifying agent
+            if classificationMode == 0:
+                classifyingAgent = robotUsed
+            
+            #However, if the classification mode is HUMAN(1) then we randomly assign a human to be the classifying agent
             else:
-                if classificationMode == 0:
-                    #Determine if the robot doing the classification is a UAV (0) or UGV(1)
-                    robotClassifierType = random.randint(0, 1)
-                    if robotClassifierType == 0:
-                        classifyingAgent = "mavic" + str(random.randint(0, self.numUAVs - 1))
-                    else:
-                        classifyingAgent = "moose" + str(random.randint(0, self.numUGVs - 1))
-                else:
-                    classifyingAgent = "human" + str(random.randint(0, self.numHumans - 1))
+                classifyingAgent = "human" + str(random.randint(0, self.numHumans - 1))
             
             #Add the navigating and classifying agents to the params list for this poi to be added to the master dict
             self.pois[i] = list(self.pois[i])
             for j, coord in enumerate(self.pois[i]):
                 self.pois[i][j] = self.pois[i][j].replace("\n", "")
 
-            localDict[tuple(self.pois[i])] = [navigatingAgent, classifyingAgent]
+            localDict[tuple(self.pois[i])] = [robotUsed, navigatingAgent, classifyingAgent]
 
         return localDict
 
