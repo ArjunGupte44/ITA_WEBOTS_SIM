@@ -484,6 +484,7 @@ class OperatorHub(Node):
     
 
     def nextPoiCallback(self, msg):
+        self.get_logger().info("IN 487")
         robotName = msg.robot_name #if UAV: Mavic# but if UGV: moose#
         nextPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
         self.configureRobotSpeedMode(robotName, nextPoiCoords, 0)
@@ -537,7 +538,8 @@ class OperatorHub(Node):
             else:
                 message.data = robotName + " high"
                 self.publisher.publish(message)
-                
+
+        self.get_logger().info(f"Published: {message.data}")                
 
 def main():
     rclpy.init(args=None)

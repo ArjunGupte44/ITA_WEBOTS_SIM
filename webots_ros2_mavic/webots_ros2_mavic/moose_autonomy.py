@@ -167,6 +167,8 @@ class MooseAutonomy:
                 self.__forwardSpeed = MEDIUM_SPEED
             else:
                 self.__forwardSpeed = FASTEST_SPEED
+
+        self.__node.get_logger().info(f"RECEIVEd: {speedMode.data}  {self.__forwardSpeed}")
         
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target

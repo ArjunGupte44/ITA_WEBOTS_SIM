@@ -484,6 +484,7 @@ class OperatorHub(Node):
     
 
     def nextPoiCallback(self, msg):
+        self.get_logger().info("IN 487")
         robotName = msg.robot_name #if UAV: Mavic# but if UGV: moose#
         nextPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
         self.configureRobotSpeedMode(robotName, nextPoiCoords, 0)
@@ -537,47 +538,8 @@ class OperatorHub(Node):
             else:
                 message.data = robotName + " high"
                 self.publisher.publish(message)
-            
-        
-        self.get_logger().info(f"{message.data}")
 
-
-""""
-        #
-        #0 means we are at start of sim and havent visited anything yet => next poi is index 0 in robot poi assignments
-        if visitedPoiCoords == 0:
-            nextPoi = self.robotPoiAssignments[robotName][0]
-            foundValidPoi = True
-        else:
-            poiIndex = self.robotPoiAssignments[robotName].index(visitedPoiCoords) 
-            if poiIndex != len(self.robotPoiAssignments[robotName]) - 1:
-                nextPoi = self.robotPoiAssignments[robotName][poiIndex + 1]
-                foundValidPoi = True
-            else:
-                foundValidPoi = False
-        
-        if foundValidPoi:
-            #2. Determine if a human operator will be controlling the robot or whether the robot will be autonomous
-            if any(nextPoi in navigatorAssignments for navigatorAssignments in self.navigatorPoiAssignments):
-            
-                #3. If it is teleoperated, get the human skill level and publish a low/high speed mode message
-                assignedNavigator = self.findAssignedHuman(nextPoi, 'n')
-                #No operator assigned to the next poi which means the robot drives autonomously
-                if assignedNavigator == -1:
-                    self.publisher.publish(robotName + " medium")
-                #An operator is assigned to the next poi so adjust speed based on skill level
-                else:
-                    navigatorSkillLevel = self.humanAttributes[assignedNavigator][4]
-                    if navigatorSkillLevel > 0 and navigatorSkillLevel < m.pi / 12:
-                        self.publisher.publish(robotName + " low")
-                    elif navigatorSkillLevel >= m.pi / 12 and navigatorSkillLevel <= m.pi / 6:
-                        self.publisher.publish(robotName + " medium")
-                    else:
-                        self.publisher.publish(robotName + " high")
-"""
-        
-
-    
+        self.get_logger().info(f"Published: {message.data}")                
 
 def main():
     rclpy.init(args=None)

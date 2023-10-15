@@ -159,7 +159,6 @@ class MooseAutonomy:
     
 
     def __adjustDrivingSpeed(self, speedMode):
-        self.__node.get_logger().info(f"HEREE")
         #Only update the forward speed for the robot whose speed we are trying to update in the first place
         if self.__robot.getName() in speedMode.data:
             if "low" in speedMode.data:
@@ -168,9 +167,9 @@ class MooseAutonomy:
                 self.__forwardSpeed = MEDIUM_SPEED
             else:
                 self.__forwardSpeed = FASTEST_SPEED
-        
-        self.__node.get_logger().info(f"{self.__forwardSpeed}")
 
+        self.__node.get_logger().info(f"RECEIVEd: {speedMode.data}  {self.__forwardSpeed}")
+        
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
