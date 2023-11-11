@@ -261,7 +261,7 @@ class OperatorHub(Node):
     
     def setInitialRobotSpeeds(self):
         for i in range(self.numUAVs):
-            self.configureRobotSpeedMode("Mavic" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
+            self.configureRobotSpeedMode("Mavic_2_PRO_" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
         
         for i in range(self.numUGVs):
             self.configureRobotSpeedMode("moose" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
@@ -502,10 +502,12 @@ class OperatorHub(Node):
 
 
     def configureRobotSpeedMode(self, robotName, nextPoiCoords, atStartofSim):
-        robotNumber = int(re.findall(r"\d+", robotName)[0])
+        robotNumber = int(re.findall(r"\d+", robotName[::-1])[0])
+        firstTime = False
 
         #if at start of sim and going to visit first POI
         if atStartofSim:
+            firstTime = True
             if "Mavic" in robotName:
                 file = UAV_COORDS_FILE
             else:
@@ -535,6 +537,10 @@ class OperatorHub(Node):
         #Robot is driving autonomously to next POI so use MEDIUM speed
         if "human" not in navigatingAgent:
             message.data = robotName + " medium"
+            if firstTime:
+                subscriberCount = self.publisher.get_subscription_count() #should equal 2 after moose_autonomy and mavic_autonomy launch
+                while subscriberCount < 2:
+                    subscriberCount = self.publisher.get_subscription_count()    
             self.publisher.publish(message)
         
         #Human is driving to next POI to use operator skill level to determine speed
@@ -542,13 +548,16 @@ class OperatorHub(Node):
             navigatorSkillLevel = self.humanAttributes[navigatingAgentNumber][4]
             if navigatorSkillLevel > 0 and navigatorSkillLevel < m.pi / 12:
                 message.data = robotName + " low"
-                self.publisher.publish(message)
             elif navigatorSkillLevel >= m.pi / 12 and navigatorSkillLevel <= m.pi / 6:
                 message.data = robotName + " medium"
-                self.publisher.publish(message)
             else:
                 message.data = robotName + " high"
-                self.publisher.publish(message)
+
+            if firstTime:
+                subscriberCount = self.publisher.get_subscription_count() #should equal 2 after moose_autonomy and mavic_autonomy launch
+                while subscriberCount < 2:
+                    subscriberCount = self.publisher.get_subscription_count()
+            self.publisher.publish(message)
 
         self.get_logger().info(f"Published: {message.data}")                
 

@@ -116,7 +116,7 @@ class MavicAutonomy:
         self.__node.create_subscription(String, self.__robot.getName() + '/path_file', self.__path_follow_callback, 1)
         self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
         self.__nextPoiPublisher = self.__node.create_publisher(DiverseArray, 'nextPoiLocation', 10)
-        self.__speedSubscriber = self.__node.create_subscription(String, 'speedMode', self.__adjustFlyingSpeed, 10)
+        self.__node.create_subscription(String, 'speedMode', self.__adjustFlyingSpeed, 10)
 
     
     def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
@@ -142,6 +142,7 @@ class MavicAutonomy:
     
     def __adjustFlyingSpeed(self, speedMode):
         #Only update the forward speed for the robot whose speed we are trying to update in the first place
+        self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
         if self.__robot.getName() in speedMode.data:
             if "low" in speedMode.data:
                 self.__speedMultiplier = SLOWEST_SPEED
