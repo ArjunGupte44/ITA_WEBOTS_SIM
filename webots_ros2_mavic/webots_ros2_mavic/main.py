@@ -127,8 +127,8 @@ def main():
         f.close()
 
 
-    numSafe = 10
-    numThreats = 10
+    numSafe = 2
+    numThreats = 2
     numHumans = 3
     numUAVs = 1
     numUGVs = 1

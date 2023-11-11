@@ -14,8 +14,8 @@ from robot_interfaces.msg import DiverseArray
 #The last set of values is speedMultiplier that gets multiplied with m1 - m4
 #The first set of values are the options  for the MAX_PITCH_DSITURBANCE value
 SLOWEST_SPEED = -1  #1.0
-MEDIUM_SPEED = -3.5 #1.0375
-FASTEST_SPEED = -6  #1.075
+MEDIUM_SPEED = -1.6 #1.0375
+FASTEST_SPEED = -2.56  #1.075
 
 K_VERTICAL_THRUST = 68.5    # with 68.5 thrust, the drone lifts.
 K_VERTICAL_P = 3.0          #Original: 3.0      # P constant of the vertical PID.

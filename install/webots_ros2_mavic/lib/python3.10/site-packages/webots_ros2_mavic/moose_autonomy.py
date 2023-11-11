@@ -31,9 +31,9 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
-SLOWEST_SPEED = 0.019 #0.314
-MEDIUM_SPEED =  0.039 #0.471
-FASTEST_SPEED = 0.059 #0.7065
+SLOWEST_SPEED = 0.017 #0.314
+MEDIUM_SPEED =  0.0255 #0.471
+FASTEST_SPEED = 0.0382 #0.7065
 
 
 def clamp(value, value_min, value_max):

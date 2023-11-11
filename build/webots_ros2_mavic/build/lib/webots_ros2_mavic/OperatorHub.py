@@ -66,7 +66,7 @@ class OperatorHub(Node):
         self.nextPoiSubscriber = self.create_subscription(DiverseArray, 'nextPoiLocation', self.nextPoiCallback, 10)
         self.publisher = self.create_publisher(String, 'speedMode', 10)
 
-        self.numParams = 6 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1)        
+        self.numParams = 7 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1), utilization fraction        
         self.operatorMetrics = []
         self.operatorArrivalTimes = []
         
@@ -403,7 +403,8 @@ class OperatorHub(Node):
             #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
             #Therefore there is a chance that the total working time within the last 5 minutes is actually greater than 300 seconds (5 mins)
             #Therefore if this is the case simple cap the utilization to its maximum value of 1
-            utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS) 
+            utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS)
+            self.operatorMetrics[assignedOperator][6].append(utilization) 
             if utilization >= 0 and utilization < 0.45:
                 Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
             elif utilization >= 0.45 and utilization < 0.65:
@@ -433,6 +434,13 @@ class OperatorHub(Node):
         self.get_logger().info(f"Visited {self.poisVisited}/{self.numPois}")
         if self.poisVisited == len(self.poiAttributes):
             self.getSimScore()
+        
+            #Simulation has finished at this point (robots are returning or have returned home) -> Now graph utilization for humans
+            #One human test: human1
+            poiVisitTimes = self.currentTimes
+            utilizationArray = list(zip(*self.operatorMetrics))
+            utilizationArray = utilizationArray[6]
+            self.get_logger().info(f"POI Visit Times Length: {poiVisitTimes}  Utilization Array Length: {utilizationArray}")
         
         #As a last step in processing this visit to the poi...
         #self.configureRobotSpeedMode(robotName, visitedPoiCoords)
