@@ -149,6 +149,7 @@ class MavicAutonomy:
                 self.__speedMultiplier = MEDIUM_SPEED
             else:
                 self.__speedMultiplier = FASTEST_SPEED
+            self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist

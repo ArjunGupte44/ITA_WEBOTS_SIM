@@ -77,6 +77,7 @@ class OperatorHub(Node):
         self.ugvArrivalTimes = []
         self.pictureTakingTime = 3 #seconds
         self.poisVisited = 0
+        self.numCorrect = 0
         
         self.imageQualities = ["low", "medium", "upper-medium", "high"]
         self.tBarLUT = {"low": [45, 125, 245], "medium": [35, 95, 195], "upper-medium": [25, 65, 145], "high": [15, 35, 95]}
@@ -272,7 +273,8 @@ class OperatorHub(Node):
         arrivalTime = msg.arrival_time
 
         #Determine whether a uav/ugv arrived at poi and what its number was
-        robotNumber = int(re.findall(r"\d+", robotName)[0])
+        robotNumber = int(re.findall(r"\d+", robotName[::-1])[0])
+        self.get_logger().info(f"{robotName}  {robotNumber}")
         uavArrived = 1 if "Mavic" in robotName else 0
         
         #Add arrival time to appropriate array 
@@ -326,7 +328,8 @@ class OperatorHub(Node):
             robotClassificationAccuracy = self.robotProbabilitiesLUT[imageQuality][poiDifficulty - 1]
             robotPredictionResult = self.flipFunction(robotClassificationAccuracy, poiDifficulty)
             
-            if robotPredictionResult >= 0:
+            if robotPredictionResult > 0:
+                self.numCorrect += 1
                 self.get_logger().info(f"{classifyingAgent} identified AD correctly!")
             else:
                 self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
@@ -416,7 +419,9 @@ class OperatorHub(Node):
             #Use flip function to convert probability into correct/wrong prediction
             binaryResult = self.flipFunction(predictionProbability, poiDifficulty)
             self.operatorMetrics[assignedOperator][5].append(binaryResult)
-            if binaryResult >= 0:
+            if binaryResult > 0:
+                self.numCorrect += 1
+                self.get_logger().info(f"Num correct: {self.numCorrect}")
                 self.get_logger().info(f"{classifyingAgent} identified AD correctly!")
             else:
                 self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
@@ -451,7 +456,7 @@ class OperatorHub(Node):
 
 
     def flipFunction(self, predictionProbability, poiDifficulty):
-        return (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else (poiDifficulty * -10)
+        return (poiDifficulty * 10) if random.uniform(0, 1) <= predictionProbability else 0 #Used to be: (poiDifficulty * -10) if applying negative penalty
 
     def calculateAgentNetScore(self, agentType):
         if agentType == "human":
@@ -479,8 +484,14 @@ class OperatorHub(Node):
         ugvsNetScore = self.calculateAgentNetScore("ugv")
         uavsNetScore = self.calculateAgentNetScore("uav")
 
+        #Get final sim score
         finalSimScore = round((humansNetScore + ugvsNetScore + uavsNetScore) / 3, 2)
         self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
+
+        #Get final team accuracy percentage
+        self.get_logger().info(f"{self.numCorrect} / {self.numPois}")
+        finalTeamAccuracy = 100 * round(self.numCorrect / self.numPois, 2)
+        self.get_logger().info(f"Final Team Accuracy Percentage: {finalTeamAccuracy}%")
     
 
     def nextPoiCallback(self, msg):

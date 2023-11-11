@@ -127,11 +127,11 @@ def main():
         f.close()
 
 
-    numSafe = 20
-    numThreats = 20
-    numHumans = 5
-    numUAVs = 3
-    numUGVs = 4
+    numSafe = 10
+    numThreats = 10
+    numHumans = 3
+    numUAVs = 1
+    numUGVs = 1
     numRobots = numUAVs + numUGVs
     uavHeight = 7
 
