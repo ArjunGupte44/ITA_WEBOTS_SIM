@@ -11,6 +11,11 @@ from ament_index_python.packages import get_package_share_directory
 
 from robot_interfaces.msg import DiverseArray
 
+#The last set of values is speedMultiplier that gets multiplied with m1 - m4
+#The first set of values are the options  for the MAX_PITCH_DSITURBANCE value
+SLOWEST_SPEED = -1  #1.0
+MEDIUM_SPEED = -3.5 #1.0375
+FASTEST_SPEED = -6  #1.075
 
 K_VERTICAL_THRUST = 68.5    # with 68.5 thrust, the drone lifts.
 K_VERTICAL_P = 3.0          #Original: 3.0      # P constant of the vertical PID.
@@ -36,11 +41,8 @@ K_X_VELOCITY_I = 0.01       #Original: 0.01
 K_Y_VELOCITY_I = 0.01       #Original: 0.01
 
 MAX_YAW_DISTURBANCE = 2
-MAX_PITCH_DISTURBANCE = -2
+MAX_PITCH_DISTURBANCE = MEDIUM_SPEED
 
-SLOWEST_SPEED = 1.0
-MEDIUM_SPEED = 1.0375
-FASTEST_SPEED = 1.075
 
 def clamp(value, value_min, value_max):
     return min(max(value, value_min), value_max)
@@ -104,7 +106,8 @@ class MavicAutonomy:
         self.__startTime = 0.0
         self.__mavicNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
-        self.__speedMultiplier = MEDIUM_SPEED
+        self.__speedMultiplier = 1.0
+        self.__maxPitchDisturbance = MEDIUM_SPEED
 
         #Poi visit info
         #self.__visitInfo = DiverseArray()
@@ -145,11 +148,14 @@ class MavicAutonomy:
         self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
         if self.__robot.getName() in speedMode.data:
             if "low" in speedMode.data:
-                self.__speedMultiplier = SLOWEST_SPEED
+                #self.__speedMultiplier = SLOWEST_SPEED
+                self.__maxPitchDisturbance = SLOWEST_SPEED
             elif "medium" in speedMode.data:
-                self.__speedMultiplier = MEDIUM_SPEED
+                #self.__speedMultiplier = MEDIUM_SPEED
+                self.__maxPitchDisturbance = MEDIUM_SPEED
             else:
-                self.__speedMultiplier = FASTEST_SPEED
+                #self.__speedMultiplier = FASTEST_SPEED
+                self.__maxPitchDisturbance = FASTEST_SPEED
             self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
 
     def __cmd_vel_callback(self, twist):
@@ -231,7 +237,7 @@ class MavicAutonomy:
         # Turn the robot to the left or to the right according the value and the sign of angle_left
         yaw_disturbance = MAX_YAW_DISTURBANCE*angle_left/(2*np.pi)
         # non proportional and decruising function
-        pitch_disturbance = clamp(np.log10(abs(angle_left)), MAX_PITCH_DISTURBANCE, 0.1)
+        pitch_disturbance = clamp(np.log10(abs(angle_left)), self.__maxPitchDisturbance, 0.1)
         #pitch_disturbance = SPEED_CONSTANT * np.log10(abs(angle_left))
 
         return yaw_disturbance, pitch_disturbance, self.__target_altitude
