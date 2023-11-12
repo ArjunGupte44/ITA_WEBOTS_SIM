@@ -13,6 +13,7 @@ import random
 import re
 import math as m
 import random
+from matplotlib import pyplot as plt
 from robot_interfaces.msg import DiverseArray
 sys.path.insert(0, '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/webots_ros2_mavic')
 
@@ -69,6 +70,7 @@ class OperatorHub(Node):
         self.numParams = 7 #tBar, Fs, Ff, Fw, Pr, Correct(1)/Wrong(-1), utilization fraction        
         self.operatorMetrics = []
         self.operatorArrivalTimes = []
+        self.utilizationArray = []
         
 
         self.poiVisitTimes = np.zeros((self.numPois, 1))
@@ -90,6 +92,7 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.uavArrivalTimes, self.numUAVs, 0, 'l')
         self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
         self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
+        self.initializeNestedStructure(self.utilizationArray, self.numHumans, 0, 'l')
 
         self.setInitialRobotSpeeds()
 
@@ -266,15 +269,31 @@ class OperatorHub(Node):
         for i in range(self.numUGVs):
             self.configureRobotSpeedMode("moose" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
 
+    def plotHumanUtilization(self):
+        numPlots = self.numHumans
+        fig, axs = plt.subplots(numPlots)
+
+        for i, humanArray in enumerate(self.utilizationArray):
+            #Separate times and utilizations
+            times = [coord[0] for coord in humanArray]
+            utilizations = [coord[1] for coord in humanArray]
+
+            #Plot utilization fraction as a function of time in minutes
+            axs[i].plot(times, utilizations)
+            axs[i].set_title('Human ' + str(i))
+            axs[i].set(xlabel='Time (minutes)', ylabel='Utilization')
+
+        plt.show()
+
     def subCallback(self, msg):
         self.poisVisited += 1
         robotName = msg.robot_name #if UAV: Mavic_2_Pro_# but if UGV: moose#
         visitedPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
         arrivalTime = msg.arrival_time
-
+        self.get_logger().info(f"arrived at: {arrivalTime}")
         #Determine whether a uav/ugv arrived at poi and what its number was
         robotNumber = int(re.findall(r"\d+", robotName[::-1])[0])
-        self.get_logger().info(f"{robotName}  {robotNumber}")
+        #self.get_logger().info(f"{robotName}  {robotNumber}")
         uavArrived = 1 if "Mavic" in robotName else 0
         
         #Add arrival time to appropriate array 
@@ -366,13 +385,13 @@ class OperatorHub(Node):
             for arrivalTime in self.operatorArrivalTimes[assignedOperator].keys():
                 navTimeCumulative += self.operatorArrivalTimes[assignedOperator][arrivalTime]
             
-            cumulativeWorkingTime = tBarCumulative + navTimeCumulative
+            cumulativeWorkingTime = (tBarCumulative + navTimeCumulative) / ONE_HOUR_IN_SECONDS #in hours
 
             #Calculate value of Ff - this param is a cumulative value so look through previous values in tBar + navTime lists for a given operator
-            if cumulativeWorkingTime >= 0 and cumulativeWorkingTime < ONE_HOUR_IN_SECONDS: #between 0 and 1 hour in seconds
+            if cumulativeWorkingTime >= 0 and cumulativeWorkingTime < 1: #between 0 and 1 hour
                 Ff = 1
-            elif cumulativeWorkingTime >= ONE_HOUR_IN_SECONDS and cumulativeWorkingTime <= TWO_HOURS_IN_SECONDS: #between 1 and 2 hours in seconds
-                Ff = -0.66 * cumulativeWorkingTime + 1.33
+            elif cumulativeWorkingTime >= 1 and cumulativeWorkingTime <= 2: #between 1 and 2 hours
+                Ff = -0.3 * cumulativeWorkingTime + 1.3
             self.operatorMetrics[assignedOperator][2].append(Ff)
 
             #Calculate value of Fw - this param is a cumulative value so look through previous values in tBar list for a given operator
@@ -382,28 +401,52 @@ class OperatorHub(Node):
                 currentTime = self.currentTimes[assignedOperator][-1] + tBar
             self.currentTimes[assignedOperator].append(currentTime)
 
-            fiveMinCutoff = max(0, currentTime - FIVE_MINS_IN_SECONDS) #if more than 5 mins have passed by, all good ; if not then cutoff is simply t = 0s
-            workingTime = 0 #seconds
 
-            #append the values of tBar for the current operator while traversing in reverse
-            for i, time in reversed(list(enumerate(self.currentTimes[assignedOperator]))):
-                if time > fiveMinCutoff:
-                    workingTime += self.operatorMetrics[assignedOperator][0][i] 
-                else:
-                    break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
-            
-            #append the values of navigation time for the current operator while traversing through dict in reverse
-            for arrivalTime in reversed(self.operatorArrivalTimes[assignedOperator].keys()):
-                if arrivalTime > fiveMinCutoff:
-                    workingTime += self.operatorArrivalTimes[assignedOperator][arrivalTime]
-                else:
-                    break
+            #The following code interpolates between the current time and the previous POI's current time to fill in all intermediate utilization values
+            #If there is only one element in currentTimes array ATM, then the starting value should be t = 0
+            #Else, it should be the current time of the previous POI
+            initValue = 0 if len(self.currentTimes[assignedOperator]) == 1 else int(self.currentTimes[assignedOperator][-2]) + 2
 
-            #Apply formula to calculate Fw and get result
-            #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
-            #Therefore there is a chance that the total working time within the last 5 minutes is actually greater than 300 seconds (5 mins)
-            #Therefore if this is the case simple cap the utilization to its maximum value of 1
-            utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS)
+            #Sample at 1 second intervals
+            self.get_logger().info(f"init: {initValue}  currenttime: {int(currentTime)}")
+            for iter, interpCurrentTime in enumerate(range(initValue, int(currentTime) + 2, 1)):
+                fiveMinCutoff = max(0, interpCurrentTime - FIVE_MINS_IN_SECONDS) #if more than 5 mins have passed by, all good ; if not then cutoff is simply t = 0s
+                workingTime = 0 #seconds
+
+                #append the values of tBar for the current operator while traversing in reverse
+                for i, time in reversed(list(enumerate(self.currentTimes[assignedOperator]))):
+                    if time > fiveMinCutoff and (time < interpCurrentTime if interpCurrentTime != 0 else True):
+                        workingTime += self.operatorMetrics[assignedOperator][0][i] 
+                    else:
+                        break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
+                #self.get_logger().info(f"{iter}  WT1: {workingTime}")
+
+                #append the values of navigation time for the current operator while traversing through dict in reverse
+                for arrivalTime in reversed(self.operatorArrivalTimes[assignedOperator].keys()):
+                    navTime = self.operatorArrivalTimes[assignedOperator][arrivalTime]
+                    if arrivalTime > fiveMinCutoff:
+                        if arrivalTime > interpCurrentTime:
+                            if interpCurrentTime > arrivalTime - navTime:
+                                workingTime += (interpCurrentTime - (arrivalTime - navTime))
+                        else:
+                            workingTime += (navTime if (arrivalTime - navTime > fiveMinCutoff) else arrivalTime - fiveMinCutoff)
+                    else:
+                        continue
+                #self.get_logger().info(f"{iter}  WT2: {workingTime}")
+
+                #Apply formula to calculate Fw and get result
+                #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
+                #Therefore there is a chance that the total working time within the last 5 minutes is actually greater than 300 seconds (5 mins)
+                #Therefore if this is the case simple cap the utilization to its maximum value of 1
+                if interpCurrentTime < FIVE_MINS_IN_SECONDS:
+                    utilization = min(1, workingTime / (workingTime if interpCurrentTime == 0 else interpCurrentTime))
+                else:
+                    utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS)
+                #self.get_logger().info(f"Entry {iter}: {(interpCurrentTime / 60, utilization)}")
+                self.utilizationArray[assignedOperator].append((interpCurrentTime / 60, utilization))
+
+            self.get_logger().info(f"Entry: {(round(currentTime / 60, 2), utilization)}")
+            #The following code for Fw and appending to array is only done for the real currentTime value corresponding to the POI visit, not the interps.
             self.operatorMetrics[assignedOperator][6].append(utilization) 
             if utilization >= 0 and utilization < 0.45:
                 Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
@@ -422,7 +465,6 @@ class OperatorHub(Node):
             self.operatorMetrics[assignedOperator][5].append(binaryResult)
             if binaryResult > 0:
                 self.numCorrect += 1
-                self.get_logger().info(f"Num correct: {self.numCorrect}")
                 self.get_logger().info(f"{classifyingAgent} identified AD correctly!")
             else:
                 self.get_logger().info(f"{classifyingAgent} identified AD incorrectly!")
@@ -436,11 +478,8 @@ class OperatorHub(Node):
             self.getSimScore()
         
             #Simulation has finished at this point (robots are returning or have returned home) -> Now graph utilization for humans
-            #One human test: human1
-            poiVisitTimes = self.currentTimes
-            utilizationArray = list(zip(*self.operatorMetrics))
-            utilizationArray = utilizationArray[6]
-            self.get_logger().info(f"POI Visit Times Length: {poiVisitTimes}  Utilization Array Length: {utilizationArray}")
+            self.plotHumanUtilization()
+            #self.get_logger().info(f"Utilization Array Length: {len(self.utilizationArray[0])}   {len(self.utilizationArray[1])}  {len(self.utilizationArray[2])}")
         
         #As a last step in processing this visit to the poi...
         #self.configureRobotSpeedMode(robotName, visitedPoiCoords)
@@ -497,13 +536,11 @@ class OperatorHub(Node):
         self.get_logger().info(f"Final Simulation Score: {finalSimScore}")
 
         #Get final team accuracy percentage
-        self.get_logger().info(f"{self.numCorrect} / {self.numPois}")
         finalTeamAccuracy = 100 * round(self.numCorrect / self.numPois, 2)
         self.get_logger().info(f"Final Team Accuracy Percentage: {finalTeamAccuracy}%")
     
 
     def nextPoiCallback(self, msg):
-        self.get_logger().info("IN 487")
         robotName = msg.robot_name #if UAV: Mavic# but if UGV: moose#
         nextPoiCoords = (round(msg.poi_x, 1), round(msg.poi_y, 1))
         self.configureRobotSpeedMode(robotName, nextPoiCoords, 0)
@@ -536,7 +573,7 @@ class OperatorHub(Node):
 
             #Generate the POI coordinate tuple
             nextPoiCoords = (round(float(splitAtSpaces[0]), 2), round(float(splitAtSpaces[1]), 2))
-            self.get_logger().info(f"first POI coords: {nextPoiCoords}")
+            #self.get_logger().info(f"first POI coords: {nextPoiCoords}")
 
         navigatingAgent = self.masterPoiDict[nextPoiCoords][1]
         navigatingAgentNumber = int(re.findall(r"\d+", navigatingAgent)[0])
@@ -567,7 +604,10 @@ class OperatorHub(Node):
                     subscriberCount = self.publisher.get_subscription_count()
             self.publisher.publish(message)
 
-        self.get_logger().info(f"Published: {message.data}")                
+        #self.get_logger().info(f"Published: {message.data}")    
+
+        
+
 
 def main():
     rclpy.init(args=None)

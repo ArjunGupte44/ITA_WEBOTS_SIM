@@ -31,9 +31,9 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
-SLOWEST_SPEED = 0.017 #0.314
-MEDIUM_SPEED =  0.0255 #0.471
-FASTEST_SPEED = 0.0382 #0.7065
+SLOWEST_SPEED = 0.017 #0.216 m/s
+MEDIUM_SPEED =  0.0255 #0.324 m/s
+FASTEST_SPEED = 0.0382 #0.486 m/s
 
 
 def clamp(value, value_min, value_max):
@@ -167,7 +167,7 @@ class MooseAutonomy:
                 self.__forwardSpeed = MEDIUM_SPEED
             else:
                 self.__forwardSpeed = FASTEST_SPEED
-            self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__forwardSpeed}")
+            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__forwardSpeed}")
         
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target

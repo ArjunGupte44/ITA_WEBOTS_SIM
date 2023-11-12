@@ -11,11 +11,11 @@ from ament_index_python.packages import get_package_share_directory
 
 from robot_interfaces.msg import DiverseArray
 
-#The last set of values is speedMultiplier that gets multiplied with m1 - m4
+#The last set of values is the old implementation: the speedMultiplier values that gets multiplied with m1 - m4
 #The first set of values are the options  for the MAX_PITCH_DSITURBANCE value
-SLOWEST_SPEED = -1  #1.0
-MEDIUM_SPEED = -1.6 #1.0375
-FASTEST_SPEED = -2.56  #1.075
+SLOWEST_SPEED = -1      #1.0
+MEDIUM_SPEED = -1.6     #1.0375
+FASTEST_SPEED = -2.56   #1.075
 
 K_VERTICAL_THRUST = 68.5    # with 68.5 thrust, the drone lifts.
 K_VERTICAL_P = 3.0          #Original: 3.0      # P constant of the vertical PID.
@@ -145,7 +145,7 @@ class MavicAutonomy:
     
     def __adjustFlyingSpeed(self, speedMode):
         #Only update the forward speed for the robot whose speed we are trying to update in the first place
-        self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
+        #self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
         if self.__robot.getName() in speedMode.data:
             if "low" in speedMode.data:
                 #self.__speedMultiplier = SLOWEST_SPEED
@@ -156,7 +156,7 @@ class MavicAutonomy:
             else:
                 #self.__speedMultiplier = FASTEST_SPEED
                 self.__maxPitchDisturbance = FASTEST_SPEED
-            self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
+            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
