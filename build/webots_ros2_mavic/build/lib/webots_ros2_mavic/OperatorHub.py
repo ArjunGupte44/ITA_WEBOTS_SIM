@@ -271,7 +271,7 @@ class OperatorHub(Node):
 
     def plotHumanUtilization(self):
         numPlots = self.numHumans
-        fig, axs = plt.subplots(numPlots)
+        fig, axs = plt.subplots(numPlots, constrained_layout=True)
 
         for i, humanArray in enumerate(self.utilizationArray):
             #Separate times and utilizations
@@ -282,7 +282,7 @@ class OperatorHub(Node):
             axs[i].plot(times, utilizations)
             axs[i].set_title('Human ' + str(i))
             axs[i].set(xlabel='Time (minutes)', ylabel='Utilization')
-
+        
         plt.show()
 
     def subCallback(self, msg):
@@ -405,7 +405,7 @@ class OperatorHub(Node):
             #The following code interpolates between the current time and the previous POI's current time to fill in all intermediate utilization values
             #If there is only one element in currentTimes array ATM, then the starting value should be t = 0
             #Else, it should be the current time of the previous POI
-            initValue = 0 if len(self.currentTimes[assignedOperator]) == 1 else int(self.currentTimes[assignedOperator][-2]) + 2
+            initValue = 1 if len(self.currentTimes[assignedOperator]) == 1 else int(self.currentTimes[assignedOperator][-2]) + 2
 
             #Sample at 1 second intervals
             self.get_logger().info(f"init: {initValue}  currenttime: {int(currentTime)}")
@@ -415,8 +415,13 @@ class OperatorHub(Node):
 
                 #append the values of tBar for the current operator while traversing in reverse
                 for i, time in reversed(list(enumerate(self.currentTimes[assignedOperator]))):
-                    if time > fiveMinCutoff and (time < interpCurrentTime if interpCurrentTime != 0 else True):
-                        workingTime += self.operatorMetrics[assignedOperator][0][i] 
+                    classifyingTime = self.operatorMetrics[assignedOperator][0][i] 
+                    if time > fiveMinCutoff: #and (time < interpCurrentTime if interpCurrentTime != 0 else True):
+                        if time > interpCurrentTime:
+                            if interpCurrentTime > time - classifyingTime:
+                                workingTime += (interpCurrentTime - (time - classifyingTime))
+                        else:
+                            workingTime += classifyingTime
                     else:
                         break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
                 #self.get_logger().info(f"{iter}  WT1: {workingTime}")
@@ -431,7 +436,7 @@ class OperatorHub(Node):
                         else:
                             workingTime += (navTime if (arrivalTime - navTime > fiveMinCutoff) else arrivalTime - fiveMinCutoff)
                     else:
-                        continue
+                        break
                 #self.get_logger().info(f"{iter}  WT2: {workingTime}")
 
                 #Apply formula to calculate Fw and get result
