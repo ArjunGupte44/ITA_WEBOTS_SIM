@@ -145,7 +145,6 @@ class MavicAutonomy:
     
     def __adjustFlyingSpeed(self, speedMode):
         #Only update the forward speed for the robot whose speed we are trying to update in the first place
-        #self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
         if self.__robot.getName() in speedMode.data:
             if "low" in speedMode.data:
                 #self.__speedMultiplier = SLOWEST_SPEED
@@ -156,7 +155,6 @@ class MavicAutonomy:
             else:
                 #self.__speedMultiplier = FASTEST_SPEED
                 self.__maxPitchDisturbance = FASTEST_SPEED
-            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -238,7 +236,6 @@ class MavicAutonomy:
         yaw_disturbance = MAX_YAW_DISTURBANCE*angle_left/(2*np.pi)
         # non proportional and decruising function
         pitch_disturbance = clamp(np.log10(abs(angle_left)), self.__maxPitchDisturbance, 0.1)
-        #pitch_disturbance = SPEED_CONSTANT * np.log10(abs(angle_left))
 
         return yaw_disturbance, pitch_disturbance, self.__target_altitude
         
@@ -294,32 +291,14 @@ class MavicAutonomy:
                 clamped_difference_altitude = clamp(target_altitude - (vertical) + K_VERTICAL_OFFSET, -1, 1)
                 vertical_input = K_VERTICAL_P * pow(clamped_difference_altitude, 3.0)
 
-
             roll_input = K_ROLL_P * clamp(roll, -1, 1) + roll_velocity + roll_ref
             pitch_input = K_PITCH_P * clamp(pitch, -1, 1) + pitch_velocity + pitch_ref
-
-            # Calculate roll PID control
-            # roll_error = roll
-            # self.__roll_integral += roll_error
-            # roll_derivative = roll_error - self.__previous_roll_error
-            # roll_input = K_ROLL_P * roll_error + K_ROLL_I * self.__roll_integral + K_ROLL_D * roll_derivative
-            # self.__previous_roll_error = roll_error
-
-            # Calculate pitch PID control
-            # pitch_error = pitch
-            # self.__pitch_integral += pitch_error
-            # pitch_derivative = pitch_error - self.__previous_pitch_error
-            # pitch_input = K_PITCH_P * pitch_error + K_PITCH_I * self.__pitch_integral + K_PITCH_D * pitch_derivative
-            # self.__previous_pitch_error = pitch_error
-           
 
             m1 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input + yaw_input + pitch_input + roll_input)
             m2 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input - yaw_input + pitch_input - roll_input)
             m3 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input)
             m4 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input)
             
-
-            #self.__node.get_logger().info(f"Motor cmd: {-m1} {m2} {m3} {-m4}")
             # Apply control
             self.__propellers[0].setVelocity(-m1)
             self.__propellers[1].setVelocity(m2)

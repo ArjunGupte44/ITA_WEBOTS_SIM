@@ -123,7 +123,6 @@ class MooseAutonomy:
 
     def __path_follow_callback(self, fileName):
         self.__path_follow = True
-        #file = pathlib.Path(os.path.join(self.__package_dir, 'resource', fileName))
         file = open("/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt", "r")
         contents = file.readlines()
         self.__path_file = contents[int(self.__robot.getName()[len(self.__robot.getName()) - 1])]
@@ -141,21 +140,18 @@ class MooseAutonomy:
             self.__waypoints[i].append(point_list[i][1])
             self.__waypoints[i].append(point_list[i][2]) # z
         
-        #self.__node.get_logger().info(f"waypoints: {self.__waypoints}")
         
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
     def __getPosition(self, floatStamped):
         x, y, z = self.__gps.getValues()
-        #roll, pitch, yaw = self.__imu.getRollPitchYaw()
         self.heading = floatStamped
 
         #adjust angle by subtracting 270 degrees first
         heading = self.heading.data - 270
         heading = radians(heading) #in radians now
         self.__current_pose = [x, y, z, heading]
-        #self.__node.get_logger().info(f"pos: {self.__current_pose}")
     
 
     def __adjustDrivingSpeed(self, speedMode):
@@ -167,14 +163,13 @@ class MooseAutonomy:
                 self.__forwardSpeed = MEDIUM_SPEED
             else:
                 self.__forwardSpeed = FASTEST_SPEED
-            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__forwardSpeed}")
         
     def __updatedTargetWaypoint(self):
-        # Check if the turtle is close enough to the target
+        # Check if the UGV is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
         
         if int(self.euclidean_distance(self.__waypoints[self.__index])) <= self.__target_precision + 1 and int(self.euclidean_distance(self.__waypoints[self.__index])) >= 0:
-            # Move to the next house
+            # Move to the next POI
             if self.__index < len(self.__waypoints) - 2:
                 self.__index += 1
                 formattedPoiCoords = (self.__waypoints[self.__index][0], self.__waypoints[self.__index][1])
@@ -186,7 +181,7 @@ class MooseAutonomy:
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed HOME")
 
             else:
-                # If it's the last house, stop the robot and shut down the node
+                # If it's the last POI, stop the robot and shut down the node
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!\n")
                 self.__visitedAllWaypoints = True
 
@@ -212,9 +207,6 @@ class MooseAutonomy:
 
         linearVelocity, linearError = self.linearVelocityController(targetPOI)
         angularVelocity, angularError = self.angularVelocityController(targetPOI)
-        
-        #if int(self.__mooseNumber) == 4:
-        #    self.__node.get_logger().info(f"x: {degrees(angularError)}")
 
         if abs(degrees(angularError)) >= 1 and self.__onTargetLine == False:
             return 0.0, angularVelocity
@@ -254,7 +246,6 @@ class MooseAutonomy:
 
         # This is now in ]-2pi;2pi[
         angle_left = targetAngle - self.__current_pose[3]
-        #self.__node.get_logger().info(f"CURR: {self.__current_pose[3]}")
         # Normalize turn angle to ]-pi;pi]
         angle_left = (angle_left + 2*np.pi) % (2*np.pi)
         if (angle_left > np.pi):
@@ -294,22 +285,17 @@ class MooseAutonomy:
         else:
             self.__move_to_target()
 
-            forward_speed = self.__target_twist.linear.x #clamp(self.__target_twist.linear.x, -1, 1) 
-            #self.__node.get_logger().info(f"fwd: {forward_speed}")
+            forward_speed = self.__target_twist.linear.x
             #forward_speed = clamp(forward_speed, -1, 1)
 
             angular_speed = self.__target_twist.angular.z 
             #angular_speed = clamp(angular_speed, -1, 1)
             
-            #self.__node.get_logger().info(f"angular: {angular_speed}")
-            
-
             command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
             #command_motor_left = clamp(command_motor_left, -2, 2)
 
             command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
             #command_motor_right = clamp(command_motor_right, -2, 2)
-            #self.__node.get_logger().info(f"motors: {command_motor_left}    {command_motor_right}")
             
             # Apply control
             self.__motors[0].setVelocity(command_motor_left)

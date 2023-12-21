@@ -1,0 +1,118 @@
+[0.601s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed
+[0.822s] Traceback (most recent call last):
+[0.822s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3016, in _dep_map
+[0.855s]     return self.__dep_map
+[0.855s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2813, in __getattr__
+[0.855s]     raise AttributeError(attr)
+[0.855s] AttributeError: _DistInfoDistribution__dep_map
+[0.855s] 
+[0.855s] During handling of the above exception, another exception occurred:
+[0.855s] 
+[0.855s] Traceback (most recent call last):
+[0.855s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3552, in parseImpl
+[0.856s]     ret = e._parse( instring, loc, doActions )
+[0.856s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1406, in _parseNoCache
+[0.856s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.856s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 2435, in parseImpl
+[0.856s]     raise ParseException(instring, loc, self.errmsg, self)
+[0.856s] pkg_resources._vendor.pyparsing.ParseException: Expected "platform_python_implementation" (at char 9), (line:1, col:10)
+[0.856s] 
+[0.856s] During handling of the above exception, another exception occurred:
+[0.856s] 
+[0.857s] Traceback (most recent call last):
+[0.857s]   File "/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/setup.py", line 22, in <module>
+[0.857s]     setup(
+[0.857s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 153, in setup
+[0.873s]     return distutils.core.setup(**attrs)
+[0.873s]   File "/usr/lib/python3.10/distutils/core.py", line 108, in setup
+[0.887s]     _setup_distribution = dist = klass(attrs)
+[0.887s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/dist.py", line 453, in __init__
+[0.889s]     _Distribution.__init__(
+[0.889s]   File "/usr/lib/python3.10/distutils/dist.py", line 292, in __init__
+[0.889s]     self.finalize_options()
+[0.890s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/dist.py", line 830, in finalize_options
+[0.890s]     for ep in sorted(loaded, key=by_order):
+[0.890s]   File "/home/arjun/.local/lib/python3.10/site-packages/setuptools/dist.py", line 829, in <lambda>
+[0.890s]     loaded = map(lambda e: e.load(), filtered)
+[0.890s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2449, in load
+[0.890s]     self.require(*args, **kwargs)
+[0.890s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2471, in require
+[0.890s]     reqs = self.dist.requires(self.extras)
+[0.890s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 2734, in requires
+[0.891s]     dm = self._dep_map
+[0.891s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3018, in _dep_map
+[0.891s]     self.__dep_map = self._compute_dependencies()
+[0.891s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3028, in _compute_dependencies
+[0.891s]     reqs.extend(parse_requirements(req))
+[0.891s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3084, in parse_requirements
+[0.892s]     yield Requirement(line)
+[0.892s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/__init__.py", line 3094, in __init__
+[0.892s]     super(Requirement, self).__init__(requirement_string)
+[0.892s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/requirements.py", line 98, in __init__
+[0.904s]     req = REQUIREMENT.parseString(requirement_string)
+[0.904s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1644, in parseString
+[0.905s]     loc, tokens = self._parse( instring, 0 )
+[0.905s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.905s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.905s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3417, in parseImpl
+[0.905s]     loc, exprtokens = e._parse( instring, loc, doActions )
+[0.905s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.906s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.906s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3552, in parseImpl
+[0.906s]     ret = e._parse( instring, loc, doActions )
+[0.906s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.906s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.906s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3417, in parseImpl
+[0.907s]     loc, exprtokens = e._parse( instring, loc, doActions )
+[0.907s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.907s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.907s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 4005, in parseImpl
+[0.908s]     loc, tokens = self.expr._parse( instring, loc, doActions, callPreParse=False )
+[0.908s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.908s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.908s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3417, in parseImpl
+[0.908s]     loc, exprtokens = e._parse( instring, loc, doActions )
+[0.909s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1428, in _parseNoCache
+[0.909s]     tokens = fn( instring, tokensStart, retTokens )
+[0.909s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1072, in wrapper
+[0.909s]     ret = func(*args[limit[0]:])
+[0.909s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/requirements.py", line 66, in <lambda>
+[0.909s]     lambda s, l, t: Marker(s[t._original_start : t._original_end])
+[0.909s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/markers.py", line 299, in __init__
+[0.916s]     self._markers = _coerce_parse_result(MARKER.parseString(marker))
+[0.916s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1644, in parseString
+[0.916s]     loc, tokens = self._parse( instring, 0 )
+[0.916s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.916s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.916s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3417, in parseImpl
+[0.917s]     loc, exprtokens = e._parse( instring, loc, doActions )
+[0.917s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.917s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.917s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3739, in parseImpl
+[0.917s]     return self.expr._parse( instring, loc, doActions, callPreParse=False )
+[0.917s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.918s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.918s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3400, in parseImpl
+[0.918s]     loc, resultlist = self.exprs[0]._parse( instring, loc, doActions, callPreParse=False )
+[0.918s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.918s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.918s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3552, in parseImpl
+[0.919s]     ret = e._parse( instring, loc, doActions )
+[0.919s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.919s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.919s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3739, in parseImpl
+[0.920s]     return self.expr._parse( instring, loc, doActions, callPreParse=False )
+[0.920s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.920s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.920s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3417, in parseImpl
+[0.920s]     loc, exprtokens = e._parse( instring, loc, doActions )
+[0.920s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.921s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.921s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3552, in parseImpl
+[0.921s]     ret = e._parse( instring, loc, doActions )
+[0.921s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 1402, in _parseNoCache
+[0.921s]     loc,tokens = self.parseImpl( instring, preloc, doActions )
+[0.921s]   File "/home/arjun/.local/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py", line 3552, in parseImpl
+[0.922s]     ret = e._parse( instring, loc, doActions )
+[0.922s] KeyboardInterrupt
+[0.937s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic' returned '-2': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed

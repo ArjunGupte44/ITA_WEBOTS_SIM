@@ -25,11 +25,9 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numSafe + self.numThreats):
-            self.poiAttributes[i][0] = int(random.uniform(-500, 500))
-            #self.poiAttributes[i][0] = int(random.uniform(-1500, 1500))
-            self.poiAttributes[i][1] = int(random.uniform(-400, 500))
-            #self.poiAttributes[i][1] = int(random.uniform(-1400, 1500)) #-1400 to avoid overlapping with the robots and humans
-            self.poiAttributes[i][2] = 6
+            self.poiAttributes[i][0] = int(random.uniform(-50, 50)) #-90/90
+            self.poiAttributes[i][1] = int(random.uniform(-40, 50)) #-75/90 to avoid overlapping with the robots and humans
+            self.poiAttributes[i][2] = 3
 
         #Assign threat/safe
         self.poiAttributes[0:self.numSafe, 3] = 0
@@ -40,7 +38,7 @@ class WebotsEnv:
             self.poiAttributes[i][4] = int(random.uniform(1,4))
         
         #Write to sim
-        cutoff = 42
+        cutoff = 44
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "r+")
         lines = f.readlines()
         f.seek(0)
@@ -84,15 +82,34 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numHumans):
-            self.humanAttributes[i][0] = (2 * i + 1) - 10
-            #self.humanAttributes[i][1] = -1493
-            self.humanAttributes[i][1] = -493
+            self.humanAttributes[i][0] = (-2 * i + 3)
+            self.humanAttributes[i][1] = -48 #-85
             self.humanAttributes[i][2] = 1.28
 
         #Assign cognitive ability and operator skill level
+        #The following values are hard-coded specifically for our demo
+        #0 is low, 1 is medium, 2 is high
+        #cognitiveAbility = [0, 0, 2, 2, 1]
+        #skillLevel = [2, 0, 2, 2, 0]
         for i in range(self.numHumans):
+            #The following two lines are used normally
             self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 4), 4)
             self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 4), 4)
+            
+            # #Demo requires following code instead
+            # if cognitiveAbility[i] == 0:
+            #     self.humanAttributes[i][3] = round(random.uniform(0, math.pi / 12), 4)
+            # elif cognitiveAbility[i] == 1:
+            #      self.humanAttributes[i][3] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
+            # else:
+            #      self.humanAttributes[i][3] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
+            
+            # if skillLevel[i] == 0:
+            #     self.humanAttributes[i][4] = round(random.uniform(0, math.pi / 12), 4)
+            # elif skillLevel[i] == 1:
+            #      self.humanAttributes[i][4] = round(random.uniform(math.pi / 12, math.pi / 6), 4)
+            # else:
+            #      self.humanAttributes[i][4] = round(random.uniform(math.pi / 6, math.pi / 4), 4)
 
         #Write to sim
         f = open('/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/worlds/mavic_world.wbt', "a")
@@ -116,15 +133,13 @@ class WebotsEnv:
 
         #Assign xyz location
         for i in range(self.numUAVs):
-            self.robotAttributes[i][0] = -(3 * i + 1)
-            #self.robotAttributes[i][1] = -1490
-            self.robotAttributes[i][1] = -490
+            self.robotAttributes[i][0] = -(3 * i + 5)
+            self.robotAttributes[i][1] = -46 #-80
             self.robotAttributes[i][2] = 0.1
         
         for i in range(self.numUGVs):
             self.robotAttributes[i + self.numUAVs][0] = (5 * i + 5)
-            #self.robotAttributes[i + self.numUAVs][1] = -1485
-            self.robotAttributes[i + self.numUAVs][1] = -485
+            self.robotAttributes[i + self.numUAVs][1] = -46 #-80
             self.robotAttributes[i + self.numUAVs][2] = 0.2
 
         #Assign vehicle speed
@@ -182,3 +197,6 @@ class WebotsEnv:
 
     def getHumanAttributes(self):
         return self.humanAttributes
+    
+    def getRobotAttributes(self):
+        return self.robotAttributes

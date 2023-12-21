@@ -11,20 +11,37 @@ from ament_index_python.packages import get_package_share_directory
 
 from robot_interfaces.msg import DiverseArray
 
+#The last set of values is the old implementation: the speedMultiplier values that gets multiplied with m1 - m4
+#The first set of values are the options  for the MAX_PITCH_DSITURBANCE value
+SLOWEST_SPEED = -1      #1.0
+MEDIUM_SPEED = -1.6     #1.0375
+FASTEST_SPEED = -2.56   #1.075
 
-K_VERTICAL_THRUST = 68.5    # with this thrust, the drone lifts.
-K_VERTICAL_P = 3.0          # P constant of the vertical PID.
-K_ROLL_P = 50.0             # P constant of the roll PID.
-K_PITCH_P = 1.0 #30.0            # P constant of the pitch PID.
+K_VERTICAL_THRUST = 68.5    # with 68.5 thrust, the drone lifts.
+K_VERTICAL_P = 3.0          #Original: 3.0      # P constant of the vertical PID.
+
+K_ROLL_P = 50.0             #Original: 50.0  P constant of the roll PID.
+K_ROLL_I = 0
+K_ROLL_D = 1
+
+K_PITCH_P = 30.0            #Original: 30.0 P constant of the pitch PID.
+K_PITCH_I = 0
+K_PITCH_D = 1
+
 K_YAW_P = 2.0
-K_VERTICAL_OFFSET = 0.6
-K_X_VELOCITY_P = 1
-K_Y_VELOCITY_P = 1
-K_X_VELOCITY_I = 0.01
-K_Y_VELOCITY_I = 0.01
-LIFT_HEIGHT = 1
+
+
+K_VERTICAL_OFFSET = 0.6     #Original: 0.6
+LIFT_HEIGHT = 1             #Original: 1
+
+K_X_VELOCITY_P = 1          #Original: 1
+K_Y_VELOCITY_P = 1          #Original: 1
+
+K_X_VELOCITY_I = 0.01       #Original: 0.01
+K_Y_VELOCITY_I = 0.01       #Original: 0.01
+
 MAX_YAW_DISTURBANCE = 2
-MAX_PITCH_DISTURBANCE = -2
+MAX_PITCH_DISTURBANCE = MEDIUM_SPEED
 
 
 def clamp(value, value_min, value_max):
@@ -56,13 +73,26 @@ class MavicAutonomy:
             propeller.setVelocity(0)
 
         # State
+        #Going left is +y velocity, Going right is -y velocity
+        #Going forwards is +x velocity, Going backwards is -x velocity
         self.__target_twist = Twist()
         self.__vertical_ref = LIFT_HEIGHT
         self.__linear_x_integral = 0
         self.__linear_y_integral = 0
 
+        # Additional state variables for PID control
+        self.__previous_roll_error = 0
+        self.__previous_pitch_error = 0
+        self.__previous_yaw_error = 0
+        self.__previous_vertical_error = 0
+        
+        self.__roll_integral = 0
+        self.__pitch_integral = 0
+        self.__yaw_integral = 0
+        self.__vertical_integral = 0
+
         # autonomy on or off (path following)
-        self.__path_follow = True
+        self.__path_follow = True #True means do waypoint following; False means do default speed controller
         self.__path_file = None
         self.__waypoints = []
         self.__target_altitudes = []
@@ -76,6 +106,8 @@ class MavicAutonomy:
         self.__startTime = 0.0
         self.__mavicNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
+        self.__speedMultiplier = 1.0
+        self.__maxPitchDisturbance = MEDIUM_SPEED
 
         #Poi visit info
         #self.__visitInfo = DiverseArray()
@@ -86,6 +118,8 @@ class MavicAutonomy:
         self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(String, self.__robot.getName() + '/path_file', self.__path_follow_callback, 1)
         self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
+        self.__nextPoiPublisher = self.__node.create_publisher(DiverseArray, 'nextPoiLocation', 10)
+        self.__node.create_subscription(String, 'speedMode', self.__adjustFlyingSpeed, 10)
 
     
     def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
@@ -97,9 +131,33 @@ class MavicAutonomy:
         visitInfo.arrival_time = timeToVisitPOI
         self.__poiPublisher.publish(visitInfo)
 
+    def __publishNextPoiInfo(self, nextPoiCoords):
+        nextPoiInfo = DiverseArray()
+        nextPoiInfo.robot_name = self.__robot.getName()
+        nextPoiInfo.poi_x = nextPoiCoords[0]
+        nextPoiInfo.poi_y = nextPoiCoords[1]
+        nextPoiInfo.poi_z = nextPoiCoords[2]
+        nextPoiInfo.arrival_time = -1.0
+        self.__nextPoiPublisher.publish(nextPoiInfo)
+
     def __set_position(self, pos):    
         self.__current_pose = pos
     
+    def __adjustFlyingSpeed(self, speedMode):
+        #Only update the forward speed for the robot whose speed we are trying to update in the first place
+        #self.__node.get_logger().info(f"{self.__robot.getName()}  {speedMode.data}")
+        if self.__robot.getName() in speedMode.data:
+            if "low" in speedMode.data:
+                #self.__speedMultiplier = SLOWEST_SPEED
+                self.__maxPitchDisturbance = SLOWEST_SPEED
+            elif "medium" in speedMode.data:
+                #self.__speedMultiplier = MEDIUM_SPEED
+                self.__maxPitchDisturbance = MEDIUM_SPEED
+            else:
+                #self.__speedMultiplier = FASTEST_SPEED
+                self.__maxPitchDisturbance = FASTEST_SPEED
+            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__speedMultiplier}")
+
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
@@ -141,19 +199,29 @@ class MavicAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = False
                 poiCoords = self.__waypoints[self.__target_index]
-                self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {poiCoords}")
-                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
-            
+
+                #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
+                if self.__target_index != len(self.__waypoints) - 1:
+                    formattedPoiCoords = (self.__waypoints[self.__target_index][0], self.__waypoints[self.__target_index][1])
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached AD at {formattedPoiCoords}")
+                    self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+                else:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} reached HOME")
+
             elapsedTime = time.time() - self.__startTime
-            if elapsedTime > 10:
+            if elapsedTime > 1: #This number controls how long the UAV spends at each POI
                 self.__target_index += 1
                 self.__justReachedPOI = True
-                if self.__target_index > len(self.__waypoints)-1:
+                if self.__target_index > len(self.__waypoints) - 1:
                     self.__target_index -= 1
                     self.__path_follow = False
                     self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} task complete!\n")
+                elif self.__target_index == len(self.__waypoints) - 1:
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed HOME")
                 else:
-                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {self.__waypoints[self.__target_index]}")
+                    formattedPoiCoords = (self.__waypoints[self.__target_index][0], self.__waypoints[self.__target_index][1])
+                    self.__publishNextPoiInfo(self.__waypoints[self.__target_index])
+                    self.__node.get_logger().info(f"Mavic {str(self.__mavicNumber)} headed to AD at {formattedPoiCoords}\n")
 
             self.__target_position = self.__waypoints[self.__target_index][:2]
             self.__target_altitude = self.__waypoints[self.__target_index][2]
@@ -169,7 +237,8 @@ class MavicAutonomy:
         # Turn the robot to the left or to the right according the value and the sign of angle_left
         yaw_disturbance = MAX_YAW_DISTURBANCE*angle_left/(2*np.pi)
         # non proportional and decruising function
-        pitch_disturbance = clamp(np.log10(abs(angle_left)), MAX_PITCH_DISTURBANCE, 0.1)
+        pitch_disturbance = clamp(np.log10(abs(angle_left)), self.__maxPitchDisturbance, 0.1)
+        #pitch_disturbance = SPEED_CONSTANT * np.log10(abs(angle_left))
 
         return yaw_disturbance, pitch_disturbance, self.__target_altitude
         
@@ -228,12 +297,27 @@ class MavicAutonomy:
 
             roll_input = K_ROLL_P * clamp(roll, -1, 1) + roll_velocity + roll_ref
             pitch_input = K_PITCH_P * clamp(pitch, -1, 1) + pitch_velocity + pitch_ref
-            
 
-            m1 = K_VERTICAL_THRUST + vertical_input + yaw_input + pitch_input + roll_input
-            m2 = K_VERTICAL_THRUST + vertical_input - yaw_input + pitch_input - roll_input
-            m3 = K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input
-            m4 = K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input
+            # Calculate roll PID control
+            # roll_error = roll
+            # self.__roll_integral += roll_error
+            # roll_derivative = roll_error - self.__previous_roll_error
+            # roll_input = K_ROLL_P * roll_error + K_ROLL_I * self.__roll_integral + K_ROLL_D * roll_derivative
+            # self.__previous_roll_error = roll_error
+
+            # Calculate pitch PID control
+            # pitch_error = pitch
+            # self.__pitch_integral += pitch_error
+            # pitch_derivative = pitch_error - self.__previous_pitch_error
+            # pitch_input = K_PITCH_P * pitch_error + K_PITCH_I * self.__pitch_integral + K_PITCH_D * pitch_derivative
+            # self.__previous_pitch_error = pitch_error
+           
+
+            m1 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input + yaw_input + pitch_input + roll_input)
+            m2 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input - yaw_input + pitch_input - roll_input)
+            m3 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input - yaw_input - pitch_input + roll_input)
+            m4 = self.__speedMultiplier * (K_VERTICAL_THRUST + vertical_input + yaw_input - pitch_input - roll_input)
+            
 
             #self.__node.get_logger().info(f"Motor cmd: {-m1} {m2} {m3} {-m4}")
             # Apply control
@@ -241,3 +325,4 @@ class MavicAutonomy:
             self.__propellers[1].setVelocity(m2)
             self.__propellers[2].setVelocity(m3)
             self.__propellers[3].setVelocity(-m4)
+ 

@@ -30,6 +30,8 @@ NUM_AGENTS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/
 UAV_COORDS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/uavCoords.txt'
 UGV_COORDS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt'
 
+POI_ASSIGNMENTS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/poiAssignments.txt'
+
 FIVE_MINS_IN_SECONDS = 300
 ONE_HOUR_IN_SECONDS = 3600
 TWO_HOURS_IN_SECONDS = 7200
@@ -54,8 +56,10 @@ class OperatorHub(Node):
         self.poiAttributes = self.getAgentAttributes('poi', NUM_POI_ATTRIBUTES)
 
         #Master POI Dict has following structure: {(x1, y1, z1): [robotUsed, navigatingAgent, classifyingAgent], (x2, y2, z2): [...], ...}
+        #self.masterPoiDict = {(47.0, -12.0): ['mavic0', 'human1', 'human3'], (16.0, -24.0): ['mavic0', 'human3', 'mavic0'], (14.0, 21.0): ['mavic1', 'mavic1', 'mavic1'], (-3.0, 11.0): ['mavic1', 'mavic1', 'mavic1'], (1.0, 13.0): ['mavic1', 'mavic1', 'human1'], (11.0, -28.0): ['mavic0', 'mavic0', 'mavic0'], (-4.0, 10.0): ['mavic1', 'human5', 'human0'], (33.0, 12.0): ['mavic1', 'human0', 'mavic1'], (-26.0, -21.0): ['moose0', 'moose0', 'moose0'], (-33.0, -9.0): ['moose0', 'moose0', 'moose0'], (16.0, -23.0): ['mavic0', 'mavic0', 'human3'], (-12.0, 0.0): ['moose0', 'human0', 'human3'], (36.0, -31.0): ['mavic0', 'human5', 'mavic0'], (-41.0, 7.0): ['moose0', 'moose0', 'moose0'], (-23.0, 48.0): ['moose1', 'moose1', 'moose1'], (-20.0, -8.0): ['moose0', 'human2', 'moose0'], (46.0, 20.0): ['mavic1', 'mavic1', 'mavic1'], (-8.0, -36.0): ['mavic0', 'human0', 'human4'], (-23.0, -6.0): ['moose0', 'moose0', 'moose0'], (25.0, -12.0): ['mavic0', 'human4', 'human2'], (-1.0, 46.0): ['moose1', 'human1', 'moose1'], (11.0, 27.0): ['mavic1', 'human3', 'human0'], (-49.0, 41.0): ['moose1', 'moose1', 'moose1'], (5.0, 48.0): ['moose1', 'human3', 'moose1'], (-40.0, -20.0): ['moose0', 'moose0', 'human5'], (-44.0, 0.0): ['moose0', 'moose0', 'moose0'], (-28.0, 45.0): ['moose1', 'human4', 'moose1'], (-41.0, 47.0): ['moose1', 'human2', 'moose1'], (-10.0, 37.0): ['moose1', 'moose1', 'human5'], (-23.0, 0.0): ['moose0', 'human5', 'moose0'], (23.0, -2.0): ['mavic1', 'mavic1', 'human1'], (1.0, -12.0): ['mavic0', 'mavic0', 'human0'], (2.0, 26.0): ['mavic1', 'human1', 'human1'], (25.0, 20.0): ['mavic1', 'human4', 'human5'], (10.0, -33.0): ['mavic0', 'mavic0', 'human1']}
         self.masterPoiDict = {}
         self.masterPoiDict = self.performAllAssignments()
+        self.writeAssignmentsToFile()
         self.get_logger().info(f"{self.masterPoiDict}")
 
         #Original structures for assignments
@@ -71,7 +75,8 @@ class OperatorHub(Node):
         self.operatorMetrics = []
         self.operatorArrivalTimes = []
         self.utilizationArray = []
-        
+        self.cognitiveFactorArray = []        
+        self.taskDifficultyArray = []
 
         self.poiVisitTimes = np.zeros((self.numPois, 1))
         self.currentTimes = []
@@ -92,7 +97,10 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.uavArrivalTimes, self.numUAVs, 0, 'l')
         self.initializeNestedStructure(self.ugvArrivalTimes, self.numUGVs, 0, 'l')
         self.initializeNestedStructure(self.operatorArrivalTimes, len(self.humanAttributes), 0, 'd')
-        self.initializeNestedStructure(self.utilizationArray, self.numHumans, 0, 'l')
+        self.initializeNestedStructure(self.utilizationArray, self.numHumans, 0, 'l')   
+        self.initializeNestedStructure(self.cognitiveFactorArray,self.numHumans, 0, 'l')
+        self.initializeNestedStructure(self.taskDifficultyArray,self.numHumans, 0, 'l')
+
 
         self.setInitialRobotSpeeds()
 
@@ -184,6 +192,13 @@ class OperatorHub(Node):
 
         return localDict
 
+    def writeAssignmentsToFile(self):
+        #Format: (x, y) [robot used to reach POI, navigating agent, picture-taking agent]
+        f = open(POI_ASSIGNMENTS_FILE, 'w')
+        for item in self.masterPoiDict:
+            f.write(str(item) + " " + str(self.masterPoiDict[item]) + "\n")
+
+
     def findAssignedRobot(self, mode, targetPoi):
         #Select correct file based on which robot we are checking
         file = UAV_COORDS_FILE if mode == 'uav' else UGV_COORDS_FILE
@@ -197,11 +212,7 @@ class OperatorHub(Node):
         robotNumber = -1
         for i, cluster in enumerate(allCoords):
             clusterCoords = cluster.split(", ")
-            #self.get_logger().info(f"CLUSTER: {clusterCoords}")
-            #self.get_logger().info(f"TARGET: {targetPoiString}")
-
             for poi in clusterCoords:
-                #self.get_logger().info(f"{targetPoiString}       {poi}")
                 if targetPoiString in poi:
                     robotNumber = i
                     break
@@ -270,18 +281,51 @@ class OperatorHub(Node):
             self.configureRobotSpeedMode("moose" + str(i), -1, 1) #-1 -> havent visited any POIs yet, 1 -> at start of sim
 
     def plotHumanUtilization(self):
-        numPlots = self.numHumans
+        numPlots = 3 #self.numHumans
         fig, axs = plt.subplots(numPlots, constrained_layout=True)
+        
+        fig2, axs2 = plt.subplots(numPlots, constrained_layout=True)
+
+        fig3, axs3 = plt.subplots(numPlots, constrained_layout=True)
+
+
+        # humanArray = self.utilizationArray[0]
+        # times = [coord[0] for coord in humanArray]
+        # utilizations = [coord[1] for coord in humanArray]
+        # axs[0].plot(times, utilizations)
+        # axs[0].set_title('Human ' + str(0))
+        # axs[0].set(xlabel='Time (minutes)', ylabel='Utilization')
+
+        for i, cognitiveArray in enumerate(self.cognitiveFactorArray):
+            if i <= 2:
+                times = [coord[0] for coord in cognitiveArray]
+                Ef = [coord[1] for coord in cognitiveArray]
+                finalFactor = [self.humanAttributes[0][3] * element for element in Ef]
+                axs[i].plot(times, finalFactor)
+                axs[i].set_title('Human ' + str(i))
+                axs[i].set(xlabel='Time (minutes)', ylabel='Cognitive Workload Factor')
+
 
         for i, humanArray in enumerate(self.utilizationArray):
-            #Separate times and utilizations
-            times = [coord[0] for coord in humanArray]
-            utilizations = [coord[1] for coord in humanArray]
+            if i <= 2:
+                #Separate times and utilizations
+                times = [coord[0] for coord in humanArray]
+                utilizations = [coord[1] for coord in humanArray]
 
-            #Plot utilization fraction as a function of time in minutes
-            axs[i].plot(times, utilizations)
-            axs[i].set_title('Human ' + str(i))
-            axs[i].set(xlabel='Time (minutes)', ylabel='Utilization')
+                #Plot utilization fraction as a function of time in minutes
+                axs2[i].plot(times, utilizations)
+                axs2[i].set_title('Human ' + str(i))
+                axs2[i].set(xlabel='Time (minutes)', ylabel='Utilization')
+        
+        for i, taskArray in enumerate(self.taskDifficultyArray):
+            if i <= 2:
+                #Separate times and utilizations
+                times = [coord[0] for coord in taskArray]
+                Es = [coord[1] for coord in taskArray]
+                finalFactor = [self.humanAttributes[0][4] * element for element in Es]
+                axs3[i].scatter(times, finalFactor)
+                axs3[i].set_title('Human ' + str(i))
+                axs3[i].set(xlabel='Time (minutes)', ylabel='Task Difficulty Factor')
         
         plt.show()
 
@@ -293,7 +337,6 @@ class OperatorHub(Node):
         self.get_logger().info(f"arrived at: {arrivalTime}")
         #Determine whether a uav/ugv arrived at poi and what its number was
         robotNumber = int(re.findall(r"\d+", robotName[::-1])[0])
-        #self.get_logger().info(f"{robotName}  {robotNumber}")
         uavArrived = 1 if "Mavic" in robotName else 0
         
         #Add arrival time to appropriate array 
@@ -367,7 +410,6 @@ class OperatorHub(Node):
             self.get_logger().info(f"AD assigned to {classifyingAgent}")
             
             #Assign the t Bar value based on final image quality and poi difficulty -> add human navigation time to tBar if human drove robot to poi
-            #self.get_logger().info(f"{self.imageQualities.index(imageQuality)}  {poiDifficulty - 1}")
             tBar = self.tBarLUT[imageQuality][int(poiDifficulty - 1)]
             self.operatorMetrics[assignedOperator][0].append(tBar)
             
@@ -401,6 +443,10 @@ class OperatorHub(Node):
                 currentTime = self.currentTimes[assignedOperator][-1] + tBar
             self.currentTimes[assignedOperator].append(currentTime)
 
+            
+            #Append the Fs value for the final plots
+            self.taskDifficultyArray[assignedOperator].append((currentTime / 60, Fs))
+
 
             #The following code interpolates between the current time and the previous POI's current time to fill in all intermediate utilization values
             #If there is only one element in currentTimes array ATM, then the starting value should be t = 0
@@ -424,7 +470,6 @@ class OperatorHub(Node):
                             workingTime += classifyingTime
                     else:
                         break #just break to avoid performing more for loop iterations than necessary once a time <= cutoff is found
-                #self.get_logger().info(f"{iter}  WT1: {workingTime}")
 
                 #append the values of navigation time for the current operator while traversing through dict in reverse
                 for arrivalTime in reversed(self.operatorArrivalTimes[assignedOperator].keys()):
@@ -437,7 +482,6 @@ class OperatorHub(Node):
                             workingTime += (navTime if (arrivalTime - navTime > fiveMinCutoff) else arrivalTime - fiveMinCutoff)
                     else:
                         break
-                #self.get_logger().info(f"{iter}  WT2: {workingTime}")
 
                 #Apply formula to calculate Fw and get result
                 #If a current time is within the 5 min cutoff, we automatically include the entire tBar value, not just the fraction of the tBar that is within the cutoff
@@ -447,18 +491,14 @@ class OperatorHub(Node):
                     utilization = min(1, workingTime / (workingTime if interpCurrentTime == 0 else interpCurrentTime))
                 else:
                     utilization = min(1, workingTime / FIVE_MINS_IN_SECONDS)
-                #self.get_logger().info(f"Entry {iter}: {(interpCurrentTime / 60, utilization)}")
                 self.utilizationArray[assignedOperator].append((interpCurrentTime / 60, utilization))
+                self.cognitiveFactorArray[assignedOperator].append((interpCurrentTime / 60, self.calculateWorkloadFactor(utilization)))
+
 
             self.get_logger().info(f"Entry: {(round(currentTime / 60, 2), utilization)}")
             #The following code for Fw and appending to array is only done for the real currentTime value corresponding to the POI visit, not the interps.
             self.operatorMetrics[assignedOperator][6].append(utilization) 
-            if utilization >= 0 and utilization < 0.45:
-                Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
-            elif utilization >= 0.45 and utilization < 0.65:
-                Fw = 1
-            elif utilization >= 0.65 and utilization <= 1:
-                Fw = -4.08 * m.pow(utilization, 2) + 5.31 * utilization - 0.724
+            Fw = self.calculateWorkloadFactor(utilization)
             self.operatorMetrics[assignedOperator][3].append(Fw)
             
             #Calculate probability of operator predicting a given poi correctly
@@ -483,12 +523,20 @@ class OperatorHub(Node):
             self.getSimScore()
         
             #Simulation has finished at this point (robots are returning or have returned home) -> Now graph utilization for humans
-            self.plotHumanUtilization()
-            #self.get_logger().info(f"Utilization Array Length: {len(self.utilizationArray[0])}   {len(self.utilizationArray[1])}  {len(self.utilizationArray[2])}")
+            #self.plotHumanUtilization()
         
         #As a last step in processing this visit to the poi...
         #self.configureRobotSpeedMode(robotName, visitedPoiCoords)
 
+
+    def calculateWorkloadFactor(self, utilization):
+        if utilization >= 0 and utilization < 0.45:
+            Fw = -2.47 * m.pow(utilization, 2) + 2.22 * utilization + 0.5
+        elif utilization >= 0.45 and utilization < 0.65:
+            Fw = 1
+        elif utilization >= 0.65 and utilization <= 1:
+            Fw = -4.08 * m.pow(utilization, 2) + 5.31 * utilization - 0.724
+        return Fw
 
     def getImageQuality(self, robotName, assignedNavigator, sharedMode):
         #1. Determine the base image quality based on the type of robot that took the image - UAV (medium) and UGV (upper-medium)
@@ -578,7 +626,6 @@ class OperatorHub(Node):
 
             #Generate the POI coordinate tuple
             nextPoiCoords = (round(float(splitAtSpaces[0]), 2), round(float(splitAtSpaces[1]), 2))
-            #self.get_logger().info(f"first POI coords: {nextPoiCoords}")
 
         navigatingAgent = self.masterPoiDict[nextPoiCoords][1]
         navigatingAgentNumber = int(re.findall(r"\d+", navigatingAgent)[0])
@@ -592,6 +639,8 @@ class OperatorHub(Node):
                 while subscriberCount < 2:
                     subscriberCount = self.publisher.get_subscription_count()    
             self.publisher.publish(message)
+            self.get_logger().info(f"{robotName} driving AUTONOMOUSLY")
+
         
         #Human is driving to next POI to use operator skill level to determine speed
         else:
@@ -608,8 +657,8 @@ class OperatorHub(Node):
                 while subscriberCount < 2:
                     subscriberCount = self.publisher.get_subscription_count()
             self.publisher.publish(message)
-
-        #self.get_logger().info(f"Published: {message.data}")    
+            self.get_logger().info(f"{robotName} controlled by human {navigatingAgentNumber}")
+        self.get_logger().info(f"Current robot speed mode: {message.data}")    
 
         
 
@@ -626,4 +675,3 @@ if __name__ == "__main__":
         main(sys.argv)
     else:
         main()
-        print("HEHEHE: ", __name__)

@@ -1,0 +1,27 @@
+[0.652s] Invoking command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed
+[0.905s] running egg_info
+[0.905s] writing ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/PKG-INFO
+[0.905s] writing dependency_links to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/dependency_links.txt
+[0.906s] writing entry points to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/entry_points.txt
+[0.906s] writing requirements to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/requires.txt
+[0.906s] writing top-level names to ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/top_level.txt
+[0.908s] reading manifest file '../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/SOURCES.txt'
+[0.909s] writing manifest file '../build/webots_ros2_mavic/webots_ros2_mavic.egg-info/SOURCES.txt'
+[0.909s] running build
+[0.909s] running build_py
+[0.909s] copying webots_ros2_mavic/main.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build/lib/webots_ros2_mavic
+[0.909s] copying webots_ros2_mavic/OperatorHub.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build/lib/webots_ros2_mavic
+[0.910s] running install
+[0.910s] running install_lib
+[0.911s] copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/main.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic
+[0.911s] copying /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build/lib/webots_ros2_mavic/OperatorHub.py -> /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic
+[0.912s] byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/main.py to main.cpython-310.pyc
+[0.913s] byte-compiling /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic/OperatorHub.py to OperatorHub.cpython-310.pyc
+[0.917s] running install_data
+[0.917s] running install_egg_info
+[0.919s] removing '/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info' (and everything under it)
+[0.919s] Copying ../build/webots_ros2_mavic/webots_ros2_mavic.egg-info to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages/webots_ros2_mavic-2023.0.4-py3.10.egg-info
+[0.920s] running install_scripts
+[0.938s] Installing OperatorHub script to /home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/webots_ros2_mavic
+[0.938s] writing list of installed files to '/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log'
+[0.963s] Invoked command in '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic' returned '0': PYTHONPATH=/home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/prefix_override:/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/webots_ros2_mavic build --build-base /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/build install --record /home/arjun/SMART-LAB-ITAP-WEBOTS/build/webots_ros2_mavic/install.log --single-version-externally-managed

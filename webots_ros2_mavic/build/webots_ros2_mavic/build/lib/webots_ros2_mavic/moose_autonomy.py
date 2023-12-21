@@ -31,6 +31,11 @@ from robot_interfaces.msg import DiverseArray
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
 
+SLOWEST_SPEED = 0.017 #0.216 m/s
+MEDIUM_SPEED =  0.0255 #0.324 m/s
+FASTEST_SPEED = 0.0382 #0.486 m/s
+
+
 def clamp(value, value_min, value_max):
     return min(max(value, value_min), value_max)
 
@@ -76,7 +81,7 @@ class MooseAutonomy:
         self.__target_position = [0, 0]
         self.__target_index = 0
         self.__current_pose = 5 * [0]
-        self.__target_precision = 30
+        self.__target_precision = 1
         self.__waypointsFile = self.__properties['waypointsPath']
         self.__index = 0
         self.__startTime = 0
@@ -86,13 +91,16 @@ class MooseAutonomy:
         self.__mooseNumber = self.__robot.getName()[len(self.__robot.getName()) - 1]
         self.__launchTime = time.time()
         self.__onTargetLine = False
+        self.__forwardSpeed = MEDIUM_SPEED
 
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node(self.__robot.getName() + '_driver')
         #self.__node.create_subscription(Twist, self.__robot.getName() + '/cmd_vel', self.__cmd_vel_callback, 1)
-        self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
         self.__poiPublisher = self.__node.create_publisher(DiverseArray, 'poiVisits', 10)
+        self.__nextPoiPublisher = self.__node.create_publisher(DiverseArray, 'nextPoiLocation', 10)
+        self.__node.create_subscription(FloatStamped, self.__robot.getName() + '/compass/bearing', self.__getPosition, 10)
+        self.__node.create_subscription(String, 'speedMode', self.__adjustDrivingSpeed, 10)
         self.__path_follow_callback('ugvCoords.txt')
 
     def __publishVisitInfo(self, poiCoords, timeToVisitPOI):
@@ -103,6 +111,15 @@ class MooseAutonomy:
         visitInfo.poi_z = poiCoords[2]
         visitInfo.arrival_time = timeToVisitPOI
         self.__poiPublisher.publish(visitInfo)
+
+    def __publishNextPoiInfo(self, nextPoiCoords):
+        nextPoiInfo = DiverseArray()
+        nextPoiInfo.robot_name = self.__robot.getName()
+        nextPoiInfo.poi_x = nextPoiCoords[0]
+        nextPoiInfo.poi_y = nextPoiCoords[1]
+        nextPoiInfo.poi_z = nextPoiCoords[2]
+        nextPoiInfo.arrival_time = -1.0
+        self.__nextPoiPublisher.publish(nextPoiInfo)
 
     def __path_follow_callback(self, fileName):
         self.__path_follow = True
@@ -139,19 +156,35 @@ class MooseAutonomy:
         heading = radians(heading) #in radians now
         self.__current_pose = [x, y, z, heading]
         #self.__node.get_logger().info(f"pos: {self.__current_pose}")
+    
 
-
+    def __adjustDrivingSpeed(self, speedMode):
+        #Only update the forward speed for the robot whose speed we are trying to update in the first place
+        if self.__robot.getName() in speedMode.data:
+            if "low" in speedMode.data:
+                self.__forwardSpeed = SLOWEST_SPEED
+            elif "medium" in speedMode.data:
+                self.__forwardSpeed = MEDIUM_SPEED
+            else:
+                self.__forwardSpeed = FASTEST_SPEED
+            #self.__node.get_logger().info(f"RECEIVED: {speedMode.data}  {self.__forwardSpeed}")
+        
     def __updatedTargetWaypoint(self):
         # Check if the turtle is close enough to the target
         distance = self.euclidean_distance(self.__waypoints[self.__index])
-        #self.__node.get_logger().info(f"dist: {distance}")
-
-        if self.euclidean_distance(self.__waypoints[self.__index]) <= self.__target_precision:
-
+        
+        if int(self.euclidean_distance(self.__waypoints[self.__index])) <= self.__target_precision + 1 and int(self.euclidean_distance(self.__waypoints[self.__index])) >= 0:
             # Move to the next house
-            if self.__index < len(self.__waypoints) - 1:
+            if self.__index < len(self.__waypoints) - 2:
                 self.__index += 1
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {self.__waypoints[self.__index]}")
+                formattedPoiCoords = (self.__waypoints[self.__index][0], self.__waypoints[self.__index][1])
+                self.__publishNextPoiInfo(self.__waypoints[self.__index])
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed to AD at {formattedPoiCoords}\n")
+
+            elif self.__index == len(self.__waypoints) - 2:
+                self.__index += 1
+                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} headed HOME")
+
             else:
                 # If it's the last house, stop the robot and shut down the node
                 self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} task complete!\n")
@@ -164,7 +197,7 @@ class MooseAutonomy:
                     pow((goal_pose[1] - self.__current_pose[1]), 2))
 
     def linearVelocityController(self, targetPOI):
-        maxVelocity = 0.5 #Note this is not a true velocity value in m/s  -> more of a scaling unitless value (refer to calculations on PAGE  4)
+        maxVelocity = self.__forwardSpeed #Note this is not a true velocity value in m/s  -> more of a scaling unitless value (refer to calculations on PAGE  4)
         kP = 1
         error = self.euclidean_distance(targetPOI) - self.__target_precision #make the robot stop 30 meters away from poi
         linearVelocity = kP * error
@@ -192,8 +225,15 @@ class MooseAutonomy:
                 self.__startTime = time.time()
                 self.__justReachedPOI = True
                 poiCoords = self.__waypoints[self.__index]
-                self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {self.__waypoints[self.__index]}")
-                self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+
+                #Only publish visit info if the POI that was visited was not the HOME location (ie the last POI in the list)
+                if self.__index != len(self.__waypoints) - 1:
+                    formattedPoiCoords = (self.__waypoints[self.__index][0], self.__waypoints[self.__index][1])
+                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached AD at {formattedPoiCoords}")
+                    self.__publishVisitInfo(poiCoords, timeToVisitPOI)
+                else:
+                    self.__node.get_logger().info(f"Moose {str(self.__mooseNumber)} reached HOME")
+                
                 return 0.0, 0.0
             
             if linearError <= 1 and self.__justReachedPOI == True:
@@ -247,9 +287,9 @@ class MooseAutonomy:
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
-        elapsedTime = time.time() - self.__launchTime
+        elapsedTime = (time.time() - self.__launchTime)
 
-        if elapsedTime < 8 * int(self.__mooseNumber):
+        if elapsedTime < 20 * int(self.__mooseNumber):
             pass
         else:
             self.__move_to_target()
