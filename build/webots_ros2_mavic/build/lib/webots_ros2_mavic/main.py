@@ -5,6 +5,7 @@ from WebotsEnv import WebotsEnv
 import numpy as np
 from sklearn.cluster import KMeans
 import math as m
+import argparse
 
 UAV_COORDS_FILE = "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/uavCoords.txt"
 UGV_COORDS_FILE = "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt"
@@ -135,12 +136,21 @@ def main():
             f.writelines(data)
             f.close()
 
+    
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-safe", help = "Number of safe POIs")
+    parser.add_argument("-threat", help = "Number of threat POIs")
+    parser.add_argument("-human", help = "Number of humans")
+    parser.add_argument("-uav", help = "Number of UAVs")
+    parser.add_argument("-ugv", help = "Number of UGVs")
 
-    numSafe = 25
-    numThreats = 25  
-    numHumans = 12
-    numUAVs = 4
-    numUGVs = 4
+    args = parser.parse_args()
+
+    numSafe = int(args.safe)
+    numThreats = int(args.threat)
+    numHumans = int(args.human)
+    numUAVs = int(args.uav)
+    numUGVs = int(args.ugv)
     numRobots = numUAVs + numUGVs
     uavHeight = 7
 

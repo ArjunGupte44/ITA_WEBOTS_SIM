@@ -102,7 +102,7 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.taskDifficultyArray,self.numHumans, 0, 'l')
 
 
-        self.setInitialRobotSpeeds()
+        #self.setInitialRobotSpeeds()
 
     def getNumAgents(self, i):
         f = open(NUM_AGENTS_FILE, '+r')

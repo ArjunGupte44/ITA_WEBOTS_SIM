@@ -102,7 +102,7 @@ class OperatorHub(Node):
         self.initializeNestedStructure(self.taskDifficultyArray,self.numHumans, 0, 'l')
 
 
-        self.setInitialRobotSpeeds()
+        #self.setInitialRobotSpeeds()
 
     def getNumAgents(self, i):
         f = open(NUM_AGENTS_FILE, '+r')
@@ -193,6 +193,7 @@ class OperatorHub(Node):
         return localDict
 
     def writeAssignmentsToFile(self):
+        #Format: (x, y) [robot used to reach POI, navigating agent, picture-taking agent]
         f = open(POI_ASSIGNMENTS_FILE, 'w')
         for item in self.masterPoiDict:
             f.write(str(item) + " " + str(self.masterPoiDict[item]) + "\n")
