@@ -9,7 +9,7 @@ import argparse
 
 UAV_COORDS_FILE = "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/uavCoords.txt"
 UGV_COORDS_FILE = "/home/arjun/SMART-LAB-ITAP-WEBOTS/install/webots_ros2_mavic/share/webots_ros2_mavic/resource/ugvCoords.txt"
-SIM_AGENT_NUM_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/numSimAgents'
+NUM_SIM_AGENTS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/numSimAgents'
 HUMAN_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/humanAttributes'
 POI_ATTRIBUTES_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/poiAttributes'
 POIS_FILE = '/home/arjun/SMART-LAB-ITAP-WEBOTS/webots_ros2_mavic/resource/pois'
@@ -137,6 +137,15 @@ def main():
             f.close()
 
     
+    def readSimConfigFile():
+        f = open(NUM_SIM_AGENTS_FILE,"r")
+        contents = f.readlines()
+        for i, agent in enumerate(contents):
+            contents[i] = int(agent)
+            
+        return contents
+    
+    """ 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("-safe", help = "Number of safe POIs")
     parser.add_argument("-threat", help = "Number of threat POIs")
@@ -154,7 +163,16 @@ def main():
     numRobots = numUAVs + numUGVs
     uavHeight = 7
 
-    writeToFile([numSafe, numThreats, numHumans, numUAVs, numUGVs], SIM_AGENT_NUM_FILE)
+    writeToFile([numSafe, numThreats, numHumans, numUAVs, numUGVs], NUM_SIM_AGENTS_FILE) """
+
+    simConfigInfo = readSimConfigFile()
+    numSafe = simConfigInfo[0]
+    numThreats = simConfigInfo[1]
+    numHumans = simConfigInfo[2]
+    numUAVs = simConfigInfo[3]
+    numUGVs = simConfigInfo[4]
+    numRobots = numUAVs + numUGVs
+    uavHeight = 7
 
     itapSim = WebotsEnv(numSafe, numThreats, numHumans, numUAVs, numUGVs)
     pois = itapSim.getPOIs()
