@@ -1,3 +1,33 @@
+###Environment Setup###
+```
+1. Install [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+```
+locale  # check for UTF-8
+
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+locale  # verify settings
+
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+sudo apt update
+sudo apt upgrade
+
+sudo apt install ros-humble-desktop
+```
+
+2. Install [Webots v2023a](https://github.com/cyberbotics/webots/releases?q=2023a&expanded=true)
+
+
 ### Visualized Testing with the Webots Simulation
 - Configure the number of agents in the simulation.
   To facilitate the use of this simulation platform in various scenarios, we created a convenient file-based plugin for input/output. This makes writing/reading simulation input/output to be easily customized and automated.  
